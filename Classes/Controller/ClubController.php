@@ -21,7 +21,8 @@ class ClubController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         protected ServiceRepository $serviceRepository,
         protected FrontendUserRepository $userRepository,
         protected SessionHandler $sessionHandler
-    ) {}
+    ) {
+    }
 
     public function listAction(): ResponseInterface
     {

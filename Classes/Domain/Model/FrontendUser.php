@@ -2,7 +2,6 @@
 
 namespace Medpzl\Clubdata\Domain\Model;
 
-use Medpzl\Clubdata\Domain\Model\FrontendUserGroup;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 

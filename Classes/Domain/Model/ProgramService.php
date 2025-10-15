@@ -2,8 +2,6 @@
 
 namespace Medpzl\Clubdata\Domain\Model;
 
-use Medpzl\Clubdata\Domain\Model\FrontendUser;
-
 class ProgramService extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 {
     /**

@@ -41,7 +41,7 @@ final class PopulateProgramSlugs implements UpgradeWizardInterface
     public function executeUpdate(): bool
     {
         $connection = GeneralUtility::makeInstance(ConnectionPool::class)->getConnectionForTable($this->table);
-        
+
         // Get all records that need slug updates (empty slugs or old format)
         $queryBuilder = $connection->createQueryBuilder();
         $queryBuilder->getRestrictions()->removeAll();
@@ -101,7 +101,7 @@ final class PopulateProgramSlugs implements UpgradeWizardInterface
 
         $queryBuilder = $connection->createQueryBuilder();
         $queryBuilder->getRestrictions()->removeAll();
-        
+
         $elementCount = $queryBuilder
             ->count('uid')
             ->from($this->table)
@@ -137,14 +137,14 @@ final class PopulateProgramSlugs implements UpgradeWizardInterface
     {
         // Generate slug in Y-m-d-title format directly
         $baseSlug = '';
-        
+
         // Add date information in Y-m-d format if datetime is available
         if (!empty($record['datetime'])) {
             $datetime = new \DateTime('@' . $record['datetime']);
             $dateString = $datetime->format('Y-m-d');
             $baseSlug = $dateString;
         }
-        
+
         if (!empty($record['title'])) {
             if (!empty($baseSlug)) {
                 $baseSlug .= '/' . $record['title'];
@@ -157,9 +157,9 @@ final class PopulateProgramSlugs implements UpgradeWizardInterface
         if (empty($baseSlug)) {
             $baseSlug = 'program-' . $record['uid'];
         }
-        
+
         $slug = $slugHelper->sanitize($baseSlug);
-        
+
         // Ensure uniqueness by checking for duplicates manually
         if (!empty($slug)) {
             $slug = $this->ensureUniqueSlug($slug, (int)$record['uid'], (int)$record['pid']);
@@ -167,7 +167,7 @@ final class PopulateProgramSlugs implements UpgradeWizardInterface
 
         return $slug;
     }
-    
+
     /**
      * Ensure the slug is unique by appending a suffix if needed
      */
@@ -176,7 +176,7 @@ final class PopulateProgramSlugs implements UpgradeWizardInterface
         $connection = GeneralUtility::makeInstance(ConnectionPool::class)->getConnectionForTable($this->table);
         $originalSlug = $slug;
         $counter = 0;
-        
+
         do {
             $queryBuilder = $connection->createQueryBuilder();
             $count = $queryBuilder
@@ -188,13 +188,13 @@ final class PopulateProgramSlugs implements UpgradeWizardInterface
                 )
                 ->executeQuery()
                 ->fetchOne();
-                
+
             if ($count > 0) {
                 $counter++;
                 $slug = $originalSlug . '-' . $counter;
             }
         } while ($count > 0);
-        
+
         return $slug;
     }
 

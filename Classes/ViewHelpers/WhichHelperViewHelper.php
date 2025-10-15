@@ -2,15 +2,14 @@
 
 namespace Medpzl\Clubdata\ViewHelpers;
 
-use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 use Medpzl\Clubdata\Domain\Repository\ProgramServiceRepository;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 class WhichHelperViewHelper extends AbstractViewHelper
 {
     public function __construct(
         protected ProgramServiceRepository $programServiceRepository
-    )
-    {
+    ) {
     }
 
     public function initializeArguments(): void

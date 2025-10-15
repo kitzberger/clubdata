@@ -51,13 +51,13 @@ final class MigrateFromCkClubdata implements UpgradeWizardInterface
     public function executeUpdate(): bool
     {
         $connectionPool = GeneralUtility::makeInstance(ConnectionPool::class);
-        
+
         try {
             // Process each table mapping
             foreach ($this->tableMapping as $oldTable => $newTable) {
                 $this->migrateTableData($connectionPool, $oldTable, $newTable);
             }
-            
+
             return true;
         } catch (\Exception $e) {
             // Log the error for debugging
@@ -69,24 +69,24 @@ final class MigrateFromCkClubdata implements UpgradeWizardInterface
     public function updateNecessary(): bool
     {
         $connectionPool = GeneralUtility::makeInstance(ConnectionPool::class);
-        
+
         foreach ($this->tableMapping as $oldTable => $newTable) {
             // Check if old table exists and has data
             if (!$this->tableExists($connectionPool, $oldTable)) {
                 continue;
             }
-            
+
             // Check if new table exists
             if (!$this->tableExists($connectionPool, $newTable)) {
                 continue;
             }
-            
+
             // Check if old table has data that needs to be migrated
             if ($this->hasDataToMigrate($connectionPool, $oldTable, $newTable)) {
                 return true;
             }
         }
-        
+
         return false;
     }
 
@@ -118,7 +118,7 @@ final class MigrateFromCkClubdata implements UpgradeWizardInterface
     {
         try {
             $connection = $connectionPool->getConnectionForTable($oldTable);
-            
+
             // Count records in old table
             $queryBuilder = $connection->createQueryBuilder();
             $queryBuilder->getRestrictions()->removeAll();
@@ -127,11 +127,11 @@ final class MigrateFromCkClubdata implements UpgradeWizardInterface
                 ->from($oldTable)
                 ->executeQuery()
                 ->fetchOne();
-            
+
             if ($oldCount == 0) {
                 return false;
             }
-            
+
             // Count records in new table
             $newConnection = $connectionPool->getConnectionForTable($newTable);
             $newQueryBuilder = $newConnection->createQueryBuilder();
@@ -141,10 +141,10 @@ final class MigrateFromCkClubdata implements UpgradeWizardInterface
                 ->from($newTable)
                 ->executeQuery()
                 ->fetchOne();
-            
+
             // Migration needed if old table has more records than new table
             return $oldCount > $newCount;
-            
+
         } catch (\Exception $e) {
             return false;
         }
@@ -158,24 +158,24 @@ final class MigrateFromCkClubdata implements UpgradeWizardInterface
         if (!$this->tableExists($connectionPool, $oldTable) || !$this->tableExists($connectionPool, $newTable)) {
             return;
         }
-        
+
         $connection = $connectionPool->getConnectionForTable($oldTable);
         $newConnection = $connectionPool->getConnectionForTable($newTable);
-        
+
         // Get all existing UIDs in new table to avoid duplicates
         $existingUids = $this->getExistingUids($newConnection, $newTable);
-        
+
         // Get all columns from old table
         $oldColumns = $this->getTableColumns($connection, $oldTable);
         $newColumns = $this->getTableColumns($newConnection, $newTable);
-        
+
         // Find common columns
         $commonColumns = array_intersect($oldColumns, $newColumns);
-        
+
         if (empty($commonColumns)) {
             return;
         }
-        
+
         // Fetch all records from old table
         $queryBuilder = $connection->createQueryBuilder();
         $queryBuilder->getRestrictions()->removeAll();
@@ -189,14 +189,14 @@ final class MigrateFromCkClubdata implements UpgradeWizardInterface
                 )
             )
             ->executeQuery();
-        
+
         // Insert records into new table
         while ($record = $statement->fetchAssociative()) {
             $insertData = [];
             foreach ($commonColumns as $column) {
                 $insertData[$column] = $record[$column];
             }
-            
+
             if (!empty($insertData)) {
                 $newConnection->insert($newTable, $insertData);
             }
@@ -215,12 +215,12 @@ final class MigrateFromCkClubdata implements UpgradeWizardInterface
                 ->select('uid')
                 ->from($tableName)
                 ->executeQuery();
-                
+
             $uids = [];
             while ($row = $statement->fetchAssociative()) {
                 $uids[] = (int)$row['uid'];
             }
-            
+
             return $uids;
         } catch (\Exception $e) {
             return [];

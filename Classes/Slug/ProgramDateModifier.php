@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Medpzl\Clubdata\Slug;
 
-use TYPO3\CMS\Core\DataHandling\SlugHelper;
-
 /**
  * Post modifier for program slugs to format them with Y-m-d date prefix
  */
@@ -30,7 +28,7 @@ class ProgramDateModifier
 
             return $dateString . '/' . $cleanSlug;
         }
-        
+
         return $slug;
     }
 }

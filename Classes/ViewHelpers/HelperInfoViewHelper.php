@@ -2,16 +2,15 @@
 
 namespace Medpzl\Clubdata\ViewHelpers;
 
-use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
-use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 use Medpzl\Clubdata\Domain\Repository\ProgramServiceRepository;
+use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 class HelperInfoViewHelper extends AbstractViewHelper
 {
     public function __construct(
         protected ProgramServiceRepository $programServiceRepository
-    )
-    {
+    ) {
     }
 
     public function initializeArguments(): void

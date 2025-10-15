@@ -2,8 +2,8 @@
 
 defined('TYPO3') || die('Access denied.');
 
-use TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider;
 use TYPO3\CMS\Core\Imaging\IconProvider\BitmapIconProvider;
+use TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider;
 
 return [
     // Main models
@@ -27,7 +27,7 @@ return [
         'provider' => SvgIconProvider::class,
         'source' => 'EXT:clubdata/Resources/Public/Icons/SVG/seating.svg',
     ],
-    
+
     // Relation models
     'clubdata-programservice' => [
         'provider' => SvgIconProvider::class,
@@ -41,13 +41,13 @@ return [
         'provider' => SvgIconProvider::class,
         'source' => 'EXT:clubdata/Resources/Public/Icons/SVG/programservicerel.svg',
     ],
-    
+
     // Plugin icon (same as program for consistency)
     'clubdata-plugin' => [
         'provider' => SvgIconProvider::class,
         'source' => 'EXT:clubdata/Resources/Public/Icons/SVG/program.svg',
     ],
-    
+
     // Backend module icon
     'module-clubdata-helpers' => [
         'provider' => BitmapIconProvider::class,

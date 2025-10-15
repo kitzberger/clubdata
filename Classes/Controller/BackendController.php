@@ -2,12 +2,6 @@
 
 namespace Medpzl\Clubdata\Controller;
 
-use Psr\Http\Message\ResponseInterface;
-use TYPO3\CMS\Backend\Template\ModuleTemplateFactory;
-use TYPO3\CMS\Core\Page\PageRenderer;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
-use TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings;
 use Medpzl\Clubdata\Domain\Model\FrontendUser;
 use Medpzl\Clubdata\Domain\Model\ProgramService;
 use Medpzl\Clubdata\Domain\Repository\CategoryRepository;
@@ -16,33 +10,15 @@ use Medpzl\Clubdata\Domain\Repository\ProgramRepository;
 use Medpzl\Clubdata\Domain\Repository\ProgramServiceRepository;
 use Medpzl\Clubdata\Domain\Repository\ServiceRepository;
 use Medpzl\Clubdata\Domain\Service\SessionHandler;
+use Psr\Http\Message\ResponseInterface;
+use TYPO3\CMS\Backend\Template\ModuleTemplateFactory;
+use TYPO3\CMS\Core\Page\PageRenderer;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
+use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
+use TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings;
 
-/***************************************************************
- *
- *  Copyright notice
- *
- *  (c) 2016
- *
- *  All rights reserved
- *
- *  This script is part of the TYPO3 project. The TYPO3 project is
- *  free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 3 of the License, or
- *  (at your option) any later version.
- *
- *  The GNU General Public License can be found at
- *  http://www.gnu.org/copyleft/gpl.html.
- *
- *  This script is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  This copyright notice MUST APPEAR in all copies of the script!
- ***************************************************************/
-
-class BackendController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
+class BackendController extends ActionController
 {
     public function __construct(
         protected PersistenceManager $persistenceManager,
@@ -119,8 +95,8 @@ class BackendController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $filtered_users = [];
         foreach ($users as $usr) {
             foreach ($usr->getUsergroup() as $group) {
-                if ($group->getUid() == intval($this->settings['service']['groupId'])) {
-                    if ($usr->getFirstName()!='') {
+                if ($group->getUid() == intval($this->settings['service']['groupId'] ?? 0)) {
+                    if ($usr->getFirstName() != '') {
                         $filtered_users[] = $usr;
                     }
                 }
@@ -129,10 +105,9 @@ class BackendController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 
         $names = [];
         foreach ($filtered_users as $object) {
-            if ($this->settings['service']['sortby']=='firstname') {
+            if ($this->settings['service']['sortby'] == 'firstname') {
                 $names[] = $object->getFirstName();
-            }
-            else {
+            } else {
                 $names[] = $object->getLastName();
             }
         }
@@ -293,7 +268,7 @@ class BackendController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 
         $arguments = [];
         if ($this->request->hasArgument('date')) {
-            $arguments = ['date'=>$this->request->getArgument('date')];
+            $arguments = ['date' => $this->request->getArgument('date')];
         }
         return $this->redirect('listHelpers', null, null, $arguments);
     }

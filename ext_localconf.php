@@ -1,8 +1,8 @@
 <?php
 
-use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
 use Medpzl\Clubdata\Controller\ClubController;
 use Medpzl\Clubdata\Hooks\Entrance;
+use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
 
 defined('TYPO3') || die('Access denied.');
 
