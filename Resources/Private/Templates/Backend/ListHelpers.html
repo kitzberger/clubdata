@@ -96,8 +96,8 @@
         </div>
         <f:form method="post" action="saveHelpers" name="ProgramService" addQueryString="1">
             <table class="table table-striped" style="width: 100%;">
-                <f:for each="{Programs}" as="listItem" iteration="iterator">
-                    <f:render partial="Backend/ListHelperItem" arguments="{listItem:listItem,settings:settings,iterator:iterator,Services:Services,Users:Users,User:User}" />
+                <f:for each="{programs}" as="listItem" iteration="iterator">
+                    <f:render partial="Backend/ListHelperItem" arguments="{listItem:listItem,settings:settings,iterator:iterator,services:services,users:users,user:user}" />
                 </f:for>
             </table>
             <f:form.submit value="Änderungen speichern" class="btn btn-primary" id="save" />

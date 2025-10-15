@@ -9,7 +9,7 @@
         <f:format.date format="%a %d.%m. %H:%M Uhr">{listItem.datetime}</f:format.date><br>
         {listItem.title}
     </td>
-    <f:for each="{Services}" as="service" iteration="i">
+    <f:for each="{services}" as="service" iteration="i">
         <f:if condition="{listItem.serviceBarNum} > 0 && {club:contains(needle:'Theke',haystack: '{service.title}')}">
             <f:then>
                 <f:if condition="{i.cycle}<={listItem.serviceBarNum}">

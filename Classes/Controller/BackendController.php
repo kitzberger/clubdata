@@ -114,18 +114,18 @@ class BackendController extends ActionController
 
         array_multisort($names, SORT_ASC, $filtered_users);
 
-        $admin_users = [];
+        $users = [];
         foreach ($filtered_users as $user) {
             $new = GeneralUtility::makeInstance(FrontendUser::class);
             $new->setUsername($user->getFirstName() . ' ' . $user->getLastName());
             $new->setAddress($user->getUid());
-            $admin_users[] = $new;
+            $users[] = $new;
         }
 
         $latest = $this->programRepository->findLatest();
         $oldest = $this->programRepository->findOldest($this->settings['list']['greaternow'], $now);
 
-        if ($this->settings['list']['pageyears']) {
+        if ($this->settings['list']['pageyears'] ?? false) {
             $d1 = $latest[0]->getDatetime();
             $d2 = $oldest[0]->getDatetime();
             $diff = $d2->diff($d1);
@@ -183,10 +183,9 @@ class BackendController extends ActionController
         $moduleTemplate->assign('oldest', $oldest[0]);
         $moduleTemplate->assign('todate', $todate);
         $moduleTemplate->assign('now', time());
-        $moduleTemplate->assign('Programs', $programs);
-        $moduleTemplate->assign('Services', $services);
-        $moduleTemplate->assign('Users', $admin_users);
-        $moduleTemplate->assign('User', $user);
+        $moduleTemplate->assign('programs', $programs);
+        $moduleTemplate->assign('services', $services);
+        $moduleTemplate->assign('users', $users);
 
         // Add CSS and JS files
         $this->pageRenderer->addCssFile('EXT:clubdata/Resources/Public/Css/Backend.css');

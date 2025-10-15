@@ -9,7 +9,9 @@ use Medpzl\Clubdata\Domain\Repository\ProgramServiceRepository;
 use Medpzl\Clubdata\Domain\Repository\ServiceRepository;
 use Medpzl\Clubdata\Domain\Service\SessionHandler;
 use Psr\Http\Message\ResponseInterface;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
+use TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings;
 
 class ClubController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 {
@@ -26,14 +28,14 @@ class ClubController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 
     public function listAction(): ResponseInterface
     {
-        //print_r($this->settings);
-        //exit;
         $fromdate = date('Ym' . '01');
         $todate = date('Ymt') . ' 23:59';
+
         if ($this->settings['filter']) {
             $filter = $this->settings['filter'];
         }
-        if ($this->request->hasArgument('catUid') and $this->request->getArgument('catUid')) {
+
+        if ($this->request->hasArgument('catUid') && $this->request->getArgument('catUid')) {
             $filter['categories'] = $this->request->getArgument('catUid');
         }
 
@@ -67,10 +69,7 @@ class ClubController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         }
 
         $allprograms = $this->programRepository->findSorted($filter, $this->settings['list']['greaternow'], $now);
-        //\TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump(date('YmdHi',strtotime($now)));
-        //$programs = $this->programRepository->findByService(2);
         $programs = $this->programRepository->findWithinMonth($filter, strtotime($fromdate), strtotime($todate), $this->settings['list']['greaternow'], $now);
-        //$programs = $this->programRepository->findAll();
 
         $uidlist = [];
         foreach ($allprograms as $program) {
@@ -93,14 +92,13 @@ class ClubController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             $elements += 1;
             $nav = [];
             for ($i = 0; $i < $elements; $i++) {
-                $nav[] = ['title' => $d2->format('Y') + $i,
+                $nav[] = [
+                    'title' => $d2->format('Y') + $i,
                     'date' => $d2->format('Y') + $i . '01',
                     'year' => $d2->format('Y') + $i
-                    ];
+                ];
             }
         }
-
-        //\TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($programs);
 
         $this->view->assign('uidlist', $uidlist);
         $this->view->assign('nav', $nav);
@@ -109,22 +107,22 @@ class ClubController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $this->view->assign('showmonth', strtotime($showmonth));
         $this->view->assign('prevmonth', $prevmonth);
         $this->view->assign('nextmonth', $nextmonth);
-        $this->view->assign('Programs', $programs);
+        $this->view->assign('programs', $programs);
         $this->view->assign('latest', $latest[0]);
         $this->view->assign('oldest', $oldest[0]);
         $this->view->assign('todate', $todate);
         $this->view->assign('now', time());
-        $this->view->assign('Categories', $this->categoryRepository->findChildrenByParent(1));
-        $this->view->assign('allp', $allprograms);
+        $this->view->assign('categories', $this->categoryRepository->findChildrenByParent(1));
+        $this->view->assign('allprograms', $allprograms);
+
         return $this->htmlResponse();
     }
 
     public function listHelpersAction(): ResponseInterface
     {
-        //print_r($this->settings);
-        //exit;
-        $querySettings = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings::class);
+        $querySettings = GeneralUtility::makeInstance(Typo3QuerySettings::class);
         $querySettings->setRespectStoragePage(false);
+
         if (method_exists($this->userRepository, 'setDefaultQuerySettings')) {
             $this->userRepository->setDefaultQuerySettings($querySettings);
         }
@@ -164,12 +162,10 @@ class ClubController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         }
         $showmonth = date('Ymd', strtotime($fromdate));
         $now = date('c');
-        //if ($this->settings['list']['tillmidnight']) $now = 'tomorrow - 1 second';
 
         $feuser = $this->request->getAttribute('frontend.user')->user['uid'];
         $user = $this->userRepository->findByUid($feuser);
-        //\TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($user);
-        //exit;
+
         $usercheck = false;
         if ($user === null) {
             $error = "Bitte einloggen";
@@ -187,11 +183,9 @@ class ClubController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             unset($error);
             $services = $this->serviceRepository->findAll();
             $programs = $this->programRepository->findWithinMonth($filter, strtotime($fromdate), strtotime($todate), $this->settings['list']['greaternow'], $now);
-            //\TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($programs);
-            //exit;
+
             $helpers = $this->programServiceRepository->findAll();
             $users = $this->userRepository->findAll();
-
 
             $filtered_users = [];
             foreach ($users as $usr) {
@@ -201,7 +195,6 @@ class ClubController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                     }
                 }
             }
-            //\TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($filtered_users);
         }
 
         $latest = $this->programRepository->findLatest();
@@ -215,7 +208,6 @@ class ClubController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             if ($this->settings['service']['showmonth']) {
                 $diff = intval($this->settings['service']['showmonth']) * 30 - 1;
             }
-            //\TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($diff);
             if ($this->settings['list']['show'] == 'year') {
                 $elements =  floor($diff / 30 / 12);
                 $format = 'Y';
@@ -233,8 +225,6 @@ class ClubController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                     $month = intval($d2->format('n') + $i);
                     $mod = intval($month / 12);
                     $year = $d2->format('Y');
-                    //\TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($month);
-                    //\TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($mod);
                     if ($mod) {
                         if ($month % 12) {
                             $month = $month -  $mod * 12;
@@ -246,7 +236,6 @@ class ClubController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 
                     $date = strftime('%b', strtotime($year . sprintf('%02d', $month) . '01'));
                     $refdate = date('Ym', strtotime($year . sprintf('%02d', $month) . '01'));
-                    //\TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($year.sprintf('%02d',$month).'01');
                 };
                 $nav[] = ['title' => $date,
                     'date' => $refdate,
@@ -254,7 +243,6 @@ class ClubController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                 ];
             }
         }
-        //\TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($nav);
 
         $this->view->assign('nav', $nav);
         $this->view->assign('currmonth', $currmonth);
@@ -262,14 +250,14 @@ class ClubController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $this->view->assign('showmonth', strtotime($showmonth));
         $this->view->assign('prevmonth', $prevmonth);
         $this->view->assign('nextmonth', $nextmonth);
-        $this->view->assign('Programs', $programs);
+        $this->view->assign('programs', $programs);
         $this->view->assign('latest', $latest[0]);
         $this->view->assign('oldest', $oldest[0]);
         $this->view->assign('todate', $todate);
         $this->view->assign('now', time());
-        $this->view->assign('Services', $services);
-        $this->view->assign('Users', $filtered_users);
-        $this->view->assign('User', $user);
+        $this->view->assign('services', $services);
+        $this->view->assign('users', $filtered_users);
+        $this->view->assign('user', $user);
         $this->view->assign('error', $error);
         return $this->htmlResponse();
     }
@@ -355,13 +343,14 @@ class ClubController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     public function detailAction(): ResponseInterface
     {
         $programUid = $this->request->getArgument('showUid');
-        $Program = $this->programRepository->findByUid($programUid);
+
+        // Load program
+        $program = $this->programRepository->findByUid($programUid);
+
+        // Determine prev/next programs from list in session
         $uidlist = $this->sessionHandler->restoreFromSession()['uidlist'] ?? [];
-        $this->view->assign('uidlist', $uidlist);
         $key = array_search($programUid, $uidlist);
-        $uids = implode(",", $uidlist);
-        // We need === false because array_search could return 1 => 1-1=0 would be evaluated to false
-        if (!($key === false)) {
+        if ($key !== false) {
             if ($uidlist[$key - 1]) {
                 $this->view->assign('prevuid', $this->programRepository->findByUid($uidlist[$key - 1]));
             }
@@ -369,7 +358,9 @@ class ClubController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                 $this->view->assign('nextuid', $this->programRepository->findByUid($uidlist[$key + 1]));
             }
         }
-        $this->view->assign('detailItem', $Program);
+
+        $this->view->assign('detailItem', $program);
+        $this->view->assign('uidlist', $uidlist);
         $this->view->assign('uids', $uids);
         $this->view->assign('now', time());
         return $this->htmlResponse();
@@ -416,7 +407,7 @@ class ClubController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $this->view->assign('ashowmonth', strtotime($showmonth));
         $this->view->assign('aprevmonth', $prevmonth);
         $this->view->assign('anextmonth', $nextmonth);
-        $this->view->assign('Programs', $programs);
+        $this->view->assign('programs', $programs);
         $this->view->assign('alatest', $latest[0]);
         $this->view->assign('aoldest', $oldest[0]);
         $this->view->assign('atodate', $todate);
@@ -466,7 +457,7 @@ class ClubController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $this->view->assign('showmonth', strtotime($showmonth));
         $this->view->assign('prevmonth', $prevmonth);
         $this->view->assign('nextmonth', $nextmonth);
-        $this->view->assign('Programs', $programs);
+        $this->view->assign('programs', $programs);
         $this->view->assign('latest', $latest[0]);
         $this->view->assign('oldest', $oldest[0]);
         $this->view->assign('todate', $todate);
@@ -487,10 +478,10 @@ class ClubController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         }
         $filter['image'] = 1;
         //$filter['sorting']='desc';
-        $Programs = $this->programRepository->findWithinMonth($filter, 0, 0, $this->settings['list']['greaternow'], $now);
-        //$Programs = $this->programRepository->findAll();
-        //\TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($Programs);
-        $this->view->assign('Programs', $Programs);
+        $programs = $this->programRepository->findWithinMonth($filter, 0, 0, $this->settings['list']['greaternow'], $now);
+        //$programs = $this->programRepository->findAll();
+        //\TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($programs);
+        $this->view->assign('programs', $programs);
         return $this->htmlResponse();
     }
 
@@ -587,7 +578,7 @@ class ClubController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             $filter = $this->settings['filter'];
         }
         $Program = $this->programRepository->findUpcoming($filter);
-        $this->view->assign('Programs', $Program);
+        $this->view->assign('programs', $Program);
         return $this->htmlResponse();
     }
 
@@ -600,9 +591,13 @@ class ClubController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         if ($this->settings['filter']) {
             $filter = $this->settings['filter'];
         }
+
         $filter['hide_avoild_nl'] = true;
+
         $program = $this->programRepository->findWithinMonth($filter, 0, 0, $this->settings['list']['greaternow'], $now);
+
         $this->view->assign('programs', $program);
+
         return $this->htmlResponse();
     }
 
@@ -635,7 +630,7 @@ class ClubController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         //\TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($todate);
         //$filter['sorting']='desc';
         $Program = $this->programRepository->findWithinMonth($filter, $fromdate, $todate, $greaternow, $now);
-        $this->view->assign('Programs', $Program);
+        $this->view->assign('programs', $Program);
         return $this->htmlResponse();
     }
 }

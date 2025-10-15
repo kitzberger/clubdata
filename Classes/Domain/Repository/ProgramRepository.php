@@ -7,20 +7,22 @@ use TYPO3\CMS\Extbase\Persistence\Repository;
 
 class ProgramRepository extends Repository
 {
-    public function findWithinMonth($filter = [], $ftimestamp = null, $ttimestamp = null, $greaternow = 1, $now = '')
+    public function findWithinMonth($filter = [], $fromTimestamp = null, $toTimestamp = null, $greaternow = 1, $now = '')
     {
         $query = $this->createQuery();
         $query->setOrderings(['datetime' => QueryInterface::ORDER_ASCENDING]);
         if (($filter['sorting'] ?? 'asc') == 'desc') {
             $query->setOrderings(['datetime' => QueryInterface::ORDER_DESCENDING]);
         }
+
         $and_constraints = [];
-        if ($ftimestamp) {
-            $and_constraints[] = $query->greaterThanOrEqual('datetime', $ftimestamp);
+        if ($fromTimestamp) {
+            $and_constraints[] = $query->greaterThanOrEqual('datetime', $fromTimestamp);
         }
-        if ($ttimestamp) {
-            $and_constraints[] = $query->lessThanOrEqual('datetime', $ttimestamp);
+        if ($toTimestamp) {
+            $and_constraints[] = $query->lessThanOrEqual('datetime', $toTimestamp);
         }
+
         $greaternow = intval($greaternow);
 
         if ($greaternow > 0 and $greaternow < 2) {
@@ -31,7 +33,7 @@ class ProgramRepository extends Repository
         if ($filter['hide_avoild_nl'] ?? false) {
             $and_constraints[] = $query->lessThan('avoidNl', 1);
         }
-        if (!($filter['intern'] ?? false)) {
+        if ($filter['intern'] ?? false) {
             $and_constraints[] = $query->lessThan('intern', 1);
         }
         if ($filter['images'] ?? false) {
@@ -59,7 +61,6 @@ class ProgramRepository extends Repository
             foreach ($categories as $category) {
                 $subConstraints[] = $query->contains('categories', $category);
             }
-            //var_dump($subConstraints);
             if ($subConstraints) {
                 if ($filter['category_what'] == 'not') {
                     $and_constraints[] =  $query->logicalNot(
@@ -76,7 +77,6 @@ class ProgramRepository extends Repository
             foreach ($states as $state) {
                 $subConstraints[] = $query->equals('state.uid', $state);
             }
-            //var_dump($subConstraints);
             if ($subConstraints) {
                 if ($filter['state_what'] == 'not') {
                     $and_constraints[] =  $query->logicalNot(
@@ -88,10 +88,10 @@ class ProgramRepository extends Repository
             }
         }
 
-
         if ($and_constraints) {
             $query->matching($query->logicalAnd(...$and_constraints));
         }
+
         $result = $query->execute();
         return $result;
     }
@@ -101,7 +101,7 @@ class ProgramRepository extends Repository
         $query = $this->createQuery();
         $query->setOrderings(['datetime' => QueryInterface::ORDER_ASCENDING]);
         $and_constraints = [];
-        //$query->setLimit(1);
+
         if ($filter['limit']) {
             $query->setLimit(intval($filter['limit']));
         }
@@ -111,6 +111,7 @@ class ProgramRepository extends Repository
             $and_constraints[] = $query->lessThan('datetime', strtotime($now));
         }
         $and_constraints[] = $query->lessThan('intern', 1);
+
         if ($filter['highlight']) {
             $query->setOrderings([
                 'permHighlight' => QueryInterface::ORDER_DESCENDING,
@@ -149,9 +150,7 @@ class ProgramRepository extends Repository
         return $result;
     }
 
-
-
-    public function findEditList($ftimestamp, $ttimestamp, $greaternow = false, $sorting = 'desc')
+    public function findEditList($fromTimestamp, $toTimestamp, $greaternow = false, $sorting = 'desc')
     {
         $query = $this->createQuery();
         $query->setOrderings(['datetime' => QueryInterface::ORDER_DESCENDING]);
@@ -159,8 +158,8 @@ class ProgramRepository extends Repository
             $query->setOrderings(['datetime' => QueryInterface::ORDER_ASCENDING]);
         }
         $and_constraints = [];
-        $and_constraints[] = $query->greaterThanOrEqual('datetime', $ftimestamp);
-        $and_constraints[] = $query->lessThanOrEqual('datetime', $ttimestamp);
+        $and_constraints[] = $query->greaterThanOrEqual('datetime', $fromTimestamp);
+        $and_constraints[] = $query->lessThanOrEqual('datetime', $toTimestamp);
 
         if ($greaternow) {
             $and_constraints[] = $query->greaterThanOrEqual('datetime', strtotime(datetime('c')));
@@ -178,8 +177,6 @@ class ProgramRepository extends Repository
         $query = $this->createQuery();
         $query->setOrderings(['datetime' => QueryInterface::ORDER_ASCENDING]);
         $and_constraints = [];
-        //$and_constraints[] = $query->lessThan('fehler', 1);
-        //$and_constraints[] = $query->greaterThan('posterHighlight', 0);
         $and_constraints[] = $query->greaterThanOrEqual('datetime', datetime('U'));
         if ($settings['showIntern'] != '1') {
             $and_constraints[] = $query->lessThan('intern', 1);
@@ -192,7 +189,7 @@ class ProgramRepository extends Repository
                 $subConstraints[] = $query->contains('category', $category);
             }
             $and_constraints[] = $query->logicalOr(...$subConstraints);
-        } //else $query->setLimit(intval($settings['limit'])); // Max Posters with no category set
+        }
         $query->matching($query->logicalAnd(...$and_constraints));
         $result = $query->execute();
         return $result;
