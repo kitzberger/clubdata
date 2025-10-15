@@ -6,15 +6,133 @@ use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
 
 defined('TYPO3') || die('Access denied.');
 
+// List view plugin
 ExtensionUtility::configurePlugin(
     'Clubdata',
-    'Pi1',
+    'List',
     [
-        ClubController::class => 'list, detail, services, newsletterUpcoming, listHighlights, preview, listPress',
+        ClubController::class => 'list',
     ],
-    // non-cacheable actions
     [
-        ClubController::class => 'list, services, listArchive, carousel, listHelpers, saveHelpers',
+        ClubController::class => 'list',
+    ],
+    ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
+);
+
+// Detail view plugin
+ExtensionUtility::configurePlugin(
+    'Clubdata',
+    'Detail',
+    [
+        ClubController::class => 'detail',
+    ],
+    [],
+    ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
+);
+
+// Services plugin
+ExtensionUtility::configurePlugin(
+    'Clubdata',
+    'Services',
+    [
+        ClubController::class => 'services',
+    ],
+    [
+        ClubController::class => 'services',
+    ],
+    ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
+);
+
+// Archive list plugin
+ExtensionUtility::configurePlugin(
+    'Clubdata',
+    'ListArchive',
+    [
+        ClubController::class => 'listArchive',
+    ],
+    [
+        ClubController::class => 'listArchive',
+    ],
+    ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
+);
+
+// Archive detail plugin
+ExtensionUtility::configurePlugin(
+    'Clubdata',
+    'DetailArchive',
+    [
+        ClubController::class => 'detailArchive',
+    ],
+    [],
+    ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
+);
+
+// Newsletter plugin
+ExtensionUtility::configurePlugin(
+    'Clubdata',
+    'NewsletterUpcoming',
+    [
+        ClubController::class => 'newsletterUpcoming',
+    ],
+    [],
+    ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
+);
+
+// Highlights plugin
+ExtensionUtility::configurePlugin(
+    'Clubdata',
+    'ListHighlights',
+    [
+        ClubController::class => 'listHighlights',
+    ],
+    [],
+    ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
+);
+
+// Preview plugin
+ExtensionUtility::configurePlugin(
+    'Clubdata',
+    'Preview',
+    [
+        ClubController::class => 'preview',
+    ],
+    [],
+    ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
+);
+
+// Carousel plugin
+ExtensionUtility::configurePlugin(
+    'Clubdata',
+    'Carousel',
+    [
+        ClubController::class => 'carousel',
+    ],
+    [
+        ClubController::class => 'carousel',
+    ],
+    ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
+);
+
+// Press plugin
+ExtensionUtility::configurePlugin(
+    'Clubdata',
+    'ListPress',
+    [
+        ClubController::class => 'listPress',
+    ],
+    [],
+    ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
+);
+
+// Helpers plugin
+ExtensionUtility::configurePlugin(
+    'Clubdata',
+    'ListHelpers',
+    [
+        ClubController::class => 'listHelpers, saveHelpers',
+    ],
+    [
+        ClubController::class => 'listHelpers, saveHelpers',
     ],
     ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
 );

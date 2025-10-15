@@ -204,6 +204,74 @@
             <trans-unit id="fe_users.salutation">
                 <source>Salutation</source>
             </trans-unit>
+            
+            <!-- Plugin Labels -->
+            <trans-unit id="plugin.list.title">
+                <source>Club Data: List View</source>
+            </trans-unit>
+            <trans-unit id="plugin.list.description">
+                <source>Display a list of programs with filtering and sorting options</source>
+            </trans-unit>
+            <trans-unit id="plugin.detail.title">
+                <source>Club Data: Detail View</source>
+            </trans-unit>
+            <trans-unit id="plugin.detail.description">
+                <source>Display detailed information about a specific program</source>
+            </trans-unit>
+            <trans-unit id="plugin.services.title">
+                <source>Club Data: Services</source>
+            </trans-unit>
+            <trans-unit id="plugin.services.description">
+                <source>Display program services and helper assignments</source>
+            </trans-unit>
+            <trans-unit id="plugin.listarchive.title">
+                <source>Club Data: Archive List</source>
+            </trans-unit>
+            <trans-unit id="plugin.listarchive.description">
+                <source>Display archived programs with filtering options</source>
+            </trans-unit>
+            <trans-unit id="plugin.detailarchive.title">
+                <source>Club Data: Archive Detail</source>
+            </trans-unit>
+            <trans-unit id="plugin.detailarchive.description">
+                <source>Display detailed information about archived programs</source>
+            </trans-unit>
+            <trans-unit id="plugin.newsletterupcoming.title">
+                <source>Club Data: Newsletter</source>
+            </trans-unit>
+            <trans-unit id="plugin.newsletterupcoming.description">
+                <source>Display upcoming programs for newsletter output</source>
+            </trans-unit>
+            <trans-unit id="plugin.listhighlights.title">
+                <source>Club Data: Highlights</source>
+            </trans-unit>
+            <trans-unit id="plugin.listhighlights.description">
+                <source>Display highlighted programs</source>
+            </trans-unit>
+            <trans-unit id="plugin.preview.title">
+                <source>Club Data: Preview</source>
+            </trans-unit>
+            <trans-unit id="plugin.preview.description">
+                <source>Display a preview of upcoming programs</source>
+            </trans-unit>
+            <trans-unit id="plugin.carousel.title">
+                <source>Club Data: Slider</source>
+            </trans-unit>
+            <trans-unit id="plugin.carousel.description">
+                <source>Display programs in a carousel/slider format</source>
+            </trans-unit>
+            <trans-unit id="plugin.listpress.title">
+                <source>Club Data: Press</source>
+            </trans-unit>
+            <trans-unit id="plugin.listpress.description">
+                <source>Display programs formatted for press releases</source>
+            </trans-unit>
+            <trans-unit id="plugin.listhelpers.title">
+                <source>Club Data: Helper Plan</source>
+            </trans-unit>
+            <trans-unit id="plugin.listhelpers.description">
+                <source>Display and manage helper assignments for programs</source>
+            </trans-unit>
         </body>
     </file>
 </xliff>
