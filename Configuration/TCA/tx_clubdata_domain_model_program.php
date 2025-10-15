@@ -5,10 +5,12 @@ return [
     'ctrl' => [
         'title' => 'LLL:EXT:clubdata/Resources/Private/Language/locallang_db.xlf:tx_clubdata_domain_model_program',
         'label' => 'title',
+        'label_alt' => 'datetime',
+        'label_alt_force' => true,
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
         'versioningWS' => true,
-
+        'default_sortby' => 'datetime DESC',
         'languageField' => 'sys_language_uid',
         'transOrigPointerField' => 'l10n_parent',
         'transOrigDiffSourceField' => 'l10n_diffsource',
