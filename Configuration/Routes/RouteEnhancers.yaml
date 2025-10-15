@@ -1,0 +1,17 @@
+routeEnhancers:
+  ProgramDetail:
+    limitToPages: []
+    type: Extbase
+    extension: Clubdata
+    plugin: Pi1
+    defaultController: 'Club::detail'
+    routes:
+      - routePath: '/{program-title}'
+        _controller: 'Club::detail'
+        _arguments:
+          program-title: showUid
+    aspects:
+      program-title:
+        type: PersistedAliasMapper
+        tableName: tx_clubdata_domain_model_program
+        routeFieldName: slug

@@ -1,0 +1,102 @@
+<div class="tx-ckmerlindata-pi1-program-item selected-item"></div>
+<f:for each="{programs}" as="program" iteration="pnumber">
+<div id="program-entry-{pnumber.cycle}" class="tx-ckmerlindata-pi1-program-item program-uid-{program.uid} category <f:for each="{program.category}" as="cat" iteration="number">
+<f:if condition="{number.cycle} == '1'">category-uid-{cat.uid}</f:if> 
+</f:for>">
+<div class="tx-ckmerlindata-pi1-program-item-header" id="header-program-uid-{program.uid}">
+<div class="tx-ckmerlindata-pi1-program-item-date"><f:format.date format="%d %b %a %H:%M">{program.fromdate}</f:format.date></div>
+<div class="tx-ckmerlindata-pi1-program-item-ticket">
+<f:if condition="{program.tickettext} ==''">
+<f:then>
+<f:if condition="{program.price1}">
+<f:then>
+<f:if condition="{f:format.date(date: now, format: 'U')} <= {f:format.date(date: program.fromdate, format: 'U')}">
+<f:then>
+<f:if condition="{program.ticketlink}"><f:link.external uri="{program.ticketlink}" target="_blank">Tickets</f:link.external></f:if>
+</f:then>
+</f:if>
+</f:then> 
+</f:if>
+</f:then>
+<f:else>
+{program.tickettext}
+</f:else>
+</f:if> 
+</div>
+<h2>
+    {program.title}
+</h2>
+<f:if condition="{program.subtitle}">
+<div class="tx-ckmerlindata-pi1-program-item-subtitle">{program.subtitle}</div>
+</f:if> 
+</div>
+<div class="tx-ckmerlindata-pi1-program-teaser">
+<div class="tx-ckmerlindata-pi1-logos-wrapper">
+</div>
+<div class="tx-ckmerlindata-pi1-program-teaser-text-wrapper">
+<f:format.crop maxCharacters="200" respectWordBoundaries="true" respectHtml="true" append='...&nbsp;<span class="program-morelink" id="program-uid-{program.uid}">Mehr</span>'>
+<f:format.html>{program.text}</f:format.html></f:format.crop>
+<div style="clear: both"></div></div>
+</div>
+<div class="tx-ckmerlindata-pi1-program-content">
+<div class="tx-ckmerlindata-pi1-logos-wrapper">
+<f:for each="{program.images}" as="image" iteration="number">                                                                                                                                                                                                                            
+<a rel="shadowbox[sb{program.uid}]" href="{image.originalResource.publicUrl}" class="jshadowbox" title="<f:if condition="{image.originalResource.description}"><f:then><f:format.raw>{image.originalResource.description}</f:format.raw></f:then><f:else>{image.originalResource.title}</f:else></f:if>">
+	<f:image src="{image.uid}" alt="{image.originalResorce.alternative}" title="{image.originalResource.title}" width="140" treatIdAsReference="1"/>
+</a>
+<f:if condition="{image.originalResource.description}"><p class="tx-ckmerlindata-pi1-program-caption"><f:format.raw>{image.originalResource.description}</f:format.raw></p></f:if> 
+</f:for>
+
+<f:for each="{program.logos}" as="logo" iteration="number">
+<a rel="shadowbox[sb{program.uid}]" href="{logo.originalResource.publicUrl}" class="jshadowbox" title="<f:if condition="{logo.originalResource.description}"><f:then><f:format.raw>{logo.originalResource.description}</f:format.raw></f:then><f:else>{logo.originalResource.title}</f:else></f:if>">
+	<f:image src="{logo.uid}" alt="{logo.originalResorce.alternative}" title="{logo.originalResource.title}" width="140" treatIdAsReference="1"/> 
+</a>
+<f:if condition="{logo.originalResource.description}"><p class="tx-ckmerlindata-pi1-program-caption"><f:format.raw>{logo.originalResource.description}</f:format.raw></p></f:if> 
+</f:for>
+</div>
+<div class="tx-ckmerlindata-pi1-images-wrapper">
+</div>
+<div class="tx-ckmerlindata-pi1-text-wrapper <f:if condition="{program.images}"> text-with-image</f:if>">
+<f:format.html>{program.text}</f:format.html>
+<div class="tx-ckmerlindata-pi1-prices-wrapper">
+<f:if condition="{program.price3}">
+<f:then>
+<p>Preise</p>
+</f:then>
+</f:if>
+<f:if condition="{program.price1}"><p><label>Vorverkauf:</label>{program.price1}</p></f:if> 
+<f:if condition="{program.price2}"><p><label>erm&auml;&szlig;igt:</label>{program.price2}</p></f:if> 
+<f:if condition="{program.price3}"><p><label>Abendkasse:</label>{program.price3}</p></f:if> 
+<f:if condition="{program.ticket_text}"><p>{program.ticket_text}</p></f:if>
+</div>
+	<div class="tx-ckmerlindata-pi1-links-wrapper">
+
+
+
+
+		<div class="tx-ckmerlindata-pi1-links tx-ckmerlindata-pi1-links-facebook">
+			<!--f:link.external title="Auf Facebook teilen" target="_blank" uri="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2F{linkurl}{program.uid}%26showdate={f:format.date(format : 'Ym', date : program.fromdate)}"></f:link.external-->
+        <a onclick="<![CDATA[FB.ui({
+          method: 'feed',
+          name: ']]><f:format.date format='%d %b %a %H:%M'>{program.fromdate}</f:format.date> {program.title} {program.subtitle}<![CDATA[',
+			link: 'http://]]>{linkurlraw}{program.uid}&showdate={f:format.date(format : 'Ym', date : program.fromdate)}<![CDATA[',
+			picture: ']]><f:for each='{program.images}' as='image' iteration='number'><f:if condition='{number.isFirst}'>{domain}{image.originalResource.publicUrl}</f:if></f:for><![CDATA[',
+			caption: ']]><f:for each='{program.images}' as='image' iteration='number'><f:if condition='{number.isFirst}'>{image.originalResource.description}</f:if></f:for><![CDATA[',
+			description: '',
+			message: ''
+			}
+			);]]>"></a>
+		</div>
+		<div class="tx-ckmerlindata-pi1-links tx-ckmerlindata-pi1-links-twitter">
+		<f:link.external title="Auf Twitter teilen" target="_blank" uri="https://twitter.com/intent/tweet?text=<f:format.urlencode><f:format.date format='%d %b %a %H:%M'>{program.fromdate}</f:format.date> {program.title} {program.subtitle}</f:format.urlencode>%0a&url=http%3A%2F%2F{linkurl}{program.uid}%26showdate={f:format.date(format : 'Ym', date : program.fromdate)}"></f:link.external>
+	</div>
+		<div class="tx-ckmerlindata-pi1-links tx-ckmerlindata-pi1-links-mail">
+			<a title="Per Mail empfehlen" href="mailto:Empfaengeradresse@bitte_eintragen?subject=Linkempfehlung%20auf%20www.merlin-stuttgart.de&body=<f:format.urlencode><f:format.date format='%d %b %a %H:%M'>{program.fromdate}</f:format.date> {program.title} {program.subtitle}</f:format.urlencode>%0ahttp%3A%2F%2F{linkurl}{program.uid}%26showdate={f:format.date(format : 'Ym', date : program.fromdate)}"></a>
+	</div>
+	</div>
+<div style="clear: both"></div>
+</div>
+<div class="program-close" id="close-program-uid-{program.uid}"></div>
+</div>
+</div>
+</f:for>

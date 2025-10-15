@@ -1,0 +1,15 @@
+    <f:for each="{listItem.picture}" as="image" iteration="i">
+        <f:if condition="{i.isFirst}">
+            <div class="image-wrap">
+            <f:image id="img-{iterator.cycle}" class="slider-image" additionalAttributes="{data-u: 'image'}" src="{image.uid}" height="{settings.carousel.media.image.maxHeight}" width="{settings.carousel.media.image.maxWidth}" treatIdAsReference="1" cropVariant="specialSlider" />
+                <f:link.action action="detail" pageUid="{settings.detailPid}" arguments="{showUid: listItem.uid}">
+                <div class="slider-caption-wrap">
+                    <div class="slider-caption">
+                    <span class="slider-date"><f:format.date format="{settings.carousel.datetimeFormat}">{listItem.datetime}</f:format.date></span> {listItem.title}
+                </div>
+                </div>
+                </f:link.action>
+            </div>
+        </f:if>
+    </f:for>
+

@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2025-10-11T21:20:00Z" product-name="clubdata">
+		<header/>
+		<body>
+			<trans-unit id="general">
+				<source>General Settings</source>
+				<target>Allgemeine Einstellungen</target>
+			</trans-unit>
+			<trans-unit id="switchableControllerActions">
+				<source>View</source>
+				<target>Ansicht</target>
+			</trans-unit>
+			<trans-unit id="switchableControllerActions.list">
+				<source>List View</source>
+				<target>Listenansicht</target>
+			</trans-unit>
+			<trans-unit id="switchableControllerActions.detail">
+				<source>Detail View</source>
+				<target>Detailansicht</target>
+			</trans-unit>
+			<trans-unit id="switchableControllerActions.services">
+				<source>Services</source>
+				<target>Services</target>
+			</trans-unit>
+			<trans-unit id="switchableControllerActions.listArchive">
+				<source>Archive List</source>
+				<target>Archivliste</target>
+			</trans-unit>
+			<trans-unit id="switchableControllerActions.detailArchive">
+				<source>Archive Detail</source>
+				<target>Archiv Detail</target>
+			</trans-unit>
+			<trans-unit id="switchableControllerActions.newsletterUpcoming">
+				<source>Newsletter</source>
+				<target>Newsletter</target>
+			</trans-unit>
+			<trans-unit id="switchableControllerActions.listHighlights">
+				<source>Highlights</source>
+				<target>Highlights</target>
+			</trans-unit>
+			<trans-unit id="switchableControllerActions.preview">
+				<source>Preview</source>
+				<target>Preview</target>
+			</trans-unit>
+			<trans-unit id="switchableControllerActions.carousel">
+				<source>Slider</source>
+				<target>Slider</target>
+			</trans-unit>
+			<trans-unit id="switchableControllerActions.listPress">
+				<source>Press</source>
+				<target>Press</target>
+			</trans-unit>
+			<trans-unit id="switchableControllerActions.listHelpers">
+				<source>Helper Plan</source>
+				<target>Helferplan</target>
+			</trans-unit>
+			<trans-unit id="settings.filter.intern">
+				<source>Show internal entries</source>
+				<target>Interne Einträge anzeigen</target>
+			</trans-unit>
+			<trans-unit id="settings.list.greaternow">
+				<source>Entries</source>
+				<target>Einträge</target>
+			</trans-unit>
+			<trans-unit id="settings.list.greaternow.all">
+				<source>All entries</source>
+				<target>Alle Einträge</target>
+			</trans-unit>
+			<trans-unit id="settings.list.greaternow.future">
+				<source>Only future entries</source>
+				<target>Nur zukünftige Einträge</target>
+			</trans-unit>
+			<trans-unit id="settings.list.greaternow.past">
+				<source>Only past entries</source>
+				<target>Nur vergangene Einträge</target>
+			</trans-unit>
+			<trans-unit id="settings.list.fromdate">
+				<source>From</source>
+				<target>Von</target>
+			</trans-unit>
+			<trans-unit id="settings.list.todate">
+				<source>To</source>
+				<target>Bis</target>
+			</trans-unit>
+			<trans-unit id="settings.list.picture">
+				<source>Show image</source>
+				<target>Bild ausgeben</target>
+			</trans-unit>
+			<trans-unit id="settings.list.description">
+				<source>Show description</source>
+				<target>Beschreibung ausgeben</target>
+			</trans-unit>
+			<trans-unit id="settings.filter.sorting">
+				<source>Sorting</source>
+				<target>Sortierung</target>
+			</trans-unit>
+			<trans-unit id="settings.filter.sorting.asc">
+				<source>ascending</source>
+				<target>aufsteigend</target>
+			</trans-unit>
+			<trans-unit id="settings.filter.sorting.desc">
+				<source>descending</source>
+				<target>absteigend</target>
+			</trans-unit>
+			<trans-unit id="settings.filter.highlight">
+				<source>Only highlights</source>
+				<target>Nur Highlights</target>
+			</trans-unit>
+			<trans-unit id="settings.filter.category_what">
+				<source>Categories</source>
+				<target>Kategorien</target>
+			</trans-unit>
+			<trans-unit id="settings.filter.category_what.all">
+				<source>All categories</source>
+				<target>Alle Kategorien</target>
+			</trans-unit>
+			<trans-unit id="settings.filter.category_what.or">
+				<source>Only selected categories</source>
+				<target>Nur ausgewählte Kategorien</target>
+			</trans-unit>
+			<trans-unit id="settings.filter.category_what.not">
+				<source>Exclude selected categories</source>
+				<target>Ohne ausgewählte Kategorien</target>
+			</trans-unit>
+			<trans-unit id="settings.filter.categories">
+				<source>Selected categories</source>
+				<target>Ausgewählte Kategorien</target>
+			</trans-unit>
+			<trans-unit id="settings.filter.state_what">
+				<source>Status</source>
+				<target>Status</target>
+			</trans-unit>
+			<trans-unit id="settings.filter.state_what.all">
+				<source>All status</source>
+				<target>Alle Status</target>
+			</trans-unit>
+			<trans-unit id="settings.filter.state_what.or">
+				<source>Only selected status</source>
+				<target>Nur ausgewählte Status</target>
+			</trans-unit>
+			<trans-unit id="settings.filter.state_what.not">
+				<source>Exclude selected status</source>
+				<target>Ohne ausgewählte Status</target>
+			</trans-unit>
+			<trans-unit id="settings.filter.states">
+				<source>Selected status</source>
+				<target>Ausgewählte Status</target>
+			</trans-unit>
+			<trans-unit id="settings.list.show">
+				<source>Show</source>
+				<target>Zeige</target>
+			</trans-unit>
+			<trans-unit id="settings.list.show.month">
+				<source>Month</source>
+				<target>Monat</target>
+			</trans-unit>
+			<trans-unit id="settings.list.show.year">
+				<source>Year</source>
+				<target>Jahr</target>
+			</trans-unit>
+			<trans-unit id="settings.list.show.all">
+				<source>All</source>
+				<target>alle</target>
+			</trans-unit>
+			<trans-unit id="settings.filter.limit">
+				<source>Limit</source>
+				<target>Limit</target>
+			</trans-unit>
+			<trans-unit id="settings.detailPid">
+				<source>Detail page</source>
+				<target>Detailseite</target>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

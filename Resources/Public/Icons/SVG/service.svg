@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="none">
+  <!-- Service person silhouette -->
+  <circle cx="6" cy="4" r="2" stroke="currentColor" stroke-width="1" fill="currentColor" fill-opacity="0.2"/>
+  <path d="M3 14 C3 10, 4.5 9, 6 9 C7.5 9, 9 10, 9 14" stroke="currentColor" stroke-width="1" fill="currentColor" fill-opacity="0.1"/>
+  
+  <!-- Service gear -->
+  <g transform="translate(10.5, 5.5)">
+    <circle cx="0" cy="0" r="2.5" stroke="currentColor" stroke-width="0.8" fill="none"/>
+    <circle cx="0" cy="0" r="1" fill="currentColor" fill-opacity="0.3"/>
+    <!-- Gear teeth -->
+    <rect x="-0.3" y="-3" width="0.6" height="1" fill="currentColor"/>
+    <rect x="-0.3" y="2" width="0.6" height="1" fill="currentColor"/>
+    <rect x="-3" y="-0.3" width="1" height="0.6" fill="currentColor"/>
+    <rect x="2" y="-0.3" width="1" height="0.6" fill="currentColor"/>
+  </g>
+  
+  <!-- Service connection line -->
+  <line x1="8.5" y1="8" x2="9.5" y2="7" stroke="currentColor" stroke-width="0.8" stroke-dasharray="1,1"/>
+</svg>

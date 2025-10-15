@@ -1,0 +1,47 @@
+.clubdata-slider {
+    position: relative;
+    border: 1px solid red;
+    max-height: 350px;
+    height: 350px !important;
+}
+
+
+
+.clubdata-slider .slides {
+    height: 350px;
+}
+
+.clubdata-slider .slider-image {
+    width: auto !important;
+    width: 450px !important;
+    height: auto !important;
+    object-fit: contain;
+    overflow: hidden;
+}
+
+.clubdata-slider .cover {
+    background: white;
+    background: rgba(255,255,255,0.5);
+    /*opacity: 0.4;*/
+    position: absolute;
+    top: 0 !important;
+    height: 350px;
+}
+.clubdata-slider svg {
+    height: 50% !important;
+    top: 80px !important;
+}
+
+.jssora051 .a {
+    stroke: orangered !important;
+}
+
+.clubdata-slider .image-wrap {
+
+}
+
+.clubdata-slider .slider-caption-wrap {
+    background: white;
+    background: rgba(255,255,255,0.7);
+    height: 40px !important;
+  }

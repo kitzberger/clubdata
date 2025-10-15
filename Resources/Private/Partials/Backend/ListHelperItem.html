@@ -1,0 +1,52 @@
+<html
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:club="http://typo3.org/ns/Medpzl/Clubdata/ViewHelpers"
+    data-namespace-typo3-fluid="true"
+>
+
+<tr class="list-item">
+    <td>
+        <f:format.date format="%a %d.%m. %H:%M Uhr">{listItem.datetime}</f:format.date><br>
+        {listItem.title}
+    </td>
+    <f:for each="{Services}" as="service" iteration="i">
+        <f:if condition="{listItem.serviceBarNum} > 0 && {club:contains(needle:'Theke',haystack:service.title)}">
+            <f:then>
+                <f:if condition="{i.cycle} <= {listItem.serviceBarNum}">
+                    <f:then>
+                        <td class="p{listItem.uid} s{service.uid} test{listItem.serviceBarNum}">
+                            {service.title}<br>
+                            <select name="ps[]"
+                                    class="p{listItem.uid}-s{service.uid}-u{club:hasHelper(user:0,program:listItem.uid,service:service.uid,check:0)}"
+                                    data-helper-select="true">
+                                <option value="">-</option>
+                                <f:for each="{Users}" as="user">
+                                    <option value="p{listItem.uid}-s{service.uid}-u{user.address}" {club:selectedHelper(user:user.address,program:listItem.uid,service:service.uid)}>{user.username}
+                                </option>
+                                </f:for>
+                            </select>
+                        </td>
+                    </f:then>
+                    <f:else>
+                        <td></td>
+                    </f:else>
+                </f:if>
+            </f:then>
+            <f:else>
+                <td class="p{listItem.uid} s{service.uid}">
+                    {service.title}<br>
+                    <select name="ps[]"
+                            class="p{listItem.uid}-s{service.uid}-u{club:hasHelper(user:0,program:listItem.uid,service:service.uid,check:0)}"
+                            data-helper-select="true">
+                        <option value="">-</option>
+                        <f:for each="{Users}" as="user">
+                            <option value="p{listItem.uid}-s{service.uid}-u{user.address}" {club:selectedHelper(user:user.address,program:listItem.uid,service:service.uid)}>
+                                {user.username}
+                            </option>
+                        </f:for>
+                    </select>
+                </td>
+            </f:else>
+        </f:if>
+    </f:for>
+</tr>

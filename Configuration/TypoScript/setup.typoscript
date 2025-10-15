@@ -1,0 +1,66 @@
+plugin.tx_clubdata {
+    mvc.callDefaultActionIfActionCantBeResolved = 1
+    view {
+        templateRootPaths {
+            0 = EXT:clubdata/Resources/Private/Templates/
+            1 = {$plugin.tx_clubdata.view.templateRootPath}
+        }
+        partialRootPaths  {
+            0 = EXT:clubdata/Resources/Private/Partials/
+            1 = {$plugin.tx_clubdata.view.partialRootPath}
+        }
+        layoutRootPaths {
+            0 = EXT:clubdata/Resources/Private/Layouts/
+            1 = {$plugin.tx_clubdata.view.layoutRootPath}
+        }
+    }
+    persistence {
+        storagePid = {$plugin.tx_clubdata.persistence.storagePid}
+    }
+    settings {
+        cssFile = {$plugin.tx_clubdata.settings.cssFile}
+
+        storagePid  = {$plugin.tx_clubdata.persistence.storagePid}
+        detailPid = {$plugin.tx_clubdata.settings.detailPid}
+        list.datetimeFormat = %d.%m. %H.%M Uhr
+        list.timeFormat = %H.%M Uhr
+        list.show = month
+        list.greaternow = 1
+        list.distinct = 0
+        detail.dateFormat = %a. %d. %B %Y
+        detail.timeFormat = %H.%M Uhr
+        detail.datetimeFormat = %a. %d.%m. %H.%M Uhr
+        detail.media.image.maxWidth = 380
+        detail.media.image.maxWHeight = 380
+        carousel.maxHeight = 425
+    }
+}
+
+page.includeCSS.file35 = {$plugin.tx_clubdata.settings.cssFile}
+page.includeCSS.file36 = {$plugin.tx_clubdata.settings.cssSliderFile}
+page.includeJS.file1 = {$plugin.tx_clubdata.settings.jQueryLib}
+page.includeJSFooter.file1 = {$plugin.tx_clubdata.settings.jQueryFile}
+page.includeJS.slider = EXT:clubdata/Resources/Public/Js/jssor.slider-27.4.0.min.js
+
+lib.clubdata_list = USER
+lib.clubdata_list {
+    userFunc = TYPO3\CMS\Extbase\Core\Bootstrap->run
+    pluginName = Pi1
+    extensionName = Clubdata
+    controller = Club
+    vendorName = TYPO3
+    action = list
+    switchableControllerActions {
+        Club {
+            1 = list
+        }
+    }
+
+    settings =< plugin.tx_clubdata.settings
+    settings.list.show = year
+    persistence =< plugin.tx_clubdata.persistence
+    view =< plugin.tx_clubdata.view
+    update =< plugin.tx_clubdata.update
+}
+
+module.tx_clubdata  < plugin.tx_clubdata

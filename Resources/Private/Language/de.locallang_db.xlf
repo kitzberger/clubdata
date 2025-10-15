@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+    <file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2014-12-29T11:51:14Z" product-name="ck_merlindata">
+        <header/>
+        <body>
+            <trans-unit id="tx_clubdata_domain_model_program.tabs_tickets">
+                <source>Tickets</source>
+                <target>Tickets</target>
+            </trans-unit>
+            <trans-unit id="tx_clubdata_domain_model_program.tabs_services">
+                <source>Services</source>
+                <target>Dienste</target>
+            </trans-unit>
+            <trans-unit id="tx_clubdata_domain_model_program.tabs_advanced">
+                <source>Advanced</source>
+                <target>Erweitert</target>
+            </trans-unit>
+            <trans-unit id="tx_clubdata_domain_model_program.tabs_info">
+                <source>Information</source>
+                <target>Information</target>
+            </trans-unit>
+            <trans-unit id="tx_clubdata_domain_model_program.tabs_internal">
+                <source>Internal</source>
+                <target>Intern</target>
+            </trans-unit>
+            <trans-unit id="tx_clubdata_domain_model_program">
+                <source>Program</source>
+                <target>Programm</target>
+            </trans-unit>
+            <trans-unit id="tx_clubdata_domain_model_program.title">
+                <source>Title</source>
+                <target>Titel</target>
+            </trans-unit>
+            <trans-unit id="tx_clubdata_domain_model_program.datetime">
+                <source>Datetime</source>
+                <target>Datum, Uhrzeit</target>
+            </trans-unit>
+            <trans-unit id="tx_clubdata_domain_model_program.sub_title">
+                <source>Sub Title</source>
+                <target>Untertitel</target>
+            </trans-unit>
+            <trans-unit id="tx_clubdata_domain_model_program.sec_sub_title">
+                <source>Sec Sub Title</source>
+                <target>2. Untertitel</target>
+            </trans-unit>
+            <trans-unit id="tx_clubdata_domain_model_program.pre_sales">
+                <source>Pre Sales</source>
+                <target>VVK-Stelle </target>
+            </trans-unit>
+            <trans-unit id="tx_clubdata_domain_model_program.state">
+                <source>State</source>
+                <target>Karten-Info</target>
+            </trans-unit>
+            <trans-unit id="tx_clubdata_domain_model_program.entrance">
+                <source>Entrance</source>
+                <target>Einlass</target>
+            </trans-unit>
+            <trans-unit id="tx_clubdata_domain_model_program.seating">
+                <source>Seating</source>
+                <target>Bestuhlt </target>
+            </trans-unit>
+            <trans-unit id="tx_clubdata_domain_model_program.venue">
+                <source>Venue</source>
+                <target>Spielstätte</target>
+            </trans-unit>
+            <trans-unit id="tx_clubdata_domain_model_program.description">
+                <source>Description</source>
+                <target>Beschreibung (Langtext)</target>
+            </trans-unit>
+            <trans-unit id="tx_clubdata_domain_model_program.picture">
+                <source>Picture</source>
+                <target>Bilder</target>
+            </trans-unit>
+            <trans-unit id="tx_clubdata_domain_model_program.highlight">
+                <source>Highlight</source>
+                <target>Bild als Highlight</target>
+            </trans-unit>
+            <trans-unit id="tx_clubdata_domain_model_program.perm_highlight">
+                <source>Perm Highlight</source>
+                <target>Dauerhaftes Highlight</target>
+            </trans-unit>
+            <trans-unit id="tx_clubdata_domain_model_program.cat_price_a">
+                <source>Cat Price A</source>
+                <target>Preis A (Label)</target>
+            </trans-unit>
+            <trans-unit id="tx_clubdata_domain_model_program.cat_price_b">
+                <source>Cat Price B</source>
+                <target>Preis B (Label)</target>
+            </trans-unit>
+            <trans-unit id="tx_clubdata_domain_model_program.cat_price_c">
+                <source>Cat Price C</source>
+                <target>Preis C (Label)</target>
+            </trans-unit>
+            <trans-unit id="tx_clubdata_domain_model_program.price_a">
+                <source>Price A</source>
+                <target>Abendkasse (leer = "freier Eintritt")</target>
+            </trans-unit>
+            <trans-unit id="tx_clubdata_domain_model_program.price_b">
+                <source>Price B</source>
+                <target>Vorverkauf</target>
+            </trans-unit>
+            <trans-unit id="tx_clubdata_domain_model_program.price_c">
+                <source>Price C</source>
+                <target>Preis C</target>
+            </trans-unit>
+            <trans-unit id="tx_clubdata_domain_model_program.internal_info">
+                <source>Internal Info</source>
+                <target>Interne Info </target>
+            </trans-unit>
+            <trans-unit id="tx_clubdata_domain_model_program.services">
+                <source>Services</source>
+                <target>Helfer-Dienste</target>
+            </trans-unit>
+            <trans-unit id="tx_clubdata_domain_model_program.avoid_nl">
+                <source>Avoid Nl</source>
+                <target>Nicht auf Newsletter</target>
+            </trans-unit>
+            <trans-unit id="tx_clubdata_domain_model_program.hide_date">
+                <source>Hide Date</source>
+                <target>Datum verbergen</target>
+            </trans-unit>
+            <trans-unit id="tx_clubdata_domain_model_program.visitors">
+                <source>Visitors</source>
+                <target>Besucherzahl</target>
+            </trans-unit>
+            <trans-unit id="tx_clubdata_domain_model_program.ticket_link">
+                <source>Ticket Link</source>
+                <target>ext. Ticket Link</target>
+            </trans-unit>
+            <trans-unit id="tx_clubdata_domain_model_program.max_tickets">
+                <source>Max Tickets</source>
+                <target>Max Tickets</target>
+            </trans-unit>
+            <trans-unit id="tx_clubdata_domain_model_program.sold_tickets">
+                <source>SoldTickets</source>
+                <target>Verkaufte Tickets</target>
+            </trans-unit>
+            <trans-unit id="tx_clubdata_domain_model_program.state_text">
+                <source>State Text</source>
+                <target>Ausverkauft-Freitext</target>
+            </trans-unit>
+            <trans-unit id="tx_clubdata_domain_model_program.seatings">
+                <source>Seating</source>
+                <target>Bestuhlung</target>
+            </trans-unit>
+            <trans-unit id="tx_clubdata_domain_model_program.service_bar_num">
+                <source>Service Bar Num</source>
+                <target>Thekendienste</target>
+            </trans-unit>
+            <trans-unit id="tx_clubdata_domain_model_program.reduction">
+                <source>Reduction</source>
+                <target>Ermäßigung</target>
+            </trans-unit>
+            <trans-unit id="tx_clubdata_domain_model_program.festival">
+                <source>Is Festival</source>
+                <target>Festival</target>
+            </trans-unit>
+            <trans-unit id="tx_clubdata_domain_model_program.genre">
+                <source>Genre</source>
+                <target>Genre Freitext</target>
+            </trans-unit>
+            <trans-unit id="tx_clubdata.module.clubdatahelpers">
+                <source>Helpertable</source>
+                <target>Helferplan</target>
+            </trans-unit>
+            <trans-unit id="tx_clubdata_domain_model_program.noservice">
+                <source>No Service</source>
+                <target>Keine Dienste</target>
+            </trans-unit>
+            <trans-unit id="fe_users.salutation">
+                <source>Salutation</source>
+                <target>Anrede</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

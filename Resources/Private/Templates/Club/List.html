@@ -1,0 +1,37 @@
+<div class="tx-clubdata-pi1-nav">
+<span class="nav-prev" 
+<f:if condition="{currmonth} != {f:format.date(date: oldest.fromdate, format: 'Ym')}">
+<f:then>
+onclick="nav_prev({prevmonth})">&lt;
+  </f:then>
+  <f:else>
+>
+    </f:else>
+</f:if>
+</span>
+<span class="nav-next" 
+<f:if condition="{currmonth} != {f:format.date(date: latest.fromdate, format: 'Ym')}">
+<f:then>
+onclick="nav_next({nextmonth})">&gt;
+  </f:then>
+  <f:else>
+>
+    </f:else>
+</f:if>
+</span>
+<span class="nav-month">
+    <f:if condition="{codata.uid} == '5'">
+<f:then>
+<f:format.date format="%B %y">{showmonth}</f:format.date>
+ </f:then>
+  <f:else>
+<f:link.page pageUid="5"><f:format.date format="%B %y">{showmonth}</f:format.date></f:link.page>
+</f:else>
+    </f:if>
+</span>
+</div>
+<div class="tx-clubdata-pi1-item-list">
+<f:for each="{Programs}" as="listItem">
+    <f:render partial="Club/ListItem" arguments="{listItem:listItem,settings:settings,iterator:iterator}" />
+</f:for>
+</div>

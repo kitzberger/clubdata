@@ -1,0 +1,27 @@
+plugin.tx_clubdata {
+    view {
+        # cat=plugin.tx_clubdata/file; type=string; label=Path to template root (FE)
+        templateRootPath = EXT:clubdata/Resources/Private/Templates/
+        # cat=plugin.tx_clubdata/file; type=string; label=Path to template partials (FE)
+        partialRootPath = EXT:clubdata/Resources/Private/Partials/
+        # cat=plugin.tx_clubdata/file; type=string; label=Path to template layouts (FE)
+        layoutRootPath = EXT:clubdata/Resources/Private/Layouts/
+    }
+    persistence {
+        # cat=plugin.tx_clubdata//a; type=string; label=Default storage PID
+        storagePid =
+    }
+    settings {
+       # cat=plugin.tx_clubdata/file; type=string; label=Path to CSS file
+       cssFile = EXT:clubdata/Resources/Public/Css/Clubdata.css
+       # cat=plugin.tx_clubdata/file; type=string; label=Path to CSS file
+       cssSliderFile = EXT:clubdata/Resources/Public/Css/Slider.css
+       # cat=plugin.tx_clubdata//a; type=string; label=Detail PID
+       detailPid =
+       # cat=plugin.tx_clubdata/file; type=string; label=Path to jQuery Lib
+       jQueryLib = EXT:clubdata/Resources/Public/Js/jquery-2.2.2.min.js
+       # cat=plugin.tx_clubdata/file; type=string; label=Path to js
+       jQueryFile = EXT:clubdata/Resources/Public/Js/clubdata.js
+
+    }
+}

@@ -1,0 +1,54 @@
+<html
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:club="http://typo3.org/ns/Medpzl/Clubdata/ViewHelpers"
+    data-namespace-typo3-fluid="true"
+>
+
+<tr class="list-item">
+    <td>
+        <f:format.date format="%a %d.%m. %H:%M Uhr">{listItem.datetime}</f:format.date><br>
+        {listItem.title}
+    </td>
+    <f:for each="{Services}" as="service" iteration="i">
+        <f:if condition="{listItem.serviceBarNum} > 0 && {club:contains(needle:'Theke',haystack: '{service.title}')}">
+            <f:then>
+                <f:if condition="{i.cycle}<={listItem.serviceBarNum}">
+                    <f:then>
+                        <td class="p{listItem.uid} s{service.uid} test{listItem.serviceBarNum}">
+                            {service.title}<br>
+                            <f:form.checkbox
+                                    name="tx_clubdata_pi1[ps][]"
+                                    value="p{listItem.uid}-s{service.uid}-u{User.uid}"
+                                    checked="{club:hasHelper(user:User.uid,program:listItem.uid,service:service.uid)}"
+                                    disabled="{club:whichHelper(user:User.uid,program:listItem.uid,service:service.uid,disable:'1')}"
+                                    title="{club:helperInfo(program:listItem.uid,service:service.uid)}"
+                                    class="p{listItem.uid}-s{service.uid}-u{User.uid}"
+                                    data-helper-checkbox="true"
+                            />
+                        </td>
+                    </f:then>
+                    <f:else>
+                        <td></td>
+                    </f:else>
+                </f:if>
+            </f:then>
+            <f:else>
+                <td class="p{listItem.uid} s{service.uid}">
+                    {service.title}<br>
+                    <f:form.checkbox
+                            name="tx_clubdata_pi1[ps][]"
+                            value="p{listItem.uid}-s{service.uid}-u{User.uid}"
+                            checked="{club:hasHelper(user:User.uid,program:listItem.uid,service:service.uid)}"
+                            disabled="{club:whichHelper(user:User.uid,program:listItem.uid,service:service.uid,disable:'1')}"
+                            title="{club:helperInfo(program:listItem.uid,service:service.uid)}"
+                            class="p{listItem.uid}-s{service.uid}-u{User.uid}"
+                            data-helper-checkbox="true"
+                    />
+                </td>
+            </f:else>
+        </f:if>
+    </f:for>
+</tr>
+
+
+
