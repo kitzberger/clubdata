@@ -5,12 +5,6 @@
             <f:else>></f:else>
         </f:if>
     </span>
-    <span class="nav-next"
-        <f:if condition="{currmonth} != {f:format.date(date: latest.fromdate, format: 'Ym')}">
-            <f:then>onclick="nav_next({nextmonth})">&gt;</f:then>
-            <f:else>></f:else>
-        </f:if>
-    </span>
     <span class="nav-month">
         <f:if condition="{codata.uid} == '5'">
             <f:then>
@@ -19,6 +13,12 @@
             <f:else>
                 <f:link.page pageUid="5"><f:format.date format="%B %y">{showmonth}</f:format.date></f:link.page>
             </f:else>
+        </f:if>
+    </span>
+    <span class="nav-next"
+        <f:if condition="{currmonth} != {f:format.date(date: latest.fromdate, format: 'Ym')}">
+            <f:then>onclick="nav_next({nextmonth})">&gt;</f:then>
+            <f:else>></f:else>
         </f:if>
     </span>
 </div>

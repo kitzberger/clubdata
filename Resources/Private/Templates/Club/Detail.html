@@ -1,0 +1,117 @@
+<f:if condition="{prevuid}">
+    <f:link.action action="detail" arguments="{showUid:prevuid}">
+        previous show
+    </f:link.action>
+</f:if>
+
+<f:if condition="{nextuid}">
+    <f:link.action action="detail" arguments="{showUid:nextuid}">
+        next show
+    </f:link.action>
+</f:if>
+
+<div class="tx-clubdata-pi1-item">
+    <f:if condition="{detailItem}">
+        <h1>{detailItem.title}</h1>
+        <div class="subtitle">
+            <i>{detailItem.subTitle}</i>
+        </div>
+        <div class="subtitle-2">
+            {detailItem.secSubTitle}
+        </div>
+        <div class="description">
+            {detailItem.description -> f:format.html()}
+        </div>
+        <div class="date">
+            Date: {detailItem.datetime -> f:format.date(format:'Y-m-d H:i')}
+        </div>
+
+        <table>
+            <tr>
+                <td style="vertical-align: top; padding-right: 1em;">
+                    <f:for each="{detailItem.picture}" as="image">
+                        <f:image image="{image}" maxWidth="400" />
+                    </f:for>
+                </td>
+                <td>
+                    <dl>
+                        <dt>intern</dt>
+                        <dd>{f:if(condition:detailItem.intern,then:'✔',else:'✗')}</dd>
+                        <dt>avoidNl</dt>
+                        <dd>{f:if(condition:detailItem.avoidNl,then:'✔',else:'✗')}</dd>
+                        <dt>highlight</dt>
+                        <dd>{f:if(condition:detailItem.highlight,then:'✔',else:'✗')}</dd>
+                        <dt>permHighlight</dt>
+                        <dd>{f:if(condition:detailItem.permHighlight,then:'✔',else:'✗')}</dd>
+                        <dt>hideDate</dt>
+                        <dd>{f:if(condition:detailItem.hideDate,then:'✔',else:'✗')}</dd>
+                        <dt>entrance</dt>
+                        <dd>{detailItem.entrance}</dd>
+                        <dt>seating</dt>
+                        <dd>{detailItem.seating}</dd>
+                        <dt>venue</dt>
+                        <dd>{detailItem.venue}</dd>
+                        <dt>catPriceA</dt>
+                        <dd>{detailItem.catPriceA}</dd>
+                        <dt>priceA</dt>
+                        <dd>{detailItem.priceA}</dd>
+                        <dt>catPriceB</dt>
+                        <dd>{detailItem.catPriceB}</dd>
+                        <dt>priceB</dt>
+                        <dd>{detailItem.priceB}</dd>
+                        <dt>catPriceC</dt>
+                        <dd>{detailItem.catPriceC}</dd>
+                        <dt>priceC</dt>
+                        <dd>{detailItem.priceC}</dd>
+                        <dt>ticketLink</dt>
+                        <dd>{detailItem.ticketLink}</dd>
+                        <dt>preSales</dt>
+                        <dd>{detailItem.preSales}</dd>
+                        <dt>internalInfo</dt>
+                        <dd>{detailItem.internalInfo}</dd>
+                        <dt>visitors</dt>
+                        <dd>{detailItem.visitors}</dd>
+                        <dt>state</dt>
+                        <dd>{detailItem.state.title}</dd>
+                        <dt>links</dt>
+                        <dd>
+                            <f:for each="{detailItem.links}" as="link">
+                                {link.title} ({link.link.title})<br>
+                            </f:for>
+                        </dd>
+                        <dt>services</dt>
+                        <dd>
+                            <f:for each="{detailItem.services}" as="service">
+                                {service.name}<br>
+                            </f:for>
+                        </dd>
+                        <dt>categories</dt>
+                        <dd>
+                             <f:for each="{detailItem.categories}" as="category">
+                                {category.title}<br>
+                            </f:for>
+                        </dd>
+                        <dt>maxTickets</dt>
+                        <dd>{detailItem.maxTickets}</dd>
+                        <dt>soldTickets</dt>
+                        <dd>{detailItem.soldTickets}</dd>
+                        <dt>serviceBarNum</dt>
+                        <dd>{detailItem.serviceBarNum}</dd>
+                        <dt>stateText</dt>
+                        <dd>{detailItem.stateText}</dd>
+                        <dt>seatings</dt>
+                        <dd>{detailItem.seatings}</dd>
+                        <dt>reduction</dt>
+                        <dd>{detailItem.reduction}</dd>
+                        <dt>genre</dt>
+                        <dd>{detailItem.genre}</dd>
+                        <dt>festival</dt>
+                        <dd>{detailItem.festival}</dd>
+                        <dt>noservice</dt>
+                        <dd>{detailItem.noservice}</dd>
+                    </dl>
+                </td>
+            </tr>
+        </table>
+    </f:if>
+</div>

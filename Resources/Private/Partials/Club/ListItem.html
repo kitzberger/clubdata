@@ -1,4 +1,6 @@
 <div class="list-item">
-{listItem.title}
+    <f:link.action pageUid="{settings.detailPid}" action="detail" arguments="{showUid:listItem.uid}">
+        {listItem.datetime -> f:format.date(format:'Y-m-d')}: {listItem.title}
+    </f:link.action>
 </div>
 
