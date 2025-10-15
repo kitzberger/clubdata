@@ -40,6 +40,7 @@ final class MigrateFromCkClubdata implements UpgradeWizardInterface
     {
         return 'Migrates all data from the old ck_clubdata extension tables to the new clubdata extension tables. ' .
             'This includes programs, services, states, links, seating configurations, and all relationship data. ' .
+            'Also updates sys_file_reference table names to maintain file attachments. ' .
             'The old tables will remain intact after migration for safety.';
     }
 
@@ -57,6 +58,9 @@ final class MigrateFromCkClubdata implements UpgradeWizardInterface
             foreach ($this->tableMapping as $oldTable => $newTable) {
                 $this->migrateTableData($connectionPool, $oldTable, $newTable);
             }
+
+            // Update sys_file_reference table names for file attachments
+            $this->updateFileReferenceTableNames($connectionPool);
 
             return true;
         } catch (\Exception $e) {
@@ -85,6 +89,11 @@ final class MigrateFromCkClubdata implements UpgradeWizardInterface
             if ($this->hasDataToMigrate($connectionPool, $oldTable, $newTable)) {
                 return true;
             }
+        }
+
+        // Check if file references need to be updated
+        if ($this->hasFileReferencesToUpdate($connectionPool)) {
+            return true;
         }
 
         return false;
@@ -238,6 +247,67 @@ final class MigrateFromCkClubdata implements UpgradeWizardInterface
             return array_keys($columns);
         } catch (\Exception $e) {
             return [];
+        }
+    }
+
+    /**
+     * Check if there are file references that need to be updated
+     */
+    protected function hasFileReferencesToUpdate(ConnectionPool $connectionPool): bool
+    {
+        try {
+            $connection = $connectionPool->getConnectionForTable('sys_file_reference');
+
+            foreach ($this->tableMapping as $oldTable => $newTable) {
+                $queryBuilder = $connection->createQueryBuilder();
+                $count = $queryBuilder
+                    ->count('*')
+                    ->from('sys_file_reference')
+                    ->where(
+                        $queryBuilder->expr()->eq(
+                            'tablenames',
+                            $queryBuilder->createNamedParameter($oldTable, Connection::PARAM_STR)
+                        )
+                    )
+                    ->executeQuery()
+                    ->fetchOne();
+
+                if ($count > 0) {
+                    return true;
+                }
+            }
+
+            return false;
+        } catch (\Exception $e) {
+            return false;
+        }
+    }
+
+    /**
+     * Update sys_file_reference table names from old to new table names
+     */
+    protected function updateFileReferenceTableNames(ConnectionPool $connectionPool): void
+    {
+        try {
+            $connection = $connectionPool->getConnectionForTable('sys_file_reference');
+
+            // Update table names in sys_file_reference for each mapped table
+            foreach ($this->tableMapping as $oldTable => $newTable) {
+                $queryBuilder = $connection->createQueryBuilder();
+                $queryBuilder
+                    ->update('sys_file_reference')
+                    ->where(
+                        $queryBuilder->expr()->eq(
+                            'tablenames',
+                            $queryBuilder->createNamedParameter($oldTable, Connection::PARAM_STR)
+                        )
+                    )
+                    ->set('tablenames', $newTable)
+                    ->executeStatement();
+            }
+        } catch (\Exception $e) {
+            // Log the error but don't fail the entire migration
+            error_log('Failed to update sys_file_reference table names: ' . $e->getMessage());
         }
     }
 }
