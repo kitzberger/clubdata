@@ -25,7 +25,7 @@ class ProgramRepository extends Repository
 
         $greaternow = intval($greaternow);
 
-        if ($greaternow > 0 and $greaternow < 2) {
+        if ($greaternow > 0 && $greaternow < 2) {
             $and_constraints[] = $query->greaterThanOrEqual('datetime', strtotime($now));
         } elseif ($greaternow == 2) {
             $and_constraints[] = $query->lessThan('datetime', strtotime(date('c')));
@@ -44,7 +44,10 @@ class ProgramRepository extends Repository
         }
 
         if ($filter['highlight'] ?? false) {
-            $query->setOrderings(['permHighlight' => QueryInterface::ORDER_DESCENDING,'datetime' => QueryInterface::ORDER_ASCENDING]);
+            $query->setOrderings([
+                'permHighlight' => QueryInterface::ORDER_DESCENDING,
+                'datetime' => QueryInterface::ORDER_ASCENDING
+            ]);
             $subConstraints = [];
             $subConstraints[] = $query->greaterThan('highlight', 0);
             $subConstraints[] = $query->greaterThan('permHighlight', 0);

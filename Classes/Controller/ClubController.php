@@ -132,7 +132,7 @@ class ClubController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         if ($this->settings['filter']) {
             $filter = $this->settings['filter'];
         }
-        if ($this->request->hasArgument('catUid') and $this->request->getArgument('catUid')) {
+        if ($this->request->hasArgument('catUid') && $this->request->getArgument('catUid')) {
             $filter['categories'] = $this->request->getArgument('catUid');
         }
         $filter['noservice'] = 1;
@@ -553,7 +553,7 @@ class ClubController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                 $pid = $this->settings['list']['detailPid'];
             }
         }
-        if ($pid and $showUid) {
+        if ($pid && $showUid) {
             return $this->redirect('detail', null, null, ['showUid' => $showUid,'movieUid' => $movieUid], $pid);
         } else {
             $Movie = $this->MovieRepository->findByUid($movieUid);
