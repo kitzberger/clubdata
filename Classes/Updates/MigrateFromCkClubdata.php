@@ -62,6 +62,9 @@ final class MigrateFromCkClubdata implements UpgradeWizardInterface
             // Update sys_file_reference table names for file attachments
             $this->updateFileReferenceTableNames($connectionPool);
 
+            // Update sys_category_record_mm table names
+            $this->updateCategoryReferencesTableNames($connectionPool);
+
             return true;
         } catch (\Exception $e) {
             // Log the error for debugging
@@ -93,6 +96,11 @@ final class MigrateFromCkClubdata implements UpgradeWizardInterface
 
         // Check if file references need to be updated
         if ($this->hasFileReferencesToUpdate($connectionPool)) {
+            return true;
+        }
+
+        // Check if file references need to be updated
+        if ($this->hasCategoryReferencesToUpdate($connectionPool)) {
             return true;
         }
 
@@ -308,6 +316,67 @@ final class MigrateFromCkClubdata implements UpgradeWizardInterface
         } catch (\Exception $e) {
             // Log the error but don't fail the entire migration
             error_log('Failed to update sys_file_reference table names: ' . $e->getMessage());
+        }
+    }
+
+    /**
+     * Check if there are category references that need to be updated
+     */
+    protected function hasCategoryReferencesToUpdate(ConnectionPool $connectionPool): bool
+    {
+        try {
+            $connection = $connectionPool->getConnectionForTable('sys_category_record_mm');
+
+            foreach ($this->tableMapping as $oldTable => $newTable) {
+                $queryBuilder = $connection->createQueryBuilder();
+                $count = $queryBuilder
+                    ->count('*')
+                    ->from('sys_category_record_mm')
+                    ->where(
+                        $queryBuilder->expr()->eq(
+                            'tablenames',
+                            $queryBuilder->createNamedParameter($oldTable, Connection::PARAM_STR)
+                        )
+                    )
+                    ->executeQuery()
+                    ->fetchOne();
+
+                if ($count > 0) {
+                    return true;
+                }
+            }
+
+            return false;
+        } catch (\Exception $e) {
+            return false;
+        }
+    }
+
+    /**
+     * Update sys_category_record_mm table names from old to new table names
+     */
+    protected function updateCategoryReferencesTableNames(ConnectionPool $connectionPool): void
+    {
+        try {
+            $connection = $connectionPool->getConnectionForTable('sys_category_record_mm');
+
+            // Update table names in sys_category_record_mm for each mapped table
+            foreach ($this->tableMapping as $oldTable => $newTable) {
+                $queryBuilder = $connection->createQueryBuilder();
+                $queryBuilder
+                    ->update('sys_category_record_mm')
+                    ->where(
+                        $queryBuilder->expr()->eq(
+                            'tablenames',
+                            $queryBuilder->createNamedParameter($oldTable, Connection::PARAM_STR)
+                        )
+                    )
+                    ->set('tablenames', $newTable)
+                    ->executeStatement();
+            }
+        } catch (\Exception $e) {
+            // Log the error but don't fail the entire migration
+            error_log('Failed to update sys_category_record_mm table names: ' . $e->getMessage());
         }
     }
 }
