@@ -435,38 +435,22 @@ return [
             'label' => 'LLL:EXT:clubdata/Resources/Private/Language/locallang_db.xlf:tx_clubdata_domain_model_program.links',
             'config' => [
                 'type' => 'inline',
-                'foreign_table' => 'tx_clubdata_domain_model_programlinkrel',
+                'foreign_table' => 'tx_clubdata_program_link_mm',
                 'foreign_field' => 'program',
+                'foreign_label' => 'link',
                 'foreign_unique' => 'link',
-                'maxitems' => 9999,
-                'appearance' => [
-                    'collapseAll' => 1,
-                    'levelLinksPosition' => 'top',
-                    'showSynchronizationLink' => 0,
-                    'showPossibleLocalizationRecords' => 1,
-                    'showAllLocalizationLink' => 1
-                ],
             ],
-
         ],
         'services' => [
             'exclude' => true,
             'label' => 'LLL:EXT:clubdata/Resources/Private/Language/locallang_db.xlf:tx_clubdata_domain_model_program.services',
             'config' => [
                 'type' => 'inline',
-                'foreign_table' => 'tx_clubdata_domain_model_programservicerel',
+                'foreign_table' => 'tx_clubdata_program_service_user_mm',
                 'foreign_field' => 'program',
+                'foreign_label' => 'service',
                 'foreign_unique' => 'service',
-                'maxitems' => 9999,
-                'appearance' => [
-                    'collapseAll' => 1,
-                    'levelLinksPosition' => 'top',
-                    'showSynchronizationLink' => 0,
-                    'showPossibleLocalizationRecords' => 0,
-                    'showAllLocalizationLink' => 0
-                ],
             ],
-
         ],
         'categories' => [
             'exclude' => true,
@@ -489,7 +473,6 @@ return [
                 'maxitems' => 1,
             ],
         ],
-
         'reduction' => [
             'exclude' => true,
             'label' => 'LLL:EXT:clubdata/Resources/Private/Language/locallang_db.xlf:tx_clubdata_domain_model_program.reduction',
@@ -512,7 +495,6 @@ return [
                 'default' => 0
             ]
         ],
-
         'noservice' => [
             'exclude' => true,
             'label' => 'LLL:EXT:clubdata/Resources/Private/Language/locallang_db.xlf:tx_clubdata_domain_model_program.noservice',
@@ -521,7 +503,6 @@ return [
                 'default' => 0
             ]
         ],
-
         'genre' => [
             'exclude' => true,
             'label' => 'LLL:EXT:clubdata/Resources/Private/Language/locallang_db.xlf:tx_clubdata_domain_model_program.genre',
@@ -531,6 +512,5 @@ return [
                 'eval' => 'trim'
             ],
         ],
-
     ],
 ];

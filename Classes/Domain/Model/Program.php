@@ -188,7 +188,7 @@ class Program extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * links
      *
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Medpzl\Clubdata\Domain\Model\ProgramLinkRel>
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Medpzl\Clubdata\Domain\Model\ProgramLink>
      */
     #[\TYPO3\CMS\Extbase\Annotation\ORM\Cascade(['value' => 'remove'])]
     protected $links = null;
@@ -196,7 +196,7 @@ class Program extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * services
      *
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Medpzl\Clubdata\Domain\Model\ProgramServiceRel>
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Medpzl\Clubdata\Domain\Model\ProgramServiceUser>
      */
     #[\TYPO3\CMS\Extbase\Annotation\ORM\Cascade(['value' => 'remove'])]
     protected $services = null;
@@ -204,7 +204,7 @@ class Program extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * categories
      *
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\Category>
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Medpzl\Clubdata\Domain\Model\Category>
      *
      */
     #[\TYPO3\CMS\Extbase\Annotation\ORM\Lazy]
@@ -873,23 +873,23 @@ class Program extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
 
     /**
-     * Adds a ProgramLinkRel
+     * Adds a ProgramLink
      *
-     * @param \Medpzl\Clubdata\Domain\Model\ProgramLinkRel $link
+     * @param \Medpzl\Clubdata\Domain\Model\ProgramLink $link
      * @return void
      */
-    public function addLink(\Medpzl\Clubdata\Domain\Model\ProgramLinkRel $link): void
+    public function addLink(\Medpzl\Clubdata\Domain\Model\ProgramLink $link): void
     {
         $this->links->attach($link);
     }
 
     /**
-     * Removes a ProgramLinkRel
+     * Removes a ProgramLink
      *
-     * @param \Medpzl\Clubdata\Domain\Model\ProgramLinkRel $linkToRemove The ProgramLinkRel to be removed
+     * @param \Medpzl\Clubdata\Domain\Model\ProgramLink $linkToRemove The ProgramLink to be removed
      * @return void
      */
-    public function removeLink(\Medpzl\Clubdata\Domain\Model\ProgramLinkRel $linkToRemove): void
+    public function removeLink(\Medpzl\Clubdata\Domain\Model\ProgramLink $linkToRemove): void
     {
         $this->links->detach($linkToRemove);
     }
@@ -897,7 +897,7 @@ class Program extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the links
      *
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Medpzl\Clubdata\Domain\Model\ProgramLinkRel> $links
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Medpzl\Clubdata\Domain\Model\ProgramLink> $links
      */
     public function getLinks()
     {
@@ -907,7 +907,7 @@ class Program extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Sets the links
      *
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Medpzl\Clubdata\Domain\Model\ProgramLinkRel> $links
+     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Medpzl\Clubdata\Domain\Model\ProgramLink> $links
      * @return void
      */
     public function setLinks(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $links): void
@@ -916,23 +916,23 @@ class Program extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     }
 
     /**
-     * Adds a ProgramServiceRel
+     * Adds a ProgramServiceUser
      *
-     * @param \Medpzl\Clubdata\Domain\Model\ProgramServiceRel $service
+     * @param \Medpzl\Clubdata\Domain\Model\ProgramServiceUser $service
      * @return void
      */
-    public function addService(\Medpzl\Clubdata\Domain\Model\ProgramServiceRel $service): void
+    public function addService(\Medpzl\Clubdata\Domain\Model\ProgramServiceUser $service): void
     {
         $this->services->attach($service);
     }
 
     /**
-     * Removes a ProgramServiceRel
+     * Removes a ProgramServiceUser
      *
-     * @param \Medpzl\Clubdata\Domain\Model\ProgramServiceRel $serviceToRemove The ProgramServiceRel to be removed
+     * @param \Medpzl\Clubdata\Domain\Model\ProgramServiceUser $serviceToRemove The ProgramServiceUser to be removed
      * @return void
      */
-    public function removeService(\Medpzl\Clubdata\Domain\Model\ProgramServiceRel $serviceToRemove): void
+    public function removeService(\Medpzl\Clubdata\Domain\Model\ProgramServiceUser $serviceToRemove): void
     {
         $this->services->detach($serviceToRemove);
     }
@@ -940,7 +940,7 @@ class Program extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the services
      *
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Medpzl\Clubdata\Domain\Model\ProgramServiceRel> $services
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Medpzl\Clubdata\Domain\Model\ProgramServiceUser> $services
      */
     public function getServices()
     {
@@ -950,7 +950,7 @@ class Program extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Sets the services
      *
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Medpzl\Clubdata\Domain\Model\ProgramServiceRel> $services
+     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Medpzl\Clubdata\Domain\Model\ProgramServiceUser> $services
      * @return void
      */
     public function setServices(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $services): void
@@ -961,10 +961,10 @@ class Program extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Adds a Category
      *
-     * @param \TYPO3\CMS\Extbase\Domain\Model\Category $category
+     * @param \Medpzl\Clubdata\Domain\Model\Category $category
      * @return void
      */
-    public function addCategory(\TYPO3\CMS\Extbase\Domain\Model\Category $category): void
+    public function addCategory(\Medpzl\Clubdata\Domain\Model\Category $category): void
     {
         $this->categories->attach($category);
     }
@@ -972,10 +972,10 @@ class Program extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Removes a Category
      *
-     * @param \TYPO3\CMS\Extbase\Domain\Model\Category $categoryToRemove The Category to be removed
+     * @param \Medpzl\Clubdata\Domain\Model\Category $categoryToRemove The Category to be removed
      * @return void
      */
-    public function removeCategory(\TYPO3\CMS\Extbase\Domain\Model\Category $categoryToRemove): void
+    public function removeCategory(\Medpzl\Clubdata\Domain\Model\Category $categoryToRemove): void
     {
         $this->categories->detach($categoryToRemove);
     }
@@ -983,7 +983,7 @@ class Program extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the categories
      *
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\Category> $categories
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Medpzl\Clubdata\Domain\Model\Category> $categories
      */
     public function getCategories()
     {
@@ -993,7 +993,7 @@ class Program extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Sets the categories
      *
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\Category> $categories
+     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Medpzl\Clubdata\Domain\Model\Category> $categories
      * @return void
      */
     public function setCategories(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $categories): void

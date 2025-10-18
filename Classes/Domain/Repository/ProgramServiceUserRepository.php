@@ -4,7 +4,7 @@ namespace Medpzl\Clubdata\Domain\Repository;
 
 use TYPO3\CMS\Extbase\Persistence\Repository;
 
-class ProgramServiceRepository extends Repository
+class ProgramServiceUserRepository extends Repository
 {
     public function findEntry($user = 0, $program = 0, $service = 0)
     {

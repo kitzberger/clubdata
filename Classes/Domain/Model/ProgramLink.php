@@ -2,7 +2,7 @@
 
 namespace Medpzl\Clubdata\Domain\Model;
 
-class ProgramLinkRel extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
+class ProgramLink extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 {
     /**
      * title

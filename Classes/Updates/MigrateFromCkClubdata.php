@@ -25,10 +25,9 @@ final class MigrateFromCkClubdata implements UpgradeWizardInterface
         'tx_ckclubdata_domain_model_state' => 'tx_clubdata_domain_model_state',
         'tx_ckclubdata_domain_model_link' => 'tx_clubdata_domain_model_link',
         'tx_ckclubdata_domain_model_service' => 'tx_clubdata_domain_model_service',
-        'tx_ckclubdata_domain_model_programlinkrel' => 'tx_clubdata_domain_model_programlinkrel',
-        'tx_ckclubdata_domain_model_programservicerel' => 'tx_clubdata_domain_model_programservicerel',
         'tx_ckclubdata_domain_model_seating' => 'tx_clubdata_domain_model_seating',
-        'tx_ckclubdata_domain_model_programservice' => 'tx_clubdata_domain_model_programservice',
+        'tx_ckclubdata_domain_model_programlinkrel' => 'tx_clubdata_program_link_mm',
+        'tx_ckclubdata_domain_model_programservice' => 'tx_clubdata_program_service_user_mm',
     ];
 
     public function getTitle(): string

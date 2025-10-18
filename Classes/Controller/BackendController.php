@@ -4,15 +4,19 @@ namespace Medpzl\Clubdata\Controller;
 
 use Medpzl\Clubdata\Domain\Model\FrontendUser;
 use Medpzl\Clubdata\Domain\Model\ProgramService;
+use Medpzl\Clubdata\Domain\Model\ProgramServiceUser;
 use Medpzl\Clubdata\Domain\Repository\CategoryRepository;
 use Medpzl\Clubdata\Domain\Repository\FrontendUserRepository;
 use Medpzl\Clubdata\Domain\Repository\ProgramRepository;
-use Medpzl\Clubdata\Domain\Repository\ProgramServiceRepository;
+use Medpzl\Clubdata\Domain\Repository\ProgramServiceUserRepository;
 use Medpzl\Clubdata\Domain\Repository\ServiceRepository;
 use Medpzl\Clubdata\Domain\Service\SessionHandler;
 use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Backend\Template\ModuleTemplateFactory;
+use TYPO3\CMS\Core\Messaging\FlashMessage;
+use TYPO3\CMS\Core\Messaging\FlashMessageService;
 use TYPO3\CMS\Core\Page\PageRenderer;
+use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
@@ -24,7 +28,7 @@ class BackendController extends ActionController
         protected PersistenceManager $persistenceManager,
         protected ProgramRepository $programRepository,
         protected CategoryRepository $categoryRepository,
-        protected ProgramServiceRepository $programServiceRepository,
+        protected ProgramServiceUserRepository $programServiceUserRepository,
         protected ServiceRepository $serviceRepository,
         protected FrontendUserRepository $userRepository,
         protected SessionHandler $sessionHandler,
@@ -80,8 +84,10 @@ class BackendController extends ActionController
         $showmonth = date('Ymd', strtotime($fromdate));
         $now = date('c');
 
+        // Get all them services (Theke, Kasse, ...)
         $services = $this->serviceRepository->findAll();
 
+        // Get all the events of this month
         $programs = $this->programRepository->findWithinMonth(
             $filter,
             strtotime($fromdate),
@@ -90,37 +96,17 @@ class BackendController extends ActionController
             $now
         );
 
-        $users = $this->userRepository->findAll();
-
-        $filtered_users = [];
-        foreach ($users as $usr) {
-            foreach ($usr->getUsergroup() as $group) {
-                if ($group->getUid() == intval($this->settings['service']['groupId'] ?? 0)) {
-                    if ($usr->getFirstName() != '') {
-                        $filtered_users[] = $usr;
-                    }
-                }
-            }
+        // Get all potential users
+        if ($this->settings['service']['groupId'] ?? false) {
+            $users = $this->userRepository->findByGroup((int)$this->settings['service']['groupId']);
+        } else {
+            $users = $this->userRepository->findAll();
         }
 
-        $names = [];
-        foreach ($filtered_users as $object) {
-            if ($this->settings['service']['sortby'] == 'firstname') {
-                $names[] = $object->getFirstName();
-            } else {
-                $names[] = $object->getLastName();
-            }
-        }
-
-        array_multisort($names, SORT_ASC, $filtered_users);
-
-        $users = [];
-        foreach ($filtered_users as $user) {
-            $new = GeneralUtility::makeInstance(FrontendUser::class);
-            $new->setUsername($user->getFirstName() . ' ' . $user->getLastName());
-            $new->setAddress($user->getUid());
-            $users[] = $new;
-        }
+        $users = $users->toArray();
+        usort($users, function ($a, $b) {
+            return $a->getLastname() <=> $b->getLastname();
+        });
 
         $latest = $this->programRepository->findLatest();
         $oldest = $this->programRepository->findOldest($this->settings['list']['greaternow'], $now);
@@ -189,7 +175,7 @@ class BackendController extends ActionController
 
         // Add CSS and JS files
         $this->pageRenderer->addCssFile('EXT:clubdata/Resources/Public/Css/Backend.css');
-        $this->pageRenderer->addJsFile('EXT:clubdata/Resources/Public/Js/clubdata.js');
+        $this->pageRenderer->addJsFile('EXT:clubdata/Resources/Public/Js/backend.js');
 
         return $moduleTemplate->renderResponse('Backend/ListHelpers');
     }
@@ -202,21 +188,20 @@ class BackendController extends ActionController
             $this->userRepository->setDefaultQuerySettings($querySettings);
         }
 
-        $args = $this->request->getArguments();
-        if ($this->request->hasArgument('ps')) {
-            $entries = $args['ps'];
+        if ($this->request->hasArgument('psu')) {
+            $entries = $this->request->getArgument('psu');
         }
 
         $items = [];
         foreach ($entries as $entry) {
             $parts = explode('-', $entry);
-            $changed = 0;
+            $changed = ProgramServiceUser::OPERATION_NONE;
             if ($parts[3] == 'c') {
-                $changed = 1;
+                $changed = ProgramServiceUser::OPERATION_CHANGE;
             }
             if ($parts[3] == 'd') {
-                $changed = 2;
-            } // delete
+                $changed = ProgramServiceUser::OPERATION_DELETE;
+            }
             $items[] = [
                 'user' => substr($parts[2], 1),
                 'program' => substr($parts[0], 1),
@@ -225,44 +210,41 @@ class BackendController extends ActionController
             ];
         }
 
+        $count = 0;
         foreach ($items as $item) {
             if ($item['changed']) {
-                if ($item['changed'] == 2) {
-                    $delete = $this->programServiceRepository->findEntry($item['user'], $item['program'], $item['service']);
-                    if (count($delete)) {
-                        $this->programServiceRepository->remove($delete[0]);
-                        $this->persistenceManager->persistAll();
+                $count++;
+                if ($item['changed'] == ProgramServiceUser::OPERATION_DELETE) {
+                    $programServiceUser = $this->programServiceUserRepository->findEntry($item['user'], $item['program'], $item['service']);
+                    if (count($programServiceUser)) {
+                        $this->programServiceUserRepository->remove($programServiceUser[0]);
                     }
                 } else {
-                    $update = $this->programServiceRepository->findEntry(0, $item['program'], $item['service']);
-                    if (count($update)) {
-                        $operation = 'update';
-                    } else {
-                        $operation = 'insert';
-                    }
-                    if ($operation == 'insert') {
-                        if (count($this->programServiceRepository->findEntry(0, $item['program'], $item['service']))) {
-                            // already booked
-                        } else {
-                            $user = $this->userRepository->findByUid($item['user']);
-                            $program = $this->programRepository->findByUid($item['program']);
-                            $service = $this->serviceRepository->findByUid($item['service']);
-                            $newProgramService = GeneralUtility::makeInstance(ProgramService::class);
-                            $newProgramService->setUser($user);
-                            $newProgramService->setProgram($program);
-                            $newProgramService->setService($service);
-                            $this->programServiceRepository->add($newProgramService);
-                            $this->persistenceManager->persistAll();
-                        }
-                    } else {
-                        $user = $this->userRepository->findByUid($item['user']);
-                        $newProgramService = $update[0];
+                    $programServiceUser = $this->programServiceUserRepository->findEntry(0, $item['program'], $item['service']);
+                    $user = $this->userRepository->findByUid($item['user']);
+                    if (count($programServiceUser) === 0) {
+                        $program = $this->programRepository->findByUid($item['program']);
+                        $service = $this->serviceRepository->findByUid($item['service']);
+                        $newProgramService = GeneralUtility::makeInstance(ProgramServiceUser::class);
                         $newProgramService->setUser($user);
-                        $this->programServiceRepository->update($newProgramService);
-                        $this->persistenceManager->persistAll();
+                        $newProgramService->setProgram($program);
+                        $newProgramService->setService($service);
+                        $this->programServiceUserRepository->add($newProgramService);
+                    } else {
+                        $programServiceUser = $programServiceUser[0];
+                        if ($programServiceUser) {
+                            $programServiceUser->setUser($user);
+                            $this->programServiceUserRepository->update($programServiceUser);
+                        }
                     }
                 }
             }
+        }
+
+        if ($count > 0) {
+            $this->addFlashMessages(sprintf('%d relation(s) changed.', $count), 'Helperplan updated', ContextualFeedbackSeverity::OK);
+        } else {
+            $this->addFlashMessages('Nothing changed.', 'Helperplan not updated', ContextualFeedbackSeverity::WARNING);
         }
 
         $arguments = [];
@@ -270,5 +252,18 @@ class BackendController extends ActionController
             $arguments = ['date' => $this->request->getArgument('date')];
         }
         return $this->redirect('listHelpers', null, null, $arguments);
+    }
+
+    private function addFlashMessages($message, $header, $severity)
+    {
+        $message = GeneralUtility::makeInstance(FlashMessage::class,
+           $message,
+           $header,
+           $severity,
+           true
+        );
+        $flashMessageService = GeneralUtility::makeInstance(FlashMessageService::class);
+        $messageQueue = $flashMessageService->getMessageQueueByIdentifier();
+        $messageQueue->addMessage($message);
     }
 }

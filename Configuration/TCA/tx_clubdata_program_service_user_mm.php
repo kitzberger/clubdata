@@ -2,8 +2,8 @@
 
 return [
     'ctrl' => [
-        'title' => 'LLL:EXT:clubdata/Resources/Private/Language/locallang_db.xlf:tx_clubdata_domain_model_programservicerel',
-        'label' => 'name',
+        'title' => 'LLL:EXT:clubdata/Resources/Private/Language/locallang_db.xlf:tx_clubdata_program_service_user_mm',
+        'label' => 'remark',
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
         'versioningWS' => true,
@@ -17,13 +17,13 @@ return [
             'starttime' => 'starttime',
             'endtime' => 'endtime',
         ],
-        'searchFields' => 'name,program,service',
+        'searchFields' => 'remark,program,service,user',
         'typeicon_classes' => [
-            'default' => 'clubdata-programservicerel'
+            'default' => 'clubdata-programservice'
         ]
     ],
     'types' => [
-        '1' => ['showitem' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, name, program, service, --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime'],
+        '1' => ['showitem' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, remark, program, service, user, --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime'],
     ],
     'columns' => [
         'sys_language_uid' => [
@@ -37,12 +37,11 @@ return [
             'config' => [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
-                'default' => 0,
                 'items' => [
                     ['label' => '', 'value' => 0],
                 ],
-                'foreign_table' => 'tx_clubdata_domain_model_programservicerel',
-                'foreign_table_where' => 'AND tx_clubdata_domain_model_programservicerel.pid=###CURRENT_PID### AND tx_clubdata_domain_model_programservicerel.sys_language_uid IN (-1,0)',
+                'foreign_table' => 'tx_clubdata_program_service_user_mm',
+                'foreign_table_where' => 'AND tx_clubdata_program_service_user_mm.pid=###CURRENT_PID### AND tx_clubdata_program_service_user_mm.sys_language_uid IN (-1,0)',
             ],
         ],
         'l10n_diffsource' => [
@@ -80,7 +79,7 @@ return [
                 'type' => 'datetime',
                 'size' => 13,
                 'default' => 0,
-            ],
+            ]
         ],
         'endtime' => [
             'exclude' => true,
@@ -94,13 +93,12 @@ return [
                 'default' => 0,
                 'range' => [
                     'upper' => mktime(0, 0, 0, 1, 1, 2038)
-                ],
+                ]
             ],
         ],
-
-        'name' => [
+        'remark' => [
             'exclude' => true,
-            'label' => 'LLL:EXT:clubdata/Resources/Private/Language/locallang_db.xlf:tx_clubdata_domain_model_programservicerel.name',
+            'label' => 'LLL:EXT:clubdata/Resources/Private/Language/locallang_db.xlf:tx_clubdata_program_service_user_mm.remark',
             'config' => [
                 'type' => 'input',
                 'size' => 30,
@@ -109,19 +107,34 @@ return [
         ],
         'program' => [
             'exclude' => true,
-            'label' => 'LLL:EXT:clubdata/Resources/Private/Language/locallang_db.xlf:tx_clubdata_domain_model_programservicerel.program',
+            'label' => 'LLL:EXT:clubdata/Resources/Private/Language/locallang_db.xlf:tx_clubdata_program_service_user_mm.program',
             'config' => [
-                'type' => 'number',
-                'size' => 4
-            ]
+                'type' => 'select',
+                'renderType' => 'selectSingle',
+                'foreign_table' => 'tx_clubdata_domain_model_program',
+                'minitems' => 0,
+                'maxitems' => 1,
+            ],
         ],
         'service' => [
             'exclude' => true,
-            'label' => 'LLL:EXT:clubdata/Resources/Private/Language/locallang_db.xlf:tx_clubdata_domain_model_programservicerel.service',
+            'label' => 'LLL:EXT:clubdata/Resources/Private/Language/locallang_db.xlf:tx_clubdata_program_service_user_mm.service',
             'config' => [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
                 'foreign_table' => 'tx_clubdata_domain_model_service',
+                'minitems' => 0,
+                'maxitems' => 1,
+            ],
+        ],
+        'user' => [
+            'exclude' => true,
+            'label' => 'LLL:EXT:clubdata/Resources/Private/Language/locallang_db.xlf:tx_clubdata_program_service_user_mm.user',
+            'config' => [
+                'type' => 'select',
+                'renderType' => 'selectSingle',
+                'foreign_table' => 'fe_users',
+                'foreign_table_where' => 'AND fe_users.usergroup like "%4%"',
                 'minitems' => 0,
                 'maxitems' => 1,
             ],

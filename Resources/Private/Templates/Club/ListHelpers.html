@@ -1,88 +1,91 @@
 <div class="tx-clubdata-pi1">
-    <f:if condition="error">
-        <f:then>
-            {error}
-        </f:then>
-    </f:if>
-    <div class="userinfo">
-        Angemeldet als <span class="me">{user.firstName} {user.lastName}</span>
-    </div>
-    <div class="list-nav">
-        <f:if condition="{settings.list.pageyears}">
-            <f:then>
-                <div class="list-nav year">
-                    <f:for each="{nav}" as="years">
-                        <div class="pager-item {f:if(condition: '{currmonth} == {years.year}', then: 'act')}">
-                            <f:link.action action="listHelpers" arguments="{date: years.date}" addQueryString="true">{years.title}</f:link.action>
-                        </div>
-                    </f:for>
-                </div>
-            </f:then>
-            <f:else>
-                <div class="list-nav year">
-                    <span class="nav-prev">
-                        <f:if condition="{settings.list.show}=='year'">
-                            <f:then>
-                                <f:if condition="{currmonth} != {f:format.date(date: oldest.datetime, format: 'Y')}">
-                                    <f:then>
-                                        <f:link.action action="listHelpers" arguments="{date: prevmonth}" addQueryString="true">
-                                            &lt;
-                                        </f:link.action>
-                                    </f:then>
-                                </f:if>
-                            </f:then>
-                            <f:else>
-                                <f:if condition="{currmonth} != {f:format.date(date: oldest.datetime, format: 'Ym')}">
-                                    <f:then>
-                                        <f:link.action action="listHelpers" arguments="{date: prevmonth}" addQueryString="true">
-                                            &lt;
-                                        </f:link.action>
-                                      </f:then>
-                                </f:if>
-                            </f:else>
-                        </f:if>
-                    </span>
-                    <span class="nav-next">
-                        <f:if condition="{settings.list.show}=='year'">
-                            <f:then>
-                                <f:if condition="{currmonth} != {f:format.date(date: latest.datetime, format: 'Y')}">
-                                    <f:then>
-                                        <f:link.action action="listHelpers" arguments="{date: nextmonth}" addQueryString="true">
-                                            &gt;
-                                        </f:link.action>
-                                    </f:then>
-                                </f:if>
-                            </f:then>
-                            <f:else>
-                                <f:if condition="{currmonth} != {f:format.date(date: latest.datetime, format: 'Ym')}">
-                                    <f:then>
-                                        <f:link.action action="listHelpers" arguments="{date: nextmonth}" addQueryString="true">
-                                            &gt;
-                                        </f:link.action>
-                                    </f:then>
-                                </f:if>
-                            </f:else>
-                        </f:if>
-                    </span>
-                    <f:if condition="{settings.list.show}=='year'">
-                        <f:then>
-                            <f:format.date format="%Y">{showmonth}</f:format.date>
-                        </f:then>
-                        <f:else>
-                            <f:format.date format="%B %y">{showmonth}</f:format.date>
-                        </f:else>
-                    </f:if>
-                </div>
-            </f:else>
-        </f:if>
-    </div>
+    <f:flashMessages />
 
-    <f:form method="post" action="saveHelpers" name="ProgramService" addQueryString="1">
-        <table style="width: 100%;">
-            <f:for each="{programs}" as="listItem" iteration="iterator">
-                <f:render partial="Club/ListHelperItem" arguments="{listItem:listItem,settings:settings,iterator:iterator,services:services,users:users,user:user}" />
-            </f:for>
-        </table>
-        <f:form.submit value="speichern" class="btn hide" id="save"/>
-    </f:form>
+    <f:if condition="{user}">
+        <f:if condition="{settings.listhelpers.displayUserInfo}">
+            <div class="userinfo">
+                Angemeldet als <span class="me">{user.firstName} {user.lastName}</span>
+            </div>
+        </f:if>
+        <div class="list-nav">
+            <f:if condition="{settings.list.pageyears}">
+                <f:then>
+                    <div class="list-nav year">
+                        <f:for each="{nav}" as="years">
+                            <div class="pager-item {f:if(condition: '{currmonth} == {years.year}', then: 'act')}">
+                                <f:link.action action="listHelpers" arguments="{date: years.date}" addQueryString="true">
+                                    {years.title}
+                                </f:link.action>
+                            </div>
+                        </f:for>
+                    </div>
+                </f:then>
+                <f:else>
+                    <div class="list-nav year">
+                        <span class="nav-prev">
+                            <f:if condition="{settings.list.show} == 'year'">
+                                <f:then>
+                                    <f:if condition="{currmonth} != {f:format.date(date: oldest.datetime, format: 'Y')}">
+                                        <f:then>
+                                            <f:link.action action="listHelpers" arguments="{date: prevmonth}" addQueryString="true">
+                                                &lt;
+                                            </f:link.action>
+                                        </f:then>
+                                    </f:if>
+                                </f:then>
+                                <f:else>
+                                    <f:if condition="{currmonth} != {f:format.date(date: oldest.datetime, format: 'Ym')}">
+                                        <f:then>
+                                            <f:link.action action="listHelpers" arguments="{date: prevmonth}" addQueryString="true">
+                                                &lt;
+                                            </f:link.action>
+                                          </f:then>
+                                    </f:if>
+                                </f:else>
+                            </f:if>
+                        </span>
+                        <f:if condition="{settings.list.show} == 'year'">
+                            <f:then>
+                                <f:format.date format="%Y">{showmonth}</f:format.date>
+                            </f:then>
+                            <f:else>
+                                <f:format.date format="%B %y">{showmonth}</f:format.date>
+                            </f:else>
+                        </f:if>
+                        <span class="nav-next">
+                            <f:if condition="{settings.list.show} == 'year'">
+                                <f:then>
+                                    <f:if condition="{currmonth} != {f:format.date(date: latest.datetime, format: 'Y')}">
+                                        <f:then>
+                                            <f:link.action action="listHelpers" arguments="{date: nextmonth}" addQueryString="true">
+                                                &gt;
+                                            </f:link.action>
+                                        </f:then>
+                                    </f:if>
+                                </f:then>
+                                <f:else>
+                                    <f:if condition="{currmonth} != {f:format.date(date: latest.datetime, format: 'Ym')}">
+                                        <f:then>
+                                            <f:link.action action="listHelpers" arguments="{date: nextmonth}" addQueryString="true">
+                                                &gt;
+                                            </f:link.action>
+                                        </f:then>
+                                    </f:if>
+                                </f:else>
+                            </f:if>
+                        </span>
+                    </div>
+                </f:else>
+            </f:if>
+        </div>
+
+        <f:form method="post" action="saveHelpers" name="ProgramService" addQueryString="1">
+            <table style="width: 100%;">
+                <f:for each="{programs}" as="program" iteration="iterator">
+                    <f:render partial="Club/ListHelperItem" arguments="{program:program,settings:settings,iterator:iterator,services:services,users:users,user:user}" />
+                </f:for>
+            </table>
+            <f:form.submit class="btn btn-primary hide" id="save" value="{f:translate(key:'listhelpers.submit',default:'save')}" />
+        </f:form>
+    </f:if>
 </div>

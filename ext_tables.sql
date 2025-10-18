@@ -51,23 +51,17 @@ CREATE TABLE tx_clubdata_domain_model_service (
     title varchar(255) DEFAULT '' NOT NULL
 );
 
-CREATE TABLE tx_clubdata_domain_model_programlinkrel (
+CREATE TABLE tx_clubdata_domain_model_seating (
+    title varchar(255) DEFAULT '' NOT NULL
+);
+
+CREATE TABLE tx_clubdata_program_link_mm (
     title varchar(255) DEFAULT '' NOT NULL,
     program int(11) DEFAULT '0' NOT NULL,
     link int(11) unsigned DEFAULT '0'
 );
 
-CREATE TABLE tx_clubdata_domain_model_programservicerel (
-    name varchar(255) DEFAULT '' NOT NULL,
-    program int(11) DEFAULT '0' NOT NULL,
-    service int(11) unsigned DEFAULT '0'
-);
-
-CREATE TABLE tx_clubdata_domain_model_seating (
-    title varchar(255) DEFAULT '' NOT NULL
-);
-
-CREATE TABLE tx_clubdata_domain_model_programservice (
+CREATE TABLE tx_clubdata_program_service_user_mm (
     remark varchar(255) DEFAULT '' NOT NULL,
     program int(11) unsigned DEFAULT '0',
     service int(11) unsigned DEFAULT '0',

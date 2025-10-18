@@ -33,13 +33,14 @@ plugin.tx_clubdata {
         detail.media.image.maxWidth = 380
         detail.media.image.maxWHeight = 380
         carousel.maxHeight = 425
+
+        listhelpers.displayUserInfo = 1
     }
 }
 
 page.includeCSS.file35 = {$plugin.tx_clubdata.settings.cssFile}
 page.includeCSS.file36 = {$plugin.tx_clubdata.settings.cssSliderFile}
-page.includeJS.file1 = {$plugin.tx_clubdata.settings.jQueryLib}
-page.includeJSFooter.file1 = {$plugin.tx_clubdata.settings.jQueryFile}
+page.includeJSFooter.clubdata = {$plugin.tx_clubdata.settings.jsFile}
 page.includeJS.slider = EXT:clubdata/Resources/Public/Js/jssor.slider-27.4.0.min.js
 
 lib.clubdata_list = USER

@@ -8,12 +8,9 @@
 <f:layout name="Module" />
 
 <f:section name="Content">
-    <div class="tx-clubdata-pi1">
-        <f:if condition="{error}">
-            <f:then>
-                {error}
-            </f:then>
-        </f:if>
+    <f:flashMessages />
+
+    <div class="tx-clubdata-mod">
         <div class="list-nav">
             <f:if condition="{settings.list.pageyears}">
                 <f:then>
@@ -96,11 +93,11 @@
         </div>
         <f:form method="post" action="saveHelpers" name="ProgramService" addQueryString="1">
             <table class="table table-striped" style="width: 100%;">
-                <f:for each="{programs}" as="listItem" iteration="iterator">
-                    <f:render partial="Backend/ListHelperItem" arguments="{listItem:listItem,settings:settings,iterator:iterator,services:services,users:users,user:user}" />
+                <f:for each="{programs}" as="program" iteration="iterator">
+                    <f:render partial="Backend/ListHelperItem" arguments="{program:program,settings:settings,iterator:iterator,services:services,users:users,user:user}" />
                 </f:for>
             </table>
-            <f:form.submit value="Änderungen speichern" class="btn btn-primary" id="save" />
+            <f:form.submit value="Änderungen speichern" class="btn btn-primary hide" id="save" />
         </f:form>
     </div>
 </f:section>

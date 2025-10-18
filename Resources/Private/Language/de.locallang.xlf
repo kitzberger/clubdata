@@ -1,31 +1,39 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-   <file source-language="en" datatype="plaintext" original="messages" date="2018-11-19T17:31:17Z" product-name="clubdata">
+   <file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2018-11-19T17:31:17Z" product-name="clubdata">
       <header/>
       <body>
          <trans-unit id="listhelpers.error">
             <source>Error</source>
+            <target>Fehler</target>
          </trans-unit>
          <trans-unit id="listhelpers.error.not-logged-in">
             <source>Please login to proceed!</source>
+            <target>Bitte anmelden, um fortzufahren!</target>
          </trans-unit>
          <trans-unit id="listhelpers.error.wrong-group">
             <source>You lack the necessary permissions to access this tool. Contact your admin!</source>
+            <target>Unzureichende Berechtigungen. Bitte Admin kontaktieren!</target>
          </trans-unit>
          <trans-unit id="listhelpers.success">
             <source>Update successful!</source>
+            <target>Aktualisierung erfolgreich!</target>
          </trans-unit>
          <trans-unit id="listhelpers.success.added-yourself">
             <source>You've just added yourself as helper on "%s" for "%s".</source>
+            <target>Du hast dich soeben als Helfer an "%s" für "%s" eingetragen. Vielen Dank für dein Engagement!</target>
          </trans-unit>
          <trans-unit id="listhelpers.success.removed-yourself">
             <source>You've just removed yourself as helper from "%s" for "%s".</source>
+            <target>Du hast dich soeben als Helfer an "%s" für "%s" ausgetragen.</target>
          </trans-unit>
          <trans-unit id="listhelpers.warning">
             <source>Warning!</source>
+            <target>Warnung!</target>
          </trans-unit>
          <trans-unit id="listhelpers.warning.somebody-else-was-faster">
             <source>Couldn't add you as helper on "%s" for "%s". Somebody else was faster.</source>
+            <target>Du konntest leider nicht als Helfer an "%s" für "%s" hinzugefügt werden. Jemand anderes war wohl schneller.</target>
          </trans-unit>
 
          <trans-unit id="tx_clubdata_domain_model_program">

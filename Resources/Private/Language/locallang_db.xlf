@@ -129,29 +129,17 @@
             <trans-unit id="tx_clubdata_domain_model_service.title">
                 <source>Title</source>
             </trans-unit>
-            <trans-unit id="tx_clubdata_domain_model_programlinkrel">
-                <source>Program Link Rel</source>
+            <trans-unit id="tx_clubdata_program_link_mm">
+                <source>Relation: Program / Link</source>
             </trans-unit>
-            <trans-unit id="tx_clubdata_domain_model_programlinkrel.title">
+            <trans-unit id="tx_clubdata_program_link_mm.title">
                 <source>Title</source>
             </trans-unit>
-            <trans-unit id="tx_clubdata_domain_model_programlinkrel.program">
+            <trans-unit id="tx_clubdata_program_link_mm.program">
                 <source>Program</source>
             </trans-unit>
-            <trans-unit id="tx_clubdata_domain_model_programlinkrel.link">
+            <trans-unit id="tx_clubdata_program_link_mm.link">
                 <source>Link</source>
-            </trans-unit>
-            <trans-unit id="tx_clubdata_domain_model_programservicerel">
-                <source>Program Service Rel</source>
-            </trans-unit>
-            <trans-unit id="tx_clubdata_domain_model_programservicerel.name">
-                <source>Name</source>
-            </trans-unit>
-            <trans-unit id="tx_clubdata_domain_model_programservicerel.program">
-                <source>Program</source>
-            </trans-unit>
-            <trans-unit id="tx_clubdata_domain_model_programservicerel.service">
-                <source>Service</source>
             </trans-unit>
             <trans-unit id="tx_clubdata_domain_model_seating">
                 <source>Seating</source>
@@ -159,19 +147,19 @@
             <trans-unit id="tx_clubdata_domain_model_seating.title">
                 <source>Title</source>
             </trans-unit>
-            <trans-unit id="tx_clubdata_domain_model_programservice">
-                <source>Program Service</source>
+            <trans-unit id="tx_clubdata_program_service_user_mm">
+                <source>Relation: Program / Service / User</source>
             </trans-unit>
-            <trans-unit id="tx_clubdata_domain_model_programservice.remark">
+            <trans-unit id="tx_clubdata_program_service_user_mm.remark">
                 <source>Remark</source>
             </trans-unit>
-            <trans-unit id="tx_clubdata_domain_model_programservice.program">
+            <trans-unit id="tx_clubdata_program_service_user_mm.program">
                 <source>Program</source>
             </trans-unit>
-            <trans-unit id="tx_clubdata_domain_model_programservice.service">
+            <trans-unit id="tx_clubdata_program_service_user_mm.service">
                 <source>Service</source>
             </trans-unit>
-            <trans-unit id="tx_clubdata_domain_model_programservice.user">
+            <trans-unit id="tx_clubdata_program_service_user_mm.user">
                 <source>User</source>
             </trans-unit>
             <trans-unit id="tx_clubdata_domain_model_program.tabs_tickets">

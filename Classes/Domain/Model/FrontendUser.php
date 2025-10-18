@@ -161,6 +161,28 @@ class FrontendUser extends AbstractEntity
     }
 
     /**
+     * Returns the combined first and last name
+     *
+     * @return string
+     */
+    public function getName(): string
+    {
+        $name = trim($this->firstName . ' ' . $this->lastName);
+        return $name ?: $this->username;
+    }
+
+    /**
+     * Returns the combined first and last name
+     *
+     * @return string
+     */
+    public function getNameReversed(): string
+    {
+        $name = trim($this->lastName . ', ' . $this->firstName, ', ');
+        return $name ?: $this->username;
+    }
+
+    /**
      * Returns the firstName
      *
      * @return string

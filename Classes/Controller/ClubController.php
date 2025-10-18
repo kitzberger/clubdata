@@ -2,16 +2,19 @@
 
 namespace Medpzl\Clubdata\Controller;
 
+use Medpzl\Clubdata\Domain\Model\ProgramServiceUser;
 use Medpzl\Clubdata\Domain\Repository\CategoryRepository;
 use Medpzl\Clubdata\Domain\Repository\FrontendUserRepository;
 use Medpzl\Clubdata\Domain\Repository\ProgramRepository;
-use Medpzl\Clubdata\Domain\Repository\ProgramServiceRepository;
+use Medpzl\Clubdata\Domain\Repository\ProgramServiceUserRepository;
 use Medpzl\Clubdata\Domain\Repository\ServiceRepository;
 use Medpzl\Clubdata\Domain\Service\SessionHandler;
 use Psr\Http\Message\ResponseInterface;
+use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 use TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings;
+use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
 class ClubController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 {
@@ -19,7 +22,7 @@ class ClubController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         protected PersistenceManager $persistenceManager,
         protected ProgramRepository $programRepository,
         protected CategoryRepository $categoryRepository,
-        protected ProgramServiceRepository $programServiceRepository,
+        protected ProgramServiceUserRepository $programServiceUserRepository,
         protected ServiceRepository $serviceRepository,
         protected FrontendUserRepository $userRepository,
         protected SessionHandler $sessionHandler
@@ -164,37 +167,51 @@ class ClubController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $now = date('c');
 
         $feuser = $this->request->getAttribute('frontend.user')->user['uid'];
-        $user = $this->userRepository->findByUid($feuser);
+        $user = $feuser ? $this->userRepository->findByUid($feuser) : null;
 
-        $usercheck = false;
+        $permissionGranted = false;
+
         if ($user === null) {
-            $error = "Bitte einloggen";
-        } else {
-            foreach ($user->getUsergroup() as $group) {
-                if ($group->getUid() == intval($this->settings['service']['groupId'])) {
-                    $usercheck = true;
-                }
-            }
-            if (!$usercheck) {
-                $error = "Bitte als Helfer einloggen";
+            $this->addFlashMessage(
+                $this->getLL('listhelpers.error.not-logged-in'),
+                $this->getLL('listhelpers.error'),
+                ContextualFeedbackSeverity::ERROR
+            );
+            return $this->htmlResponse();
+        }
+
+        foreach ($user->getUsergroup() as $group) {
+            if ($group->getUid() == intval($this->settings['service']['groupId'])) {
+                $permissionGranted = true;
             }
         }
-        if ($usercheck) {
-            unset($error);
-            $services = $this->serviceRepository->findAll();
-            $programs = $this->programRepository->findWithinMonth($filter, strtotime($fromdate), strtotime($todate), $this->settings['list']['greaternow'], $now);
 
-            $helpers = $this->programServiceRepository->findAll();
+        if (!$permissionGranted) {
+            $this->addFlashMessage(
+                $this->getLL('listhelpers.error.wrong-group'),
+                $this->getLL('listhelpers.error'),
+                ContextualFeedbackSeverity::ERROR
+            );
+            return $this->htmlResponse();
+        }
+
+        // Get all them services (Theke, Kasse, ...)
+        $services = $this->serviceRepository->findAll();
+
+        // Get all the events of this month
+        $programs = $this->programRepository->findWithinMonth(
+            $filter,
+            strtotime($fromdate),
+            strtotime($todate),
+            $this->settings['list']['greaternow'],
+            $now
+        );
+
+        // Get all potential users
+        if ($this->settings['service']['groupId'] ?? false) {
+            $users = $this->userRepository->findByGroup((int)$this->settings['service']['groupId']);
+        } else {
             $users = $this->userRepository->findAll();
-
-            $filtered_users = [];
-            foreach ($users as $usr) {
-                foreach ($usr->getUsergroup() as $group) {
-                    if ($group->getUid() == intval($this->settings['service']['groupId'])) {
-                        $filtered_users[] = $usr;
-                    }
-                }
-            }
         }
 
         $latest = $this->programRepository->findLatest();
@@ -256,9 +273,9 @@ class ClubController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $this->view->assign('todate', $todate);
         $this->view->assign('now', time());
         $this->view->assign('services', $services);
-        $this->view->assign('users', $filtered_users);
+        $this->view->assign('users', $users);
         $this->view->assign('user', $user);
-        $this->view->assign('error', $error);
+
         return $this->htmlResponse();
     }
 
@@ -270,23 +287,20 @@ class ClubController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             $this->userRepository->setDefaultQuerySettings($querySettings);
         }
 
-        $args = $this->request->getArguments();
-        if ($this->request->hasArgument('tx_clubdata_pi1')) {
-            $arg =  $this->request->getArgument('tx_clubdata_pi1');
-            $entries = $arg['ps'];
+        if ($this->request->hasArgument('psu')) {
+            $entries = $this->request->getArgument('psu');
         }
 
         $items = [];
         foreach ($entries as $entry) {
             $parts = explode('-', $entry);
-
-            $changed = 0;
+            $changed = ProgramServiceUser::OPERATION_NONE;
             if ($parts[3] == 'c') {
-                $changed = 1;
+                $changed = ProgramServiceUser::OPERATION_CHANGE;
             }
             if ($parts[3] == 'd') {
-                $changed = 2;
-            } // delete
+                $changed = ProgramServiceUser::OPERATION_DELETE;
+            }
             $items[] = [
                 'user' => substr($parts[2], 1),
                 'program' => substr($parts[0], 1),
@@ -297,33 +311,49 @@ class ClubController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 
         foreach ($items as $item) {
             if ($item['changed']) {
-                if ($item['changed'] == 2) {
-                    $delete = $this->programServiceRepository->findEntry($item['user'], $item['program'], $item['service']);
-                    if (count($delete)) {
-                        $this->programServiceRepository->remove($delete[0]);
-                        $this->persistenceManager->persistAll();
+                if ($item['changed'] == ProgramServiceUser::OPERATION_DELETE) {
+                    $programServiceUser = $this->programServiceUserRepository->findEntry($item['user'], $item['program'], $item['service']);
+                    if (count($programServiceUser)) {
+                        $this->programServiceUserRepository->remove($programServiceUser[0]);
                     }
+                    $this->addFlashMessage(
+                        $this->getLL('listhelpers.success.removed-yourself', [
+                            $programServiceUser[0]->getService()->getTitle(),
+                            $programServiceUser[0]->getProgram()->getTitle(),
+                        ]),
+                        $this->getLL('listhelpers.success'),
+                        ContextualFeedbackSeverity::OK
+                    );
                 } else {
-                    if (count($this->programServiceRepository->findEntry($item['user'], $item['program'], $item['service']))) {
-                        $operation = 'update';
+                    $programServiceUser = $this->programServiceUserRepository->findEntry(0, $item['program'], $item['service']);
+                    if (count($programServiceUser)) {
+                        // already booked
+                        $this->addFlashMessage(
+                            $this->getLL('listhelpers.warning.somebody-else-was-faster', [
+                                $programServiceUser[0]->getService()->getTitle(),
+                                $programServiceUser[0]->getProgram()->getTitle(),
+                            ]),
+                            $this->getLL('listhelpers.warning'),
+                            ContextualFeedbackSeverity::WARNING
+                        );
                     } else {
-                        $operation = 'insert';
-                    }
+                        $user = $this->userRepository->findByUid($item['user']);
+                        $program = $this->programRepository->findByUid($item['program']);
+                        $service = $this->serviceRepository->findByUid($item['service']);
+                        $newProgramServiceUser = GeneralUtility::makeInstance(ProgramServiceUser::class);
+                        $newProgramServiceUser->setUser($user);
+                        $newProgramServiceUser->setProgram($program);
+                        $newProgramServiceUser->setService($service);
+                        $this->programServiceUserRepository->add($newProgramServiceUser);
 
-                    if ($operation == 'insert') {
-                        if (count($this->programServiceRepository->findEntry(0, $item['program'], $item['service']))) {
-                            // already booked
-                        } else {
-                            $user = $this->userRepository->findByUid($item['user']);
-                            $program = $this->programRepository->findByUid($item['program']);
-                            $service = $this->serviceRepository->findByUid($item['service']);
-                            $newProgramService = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\Medpzl\Clubdata\Domain\Model\ProgramService::class);
-                            $newProgramService->setUser($user);
-                            $newProgramService->setProgram($program);
-                            $newProgramService->setService($service);
-                            $this->programServiceRepository->add($newProgramService);
-                            $this->persistenceManager->persistAll();
-                        }
+                        $this->addFlashMessage(
+                            $this->getLL('listhelpers.success.added-yourself', [
+                                $service->getTitle(),
+                                $program->getTitle(),
+                            ]),
+                            $this->getLL('listhelpers.success'),
+                            ContextualFeedbackSeverity::OK
+                        );
                     }
                 }
             }
@@ -574,5 +604,11 @@ class ClubController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $this->view->assign('programs', $programs);
 
         return $this->htmlResponse();
+    }
+
+    private function getLL($key, $arguments = []): string
+    {
+        $label = LocalizationUtility::translate($key, 'clubdata', $arguments);
+        return $label ?? $key;
     }
 }

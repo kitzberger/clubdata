@@ -5,43 +5,50 @@
 >
 
 <tr class="list-item">
-    <td>
-        <f:format.date format="%a %d.%m. %H:%M Uhr">{listItem.datetime}</f:format.date><br>
-        {listItem.title}
+    <td class="nowrap">
+        <f:format.date format="%a %d.%m. %H:%M Uhr">{program.datetime}</f:format.date><br>
+        <b>{program.title}</b>
     </td>
     <f:for each="{services}" as="service" iteration="i">
-        <f:if condition="{listItem.serviceBarNum} > 0 && {club:contains(needle:'Theke',haystack:service.title)}">
+        <f:variable name="programServiceUser" value="{club:getProgramServiceUser(program:program,service:service)}" />
+        <f:if condition="{program.serviceBarNum} > 0 && {club:contains(needle:'Theke',haystack:service.title)}">
             <f:then>
-                <f:if condition="{i.cycle} <= {listItem.serviceBarNum}">
+                <f:if condition="{i.cycle} <= {program.serviceBarNum}">
                     <f:then>
-                        <td class="p{listItem.uid} s{service.uid} test{listItem.serviceBarNum}">
-                            {service.title}<br>
-                            <select name="ps[]"
-                                    class="p{listItem.uid}-s{service.uid}-u{club:hasHelper(user:0,program:listItem.uid,service:service.uid,check:0)}"
+                        <td class="p{program.uid} s{service.uid} test{program.serviceBarNum}">
+                            <label for="p{program.uid}-s{service.uid}-u">{service.title}</label><br>
+                            <select name="psu[]"
+                                    id="p{program.uid}-s{service.uid}-u"
+                                    class="p{program.uid}-s{service.uid}-u"
                                     data-helper-select="true">
-                                <option value="">-</option>
+                                <option value=""></option>
                                 <f:for each="{users}" as="user">
-                                    <option value="p{listItem.uid}-s{service.uid}-u{user.address}" {club:selectedHelper(user:user.address,program:listItem.uid,service:service.uid)}>{user.username}
+                                    <option value="p{program.uid}-s{service.uid}-u{user.uid}" {f:if(condition:'{programServiceUser.user} === {user}',then:'selected="selected"')}>{user.nameReversed}
                                 </option>
                                 </f:for>
                             </select>
                         </td>
                     </f:then>
                     <f:else>
+                        <f:comment>
+                            Don't render checkbox for "Theke X" because
+                            program doesn't need that many helpers here!
+                        </f:comment>
                         <td></td>
                     </f:else>
                 </f:if>
             </f:then>
             <f:else>
-                <td class="p{listItem.uid} s{service.uid}">
-                    {service.title}<br>
-                    <select name="ps[]"
-                            class="p{listItem.uid}-s{service.uid}-u{club:hasHelper(user:0,program:listItem.uid,service:service.uid,check:0)}"
+                <td class="p{program.uid} s{service.uid}">
+                    <label for="p{program.uid}-s{service.uid}-u">{service.title}</label><br>
+                    <select name="psu[]"
+                            class="p{program.uid}-s{service.uid}-u"
+                            id="p{program.uid}-s{service.uid}-u"
                             data-helper-select="true">
-                        <option value="">-</option>
+                        <option value=""></option>
                         <f:for each="{users}" as="user">
-                            <option value="p{listItem.uid}-s{service.uid}-u{user.address}" {club:selectedHelper(user:user.address,program:listItem.uid,service:service.uid)}>
-                                {user.username}
+                            <option value="p{program.uid}-s{service.uid}-u{user.uid}" {f:if(condition:'{programServiceUser.user} === {user}',then:'selected="selected"')}>
+                                {user.nameReversed}
                             </option>
                         </f:for>
                     </select>

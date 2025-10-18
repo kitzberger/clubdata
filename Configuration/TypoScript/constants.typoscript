@@ -18,10 +18,7 @@ plugin.tx_clubdata {
        cssSliderFile = EXT:clubdata/Resources/Public/Css/Slider.css
        # cat=plugin.tx_clubdata//a; type=string; label=Detail PID
        detailPid =
-       # cat=plugin.tx_clubdata/file; type=string; label=Path to jQuery Lib
-       jQueryLib = EXT:clubdata/Resources/Public/Js/jquery-2.2.2.min.js
        # cat=plugin.tx_clubdata/file; type=string; label=Path to js
-       jQueryFile = EXT:clubdata/Resources/Public/Js/clubdata.js
-
+       jsFile = EXT:clubdata/Resources/Public/Js/frontend.js
     }
 }

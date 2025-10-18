@@ -2,8 +2,12 @@
 
 namespace Medpzl\Clubdata\Domain\Model;
 
-class ProgramService extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
+class ProgramServiceUser extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 {
+    public const OPERATION_NONE = 0;
+    public const OPERATION_CHANGE = 1;
+    public const OPERATION_DELETE = 2;
+
     /**
      * remark
      *

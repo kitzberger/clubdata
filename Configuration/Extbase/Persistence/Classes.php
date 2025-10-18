@@ -58,8 +58,16 @@ return [
             ],
         ],
     ],
-    \Medpzl\Clubdata\Domain\Model\ProgramServiceRel::class => [
-        'tableName' => 'tx_clubdata_domain_model_programservicerel',
+    \Medpzl\Clubdata\Domain\Model\ProgramLink::class => [
+        'tableName' => 'tx_clubdata_program_link_mm',
+        'properties' => [
+            'sorting' => [
+                'fieldName' => 'sorting',
+            ],
+        ],
+    ],
+    \Medpzl\Clubdata\Domain\Model\ProgramServiceUser::class => [
+        'tableName' => 'tx_clubdata_program_service_user_mm',
         'properties' => [
             'sorting' => [
                 'fieldName' => 'sorting',
