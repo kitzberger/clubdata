@@ -1,0 +1,17 @@
+<div class="tx-clubdata-list-press">
+    <f:if condition="{settings.list.fromdate}">
+        from date: {settings.list.fromdate -> f:format.date()}<br>
+    </f:if>
+    <f:if condition="{settings.list.todate}">
+        from date: {settings.list.todate -> f:format.date()}<br>
+    </f:if>
+    <f:if condition="{settings.list.picture}">
+        with pictures!<br>
+    </f:if>
+    <f:if condition="{settings.list.description}">
+        with descriptions!<br>
+    </f:if>
+    <f:for each="{programs}" as="listItem">
+        <f:render partial="Club/ListItem" arguments="{listItem:listItem,settings:settings,iterator:iterator}" />
+    </f:for>
+</div>

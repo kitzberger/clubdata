@@ -230,14 +230,8 @@
             <trans-unit id="plugin.listarchive.description">
                 <source>Display archived programs with filtering options</source>
             </trans-unit>
-            <trans-unit id="plugin.detailarchive.title">
-                <source>Club Data: Archive Detail</source>
-            </trans-unit>
-            <trans-unit id="plugin.detailarchive.description">
-                <source>Display detailed information about archived programs</source>
-            </trans-unit>
             <trans-unit id="plugin.upcoming.title">
-                <source>Club Data: upcoming</source>
+                <source>Club Data: Upcoming</source>
             </trans-unit>
             <trans-unit id="plugin.upcoming.description">
                 <source>Display one upcoming program</source>
