@@ -368,8 +368,6 @@ class ClubController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 
     public function listArchiveAction(): ResponseInterface
     {
-        $oldest = $this->programRepository->findOldest();
-        //$fromdate = $oldest[0]->getDatetime()->format('Ymd');
         $fromdate = date('Ym' . '01');
         $todate = date('Ymt') . ' 23:59';
         if ($this->request->hasArgument('adate')) {
@@ -381,7 +379,8 @@ class ClubController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             $filter = $this->settings['filter'];
         }
         if ($this->request->hasArgument('catUid')) {
-            $filter['categories'] = $this->request->getArgument('catUid');
+            $category = $this->request->getArgument('catUid');
+            $filter['categories'] = $category;
         }
         if ($this->settings['list']['show'] == 'year') {
             $fromdate = date('Y', strtotime($fromdate)) . '0101';
@@ -398,10 +397,16 @@ class ClubController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             $prevmonth = date('Ym', strtotime($fromdate . ' - 1 month'));
         }
         $showmonth = date('Ymd', strtotime($fromdate));
-        //$programs = $this->programRepository->findAll();
-        //$programs = $this->programRepository->findByCategory(2);
-        $programs = $this->programRepository->findWithinMonth($filter, strtotime($fromdate), strtotime($todate), $this->settings['list']['greaternow']);
+
+        $programs = $this->programRepository->findWithinMonth(
+            $filter,
+            strtotime($fromdate),
+            strtotime($todate),
+            $this->settings['list']['greaternow']
+        );
         $latest = $this->programRepository->findLatest();
+        $oldest = $this->programRepository->findOldest();
+
         $this->view->assign('acurrmonth', $currmonth);
         $this->view->assign('athismonth', $thismonth);
         $this->view->assign('ashowmonth', strtotime($showmonth));
@@ -412,10 +417,11 @@ class ClubController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $this->view->assign('aoldest', $oldest[0]);
         $this->view->assign('atodate', $todate);
         $this->view->assign('now', time());
-        $this->view->assign('Categories', $this->categoryRepository->findAll());
+        $this->view->assign('categories', $this->categoryRepository->findAll());
+        $this->view->assign('selectedCategory', $category ?? null);
+
         return $this->htmlResponse();
     }
-
 
     public function detailArchiveAction(): ResponseInterface
     {

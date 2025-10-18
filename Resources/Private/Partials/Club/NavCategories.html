@@ -1,0 +1,22 @@
+<nav>
+    <ul class="pagination">
+        <f:for each="{categories}" as="category">
+            <li class="page-item {f:if(condition:'{category.uid}=={selectedCategory}',then:'active')}">
+                <f:link.action class="page-link"
+                               addQueryString="untrusted"
+                               arguments="{catUid:category.uid}">
+                    {category.title}
+                </f:link.action>
+            </li>
+        </f:for>
+        <f:if condition="{selectedCategory}">
+            <li class="page-item">
+                <f:link.action class="page-link"
+                               addQueryString="untrusted"
+                               argumentsToBeExcludedFromQueryString="{argumentsExcluded}">
+                    ✗ Reset
+                </f:link.action>
+            </li>
+        </f:if>
+    </ul>
+</nav>

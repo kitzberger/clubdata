@@ -1,0 +1,32 @@
+<div class="tx-clubdata-list-press">
+    <f:switch expression="{settings.list.show}">
+        <f:case value="month">
+            <f:render partial="Club/NavPrevCurrentNext" arguments="{
+                argumentsPrevLink: { adate: aprevmonth },
+                argumentsNextLink: { adate: anextmonth },
+                argumentsCurrentLink: { adate: acurrmonth },
+                currentLabel: '{ashowmonth -> f:format.date(format:\'%B %Y\')}'
+            }" />
+        </f:case>
+        <f:case value="year">
+            <f:render partial="Club/NavPrevCurrentNext" arguments="{
+                argumentsPrevLink: { adate: aprevmonth },
+                argumentsNextLink: { adate: anextmonth },
+                argumentsCurrentLink: { adate: athismonth },
+                currentLabel: '{ashowmonth -> f:format.date(format:\'%Y\')}'
+            }" />
+        </f:case>
+    </f:switch>
+
+    <f:if condition="{categories -> f:count()}">
+        <f:render partial="Club/NavCategories" arguments="{
+            categories: categories,
+            selectedCategory: selectedCategory,
+            argumentsExcluded: {0:'tx_clubdata_listarchive[catUid]'}
+        }" />
+    </f:if>
+
+    <f:for each="{programs}" as="listItem">
+        <f:render partial="Club/ListItem" arguments="{listItem:listItem,settings:settings,iterator:iterator}" />
+    </f:for>
+</div>

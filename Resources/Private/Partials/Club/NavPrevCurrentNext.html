@@ -1,0 +1,19 @@
+<nav>
+    <ul class="pagination">
+        <li class="page-item">
+            <f:link.action class="page-link" arguments="{argumentsPrevLink}" addQueryString="untrusted">
+                &lt;
+            </f:link.action>
+        </li>
+        <li class="page-item">
+            <f:link.action class="page-link active" arguments="{argumentsCurrentLink}" addQueryString="untrusted">
+                {currentLabel}
+            </f:link.action>
+        </li>
+        <li class="page-item">
+            <f:link.action class="page-link" arguments="{argumentsNextLink}" addQueryString="untrusted">
+                &gt;
+            </f:link.action>
+        </li>
+    </ul>
+</nav>
