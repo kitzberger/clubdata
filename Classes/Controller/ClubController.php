@@ -530,13 +530,14 @@ class ClubController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         }
     }
 
-    public function newsletterUpcomingAction(): ResponseInterface
+    // TODO what's this action for?
+    public function upcomingAction(): ResponseInterface
     {
         if ($this->settings['filter']) {
             $filter = $this->settings['filter'];
         }
-        $Program = $this->programRepository->findUpcoming($filter);
-        $this->view->assign('detailItem', $Program[0]);
+        $programs = $this->programRepository->findUpcoming($filter);
+        $this->view->assign('detailItem', $programs[0]);
         return $this->htmlResponse();
     }
 

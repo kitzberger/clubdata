@@ -32,11 +32,11 @@ $plugins = [
         'flexform' => 'ListArchive.xml',
         'icon' => 'clubdata-plugin'
     ],
-    'NewsletterUpcoming' => [
-        'ctype' => 'clubdata_newsletterupcoming',
-        'title' => 'LLL:EXT:clubdata/Resources/Private/Language/locallang_db.xlf:plugin.newsletterupcoming.title',
-        'description' => 'LLL:EXT:clubdata/Resources/Private/Language/locallang_db.xlf:plugin.newsletterupcoming.description',
-        'flexform' => 'NewsletterUpcoming.xml',
+    'Upcoming' => [
+        'ctype' => 'clubdata_upcoming',
+        'title' => 'LLL:EXT:clubdata/Resources/Private/Language/locallang_db.xlf:plugin.upcoming.title',
+        'description' => 'LLL:EXT:clubdata/Resources/Private/Language/locallang_db.xlf:plugin.upcoming.description',
+        'flexform' => 'Upcoming.xml',
         'icon' => 'clubdata-plugin'
     ],
     'ListHighlights' => [

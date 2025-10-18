@@ -56,12 +56,12 @@ ExtensionUtility::configurePlugin(
     ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
 );
 
-// Newsletter plugin
+// Upcoming plugin
 ExtensionUtility::configurePlugin(
     'Clubdata',
-    'NewsletterUpcoming',
+    'Upcoming',
     [
-        ClubController::class => 'newsletterUpcoming',
+        ClubController::class => 'upcoming',
     ],
     [],
     ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT

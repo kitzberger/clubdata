@@ -1,0 +1,15 @@
+<div class="tx-clubdata-upcoming">
+    <h1>{detailItem.title}</h1>
+    <div class="subtitle">
+        <i>{detailItem.subTitle}</i>
+    </div>
+    <div class="subtitle-2">
+        {detailItem.secSubTitle}
+    </div>
+    <div class="description">
+        {detailItem.description -> f:format.html()}
+    </div>
+    <div class="date">
+        Date: {detailItem.datetime -> f:format.date(format:'Y-m-d H:i')}
+    </div>
+</div>

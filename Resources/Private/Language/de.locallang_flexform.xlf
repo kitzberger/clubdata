@@ -31,9 +31,9 @@
                 <source>Archive Detail</source>
                 <target>Archiv Detail</target>
             </trans-unit>
-            <trans-unit id="switchableControllerActions.newsletterUpcoming">
-                <source>Newsletter</source>
-                <target>Newsletter</target>
+            <trans-unit id="switchableControllerActions.upcoming">
+                <source>Upcoming</source>
+                <target>Upcoming</target>
             </trans-unit>
             <trans-unit id="switchableControllerActions.listHighlights">
                 <source>Highlights</source>

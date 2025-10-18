@@ -24,8 +24,8 @@
             <trans-unit id="switchableControllerActions.detailArchive">
                 <source>Archive Detail</source>
             </trans-unit>
-            <trans-unit id="switchableControllerActions.newsletterUpcoming">
-                <source>Newsletter</source>
+            <trans-unit id="switchableControllerActions.upcoming">
+                <source>Upcoming</source>
             </trans-unit>
             <trans-unit id="switchableControllerActions.listHighlights">
                 <source>Highlights</source>

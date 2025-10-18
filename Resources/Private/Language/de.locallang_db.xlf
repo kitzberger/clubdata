@@ -112,7 +112,7 @@
                 <target>Helfer-Dienste</target>
             </trans-unit>
             <trans-unit id="tx_clubdata_domain_model_program.avoid_nl">
-                <source>Avoid Nl</source>
+                <source>Avoid in newsletter</source>
                 <target>Nicht auf Newsletter</target>
             </trans-unit>
             <trans-unit id="tx_clubdata_domain_model_program.hide_date">

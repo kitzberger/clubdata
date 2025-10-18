@@ -13,7 +13,7 @@
                 <source>Intern</source>
             </trans-unit>
             <trans-unit id="tx_clubdata_domain_model_program.avoid_nl">
-                <source>Avoid Nl</source>
+                <source>Avoid in newsletter</source>
             </trans-unit>
             <trans-unit id="tx_clubdata_domain_model_program.sub_title">
                 <source>Sub Title</source>
@@ -236,11 +236,11 @@
             <trans-unit id="plugin.detailarchive.description">
                 <source>Display detailed information about archived programs</source>
             </trans-unit>
-            <trans-unit id="plugin.newsletterupcoming.title">
-                <source>Club Data: Newsletter</source>
+            <trans-unit id="plugin.upcoming.title">
+                <source>Club Data: upcoming</source>
             </trans-unit>
-            <trans-unit id="plugin.newsletterupcoming.description">
-                <source>Display upcoming programs for newsletter output</source>
+            <trans-unit id="plugin.upcoming.description">
+                <source>Display one upcoming program</source>
             </trans-unit>
             <trans-unit id="plugin.listhighlights.title">
                 <source>Club Data: Highlights</source>

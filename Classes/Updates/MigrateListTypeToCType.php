@@ -21,7 +21,7 @@ final class MigrateListTypeToCType implements UpgradeWizardInterface
         'Club->services' => 'clubdata_services',
         'Club->listArchive' => 'clubdata_listarchive',
         'Club->detailArchive' => 'clubdata_detail',
-        'Club->newsletterUpcoming' => 'clubdata_newsletterupcoming',
+        'Club->newsletterUpcoming' => 'clubdata_upcoming',
         'Club->listHighlights' => 'clubdata_listhighlights',
         'Club->preview' => 'clubdata_preview',
         'Club->carousel' => 'clubdata_carousel',
