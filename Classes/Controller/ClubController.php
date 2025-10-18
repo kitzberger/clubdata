@@ -264,7 +264,7 @@ class ClubController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 
     public function saveHelpersAction()
     {
-        $querySettings = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings::class);
+        $querySettings = GeneralUtility::makeInstance(Typo3QuerySettings::class);
         $querySettings->setRespectStoragePage(false);
         if (method_exists($this->userRepository, 'setDefaultQuerySettings')) {
             $this->userRepository->setDefaultQuerySettings($querySettings);
@@ -275,13 +275,11 @@ class ClubController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             $arg =  $this->request->getArgument('tx_clubdata_pi1');
             $entries = $arg['ps'];
         }
-        //\TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($arg);
-        //exit;
 
         $items = [];
         foreach ($entries as $entry) {
             $parts = explode('-', $entry);
-            //\TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($parts);
+
             $changed = 0;
             if ($parts[3] == 'c') {
                 $changed = 1;
@@ -294,9 +292,8 @@ class ClubController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                 'program' => substr($parts[0], 1),
                 'service' => substr($parts[1], 1),
                 'changed' => $changed
-                ];
+            ];
         }
-        //\TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($items);
 
         foreach ($items as $item) {
             if ($item['changed']) {
@@ -326,7 +323,6 @@ class ClubController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                             $newProgramService->setService($service);
                             $this->programServiceRepository->add($newProgramService);
                             $this->persistenceManager->persistAll();
-                            //\TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($newProgramService);
                         }
                     }
                 }
@@ -424,6 +420,7 @@ class ClubController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         return $this->htmlResponse();
     }
 
+    // TODO isn't that a lesser version of listArchiveAction?
     public function servicesAction(): ResponseInterface
     {
         $fromdate = date('Ym' . '01');
@@ -437,7 +434,8 @@ class ClubController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             $filter = $this->settings['filter'];
         }
         if ($this->request->hasArgument('catUid')) {
-            $filter['categories'] = $this->request->getArgument('catUid');
+            $category = $this->request->getArgument('catUid');
+            $filter['categories'] = $category;
         }
 
         $thismonth =  date('Ym');
@@ -445,11 +443,15 @@ class ClubController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $showmonth =  date('Ymd', strtotime($fromdate));
         $nextmonth =  date('Ym', strtotime($fromdate . ' + 1 month'));
         $prevmonth =  date('Ym', strtotime($fromdate . ' - 1 month'));
-        //$programs = $this->programRepository->findAll();
-        //$programs = $this->programRepository->findByCategory(2);
-        $programs = $this->programRepository->findWithinMonth($filter, strtotime($fromdate), strtotime($todate));
+
+        $programs = $this->programRepository->findWithinMonth(
+            $filter,
+            strtotime($fromdate),
+            strtotime($todate)
+        );
         $latest = $this->programRepository->findLatest();
         $oldest = $this->programRepository->findOldest();
+
         $this->view->assign('currmonth', $currmonth);
         $this->view->assign('thismonth', $thismonth);
         $this->view->assign('showmonth', strtotime($showmonth));
@@ -460,28 +462,26 @@ class ClubController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $this->view->assign('oldest', $oldest[0]);
         $this->view->assign('todate', $todate);
         $this->view->assign('now', time());
-        $this->view->assign('Categories', $this->categoryRepository->findAll());
+        $this->view->assign('categories', $this->categoryRepository->findAll());
+        $this->view->assign('selectedCategory', $category ?? null);
+
         return $this->htmlResponse();
     }
-
 
     public function carouselAction(): ResponseInterface
     {
         $now = date('c');
+
         if ($this->settings['list']['tillmidnight']) {
             $now = 'today';
         }
+
         if ($this->settings['filter']) {
             $filter = $this->settings['filter'];
         }
+
+        // Carousel is always with images!
         $filter['image'] = 1;
-        //$filter['sorting']='desc';
-        $programs = $this->programRepository->findWithinMonth($filter, 0, 0, $this->settings['list']['greaternow'], $now);
-        //$programs = $this->programRepository->findAll();
-        //\TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($programs);
-        $this->view->assign('programs', $programs);
-        return $this->htmlResponse();
-    }
 
         $programs = $this->programRepository->findWithinMonth(
             $filter,
@@ -491,43 +491,9 @@ class ClubController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             $now
         );
 
-        $this->view->assign('Pager1', $Pager1);
-        $this->view->assign('Pager2', $Pager2);
-        $this->view->assign('Movies', $Movies);
-        return $this->htmlResponse();
-    }
+        $this->view->assign('programs', $programs);
 
-    public function archiveDetailAction()
-    {
-        $pid = 0;
-        $movieUid = $this->request->getArgument('showUid');
-        $Program = $this->programRepository->findProgram($movieUid);
-        if ($Program[0]) {
-            if ($Program[0]->getUid()) {
-                $showUid = $Program[0]->getUid();
-            }
-            if ($Program[0]->getCategory()) {
-                $categories = $Program[0]->getCategory();
-            }
-            foreach ($categories as $category) {
-                if ($category->getCategorySinglePid()) {
-                    $pid = $category->getCategorySinglePid();
-                }
-                if ($pid) {
-                    break;
-                }
-            }
-            if (!$pid) {
-                $pid = $this->settings['list']['detailPid'];
-            }
-        }
-        if ($pid && $showUid) {
-            return $this->redirect('detail', null, null, ['showUid' => $showUid,'movieUid' => $movieUid], $pid);
-        } else {
-            $Movie = $this->MovieRepository->findByUid($movieUid);
-            $this->view->assign('archiveItem', $Movie);
-            $this->view->assign('Program', $pid);
-        }
+        return $this->htmlResponse();
     }
 
     // TODO what's this action for?
@@ -546,8 +512,8 @@ class ClubController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         if ($this->settings['filter']) {
             $filter = $this->settings['filter'];
         }
-        $Program = $this->programRepository->findUpcoming($filter);
-        $this->view->assign('programs', $Program);
+        $programs = $this->programRepository->findUpcoming($filter);
+        $this->view->assign('programs', $programs);
         return $this->htmlResponse();
     }
 
@@ -596,10 +562,17 @@ class ClubController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         }
 
         $filter['image'] = 1;
-        //\TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($todate);
-        //$filter['sorting']='desc';
-        $Program = $this->programRepository->findWithinMonth($filter, $fromdate, $todate, $greaternow, $now);
-        $this->view->assign('programs', $Program);
+
+        $programs = $this->programRepository->findWithinMonth(
+            $filter,
+            $fromdate,
+            $todate,
+            $greaternow,
+            $now
+        );
+
+        $this->view->assign('programs', $programs);
+
         return $this->htmlResponse();
     }
 }
