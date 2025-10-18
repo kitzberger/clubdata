@@ -20,7 +20,7 @@ final class MigrateListTypeToCType implements UpgradeWizardInterface
         'Club->detail' => 'clubdata_detail',
         'Club->services' => 'clubdata_services',
         'Club->listArchive' => 'clubdata_listarchive',
-        'Club->detailArchive' => 'clubdata_detailarchive',
+        'Club->detailArchive' => 'clubdata_detail',
         'Club->newsletterUpcoming' => 'clubdata_newsletterupcoming',
         'Club->listHighlights' => 'clubdata_listhighlights',
         'Club->preview' => 'clubdata_preview',

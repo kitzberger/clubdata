@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<T3DataStructure>
+    <sheets>
+        <general>
+            <ROOT>
+                <sheetTitle>LLL:EXT:clubdata/Resources/Private/Language/locallang_flexform.xlf:general</sheetTitle>
+                <type>array</type>
+                <el>
+                    <settings.detail.showPrevNext>
+                        <label>LLL:EXT:clubdata/Resources/Private/Language/locallang_flexform.xlf:settings.detail.showPrevNext</label>
+                        <config>
+                            <type>check</type>
+                        </config>
+                    </settings.detail.showPrevNext>
+                </el>
+            </ROOT>
+        </general>
+    </sheets>
+</T3DataStructure>

@@ -347,22 +347,23 @@ class ClubController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         // Load program
         $program = $this->programRepository->findByUid($programUid);
 
-        // Determine prev/next programs from list in session
-        $uidlist = $this->sessionHandler->restoreFromSession()['uidlist'] ?? [];
-        $key = array_search($programUid, $uidlist);
-        if ($key !== false) {
-            if ($uidlist[$key - 1]) {
-                $this->view->assign('prevuid', $this->programRepository->findByUid($uidlist[$key - 1]));
+        if ($this->settings['detail']['showPrevNext'] ?? false) {
+            // Determine prev/next programs from list in session
+            $uidlist = $this->sessionHandler->restoreFromSession()['uidlist'] ?? [];
+            $key = array_search($programUid, $uidlist);
+            if ($key !== false) {
+                if ($uidlist[$key - 1]) {
+                    $this->view->assign('prevUid', $this->programRepository->findByUid($uidlist[$key - 1]));
+                }
+                if ($uidlist[$key + 1]) {
+                    $this->view->assign('nextUid', $this->programRepository->findByUid($uidlist[$key + 1]));
+                }
             }
-            if ($uidlist[$key + 1]) {
-                $this->view->assign('nextuid', $this->programRepository->findByUid($uidlist[$key + 1]));
-            }
+            $this->view->assign('uidlist', $uidlist);
         }
 
         $this->view->assign('detailItem', $program);
-        $this->view->assign('uidlist', $uidlist);
-        $this->view->assign('uids', $uids);
-        $this->view->assign('now', time());
+
         return $this->htmlResponse();
     }
 
@@ -422,15 +423,6 @@ class ClubController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 
         return $this->htmlResponse();
     }
-
-    public function detailArchiveAction(): ResponseInterface
-    {
-        $programUid = $this->request->getArgument('showUid');
-        $Program = $this->programRepository->findByUid($programUid);
-        $this->view->assign('detailItem', $Program);
-        return $this->htmlResponse();
-    }
-
 
     public function servicesAction(): ResponseInterface
     {

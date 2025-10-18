@@ -56,17 +56,6 @@ ExtensionUtility::configurePlugin(
     ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
 );
 
-// Archive detail plugin
-ExtensionUtility::configurePlugin(
-    'Clubdata',
-    'DetailArchive',
-    [
-        ClubController::class => 'detailArchive',
-    ],
-    [],
-    ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
-);
-
 // Newsletter plugin
 ExtensionUtility::configurePlugin(
     'Clubdata',

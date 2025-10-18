@@ -15,7 +15,7 @@ $plugins = [
         'ctype' => 'clubdata_detail',
         'title' => 'LLL:EXT:clubdata/Resources/Private/Language/locallang_db.xlf:plugin.detail.title',
         'description' => 'LLL:EXT:clubdata/Resources/Private/Language/locallang_db.xlf:plugin.detail.description',
-        'flexform' => null,
+        'flexform' => 'Detail.xml',
         'icon' => 'clubdata-plugin'
     ],
     'Services' => [
@@ -30,13 +30,6 @@ $plugins = [
         'title' => 'LLL:EXT:clubdata/Resources/Private/Language/locallang_db.xlf:plugin.listarchive.title',
         'description' => 'LLL:EXT:clubdata/Resources/Private/Language/locallang_db.xlf:plugin.listarchive.description',
         'flexform' => 'ListArchive.xml',
-        'icon' => 'clubdata-plugin'
-    ],
-    'DetailArchive' => [
-        'ctype' => 'clubdata_detailarchive',
-        'title' => 'LLL:EXT:clubdata/Resources/Private/Language/locallang_db.xlf:plugin.detailarchive.title',
-        'description' => 'LLL:EXT:clubdata/Resources/Private/Language/locallang_db.xlf:plugin.detailarchive.description',
-        'flexform' => null,
         'icon' => 'clubdata-plugin'
     ],
     'NewsletterUpcoming' => [
