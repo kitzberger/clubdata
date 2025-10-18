@@ -485,43 +485,13 @@ class ClubController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         return $this->htmlResponse();
     }
 
-    public function archiveAction(): ResponseInterface
-    {
-        $endswith = '';
-        $startswith = '';
-        if ($this->request->hasArgument('letter')) {
-            $startswith = $this->request->getArgument('letter')[0];
-            if ($startswith == '0') {
-                $startswith = '!';
-                $endswith = 'a';
-            }
-        } else {
-            $startswith = '!';
-            $endswith = 'a';
-        }
-        if (!$endswith) {
-            $endswith = chr(ord($startswith) + 1);
-        }
-        $Movies = $this->MovieRepository->findArchived($startswith, $endswith);
-        $Pager1 = [];
-        $Pager2 = [];
-        $class = '';
-        if ($startswith == '!') {
-            $class = 'act';
-        }
-        $Pager1[] = ['name' => '0-9','class' => $class];
-        for ($i = 0; $i < 26; $i++) {
-            $letter = chr(97 + $i);
-            $class = '';
-            if ($startswith == $letter) {
-                $class = 'act';
-            }
-            $Pager1[] = ['name' => $letter,'class' => $class];
-            //$letter=chr(110+$i);
-            //$class='';
-            //if ($startswith==$letter) $class='act';
-            //$Pager2[]=array('name'=>$letter,'class'=>$class);
-        }
+        $programs = $this->programRepository->findWithinMonth(
+            $filter,
+            0,
+            0,
+            $this->settings['list']['greaternow'],
+            $now
+        );
 
         $this->view->assign('Pager1', $Pager1);
         $this->view->assign('Pager2', $Pager2);
