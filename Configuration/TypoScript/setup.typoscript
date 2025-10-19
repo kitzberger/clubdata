@@ -34,21 +34,18 @@ plugin.tx_clubdata {
             dateFormat = %a. %d. %B %Y
             timeFormat = %H.%M Uhr
             datetimeFormat = %a. %d.%m. %H.%M Uhr
-            media {
-                image {
-                    maxWidth = 380
-                    maxHeight = 380
-                }
+            image {
+                maxWidth = 380
+                maxHeight = 380
             }
         }
         carousel {
             # Possible values: Jssor, Bootstrap, Swiper
             template = Swiper
             datetimeFormat = %d.%M.%Y
-            media {
-                image {
-                    maxHeight = 425
-                }
+            image {
+                maxHeight = 720
+                maxWidth = 500
             }
             slider {
                 # ---------------
@@ -94,12 +91,13 @@ plugin.tx_clubdata {
             }
         }
         press {
-            media {
-                image {
-                    maxHeight = 425
-                    maxWidth = 425
-                }
+            image {
+                maxHeight = 425
+                maxWidth = 425
             }
+        }
+        preview {
+
         }
         listhelpers {
             displayUserInfo = 1

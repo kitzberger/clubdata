@@ -311,8 +311,8 @@ document.getElementById('pause-play').addEventListener('click', () => {
 <f:image class="d-block w-100"
          src="{image.uid}"
          treatIdAsReference="1"
-         height="{settings.carousel.bootstrap.media.image.maxHeight}"
-         cropVariant="{settings.carousel.bootstrap.media.image.cropVariant}"
+         height="{settings.carousel.bootstrap.image.maxHeight}"
+         cropVariant="{settings.carousel.bootstrap.image.cropVariant}"
          additionalAttributes="{alt: '{program.title}'}" />
 ```
 

@@ -2,7 +2,7 @@
     <f:for each="{previewItem.movie.image}" as="images" iteration="i">
         <f:if condition="{i.isFirst}">
             <f:then>
-                <f:image src="{images.uid}" width="{settings.preview.media.image.maxWidth}" height="{settings.preview.media.image.maxHeight}" treatIdAsReference="1"/>
+                <f:image src="{images.uid}" width="{settings.preview.image.maxWidth}" height="{settings.preview.image.maxHeight}" treatIdAsReference="1"/>
                 <h1>{previewItem.movie.title}</h1>
             </f:then>
             <f:else>

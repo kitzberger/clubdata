@@ -321,13 +321,13 @@ The template uses TYPO3's modern asset management system:
          additionalAttributes="{data-u: 'image'}"
          src="{image.uid}"
          treatIdAsReference="1"
-         height="{settings.carousel.media.image.maxHeight}"
+         height="{settings.carousel.image.maxHeight}"
          cropVariant="specialSlider" />
 ```
 
 ### Image Settings
 
-- **Max Height**: 425px (configurable via `settings.carousel.media.image.maxHeight`)
+- **Max Height**: 425px (configurable via `settings.carousel.image.maxHeight`)
 - **Crop Variant**: `specialSlider` (defined in TCA)
 - **Object Fit**: `cover` (maintains aspect ratio, fills space)
 

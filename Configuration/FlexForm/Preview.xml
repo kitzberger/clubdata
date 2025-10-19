@@ -50,6 +50,13 @@
                             <type>check</type>
                         </config>
                     </settings.filter.highlight>
+                    <settings.list.picture>
+                        <label>LLL:EXT:clubdata/Resources/Private/Language/locallang_flexform.xlf:settings.list.picture</label>
+                        <config>
+                            <type>check</type>
+                            <default>0</default>
+                        </config>
+                    </settings.list.picture>
                     <settings.filter.category_what>
                         <label>LLL:EXT:clubdata/Resources/Private/Language/locallang_flexform.xlf:settings.filter.category_what</label>
                         <config>

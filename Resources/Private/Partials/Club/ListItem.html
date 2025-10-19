@@ -3,8 +3,8 @@
         <f:if condition="{settings.list.picture}">
             <f:if condition="{program.picture.0}">
                 <f:image image="{program.picture.0}"
-                         maxHeight="{renderSettings.media.image.maxHeight}"
-                         maxWidth="{renderSettings.media.image.maxWidth}" />
+                         maxHeight="{renderSettings.image.maxHeight}"
+                         maxWidth="{renderSettings.image.maxWidth}" />
             </f:if>
         </f:if>
         {program.datetime -> f:format.date(format:renderSettings.datetimeFormat)}: {program.title}
