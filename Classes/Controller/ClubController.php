@@ -388,7 +388,7 @@ class ClubController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             $this->view->assign('uidlist', $uidlist);
         }
 
-        $this->view->assign('detailItem', $program);
+        $this->view->assign('program', $program);
 
         return $this->htmlResponse();
     }
@@ -536,7 +536,7 @@ class ClubController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             $filter = $this->settings['filter'];
         }
         $programs = $this->programRepository->findUpcoming($filter);
-        $this->view->assign('detailItem', $programs[0]);
+        $this->view->assign('program', $programs[0]);
         return $this->htmlResponse();
     }
 

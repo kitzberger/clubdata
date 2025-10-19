@@ -11,25 +11,25 @@
 </f:if>
 
 <div class="tx-clubdata-detail">
-    <f:if condition="{detailItem}">
-        <h1>{detailItem.title}</h1>
+    <f:if condition="{program}">
+        <h1>{program.title}</h1>
         <div class="subtitle">
-            <i>{detailItem.subTitle}</i>
+            <i>{program.subTitle}</i>
         </div>
         <div class="subtitle-2">
-            {detailItem.secSubTitle}
+            {program.secSubTitle}
         </div>
         <div class="description">
-            {detailItem.description -> f:format.html()}
+            {program.description -> f:format.html()}
         </div>
         <div class="date">
-            Date: {detailItem.datetime -> f:format.date(format:'Y-m-d H:i')}
+            Date: {program.datetime -> f:format.date(format:'Y-m-d H:i')}
         </div>
 
         <table>
             <tr>
                 <td style="vertical-align: top; padding-right: 1em;">
-                    <f:for each="{detailItem.picture}" as="image">
+                    <f:for each="{program.picture}" as="image">
                         <f:image image="{image}"
                                  maxWidth="{settings.detail.image.maxWidth}"
                                  maxHeight="{settings.detail.image.maxHeight}" />
@@ -38,79 +38,79 @@
                 <td>
                     <dl>
                         <dt>intern</dt>
-                        <dd>{f:if(condition:detailItem.intern,then:'✔',else:'✗')}</dd>
+                        <dd>{f:if(condition:program.intern,then:'✔',else:'✗')}</dd>
                         <dt>avoidNl</dt>
-                        <dd>{f:if(condition:detailItem.avoidNl,then:'✔',else:'✗')}</dd>
+                        <dd>{f:if(condition:program.avoidNl,then:'✔',else:'✗')}</dd>
                         <dt>highlight</dt>
-                        <dd>{f:if(condition:detailItem.highlight,then:'✔',else:'✗')}</dd>
+                        <dd>{f:if(condition:program.highlight,then:'✔',else:'✗')}</dd>
                         <dt>permHighlight</dt>
-                        <dd>{f:if(condition:detailItem.permHighlight,then:'✔',else:'✗')}</dd>
+                        <dd>{f:if(condition:program.permHighlight,then:'✔',else:'✗')}</dd>
                         <dt>hideDate</dt>
-                        <dd>{f:if(condition:detailItem.hideDate,then:'✔',else:'✗')}</dd>
+                        <dd>{f:if(condition:program.hideDate,then:'✔',else:'✗')}</dd>
                         <dt>entrance</dt>
-                        <dd>{detailItem.entrance}</dd>
+                        <dd>{program.entrance}</dd>
                         <dt>seating</dt>
-                        <dd>{detailItem.seating}</dd>
+                        <dd>{program.seating}</dd>
                         <dt>venue</dt>
-                        <dd>{detailItem.venue}</dd>
+                        <dd>{program.venue}</dd>
                         <dt>catPriceA</dt>
-                        <dd>{detailItem.catPriceA}</dd>
+                        <dd>{program.catPriceA}</dd>
                         <dt>priceA</dt>
-                        <dd>{detailItem.priceA}</dd>
+                        <dd>{program.priceA}</dd>
                         <dt>catPriceB</dt>
-                        <dd>{detailItem.catPriceB}</dd>
+                        <dd>{program.catPriceB}</dd>
                         <dt>priceB</dt>
-                        <dd>{detailItem.priceB}</dd>
+                        <dd>{program.priceB}</dd>
                         <dt>catPriceC</dt>
-                        <dd>{detailItem.catPriceC}</dd>
+                        <dd>{program.catPriceC}</dd>
                         <dt>priceC</dt>
-                        <dd>{detailItem.priceC}</dd>
+                        <dd>{program.priceC}</dd>
                         <dt>ticketLink</dt>
-                        <dd>{detailItem.ticketLink}</dd>
+                        <dd>{program.ticketLink}</dd>
                         <dt>preSales</dt>
-                        <dd>{detailItem.preSales}</dd>
+                        <dd>{program.preSales}</dd>
                         <dt>internalInfo</dt>
-                        <dd>{detailItem.internalInfo}</dd>
+                        <dd>{program.internalInfo}</dd>
                         <dt>visitors</dt>
-                        <dd>{detailItem.visitors}</dd>
+                        <dd>{program.visitors}</dd>
                         <dt>state</dt>
-                        <dd>{detailItem.state.title}</dd>
+                        <dd>{program.state.title}</dd>
                         <dt>links</dt>
                         <dd>
-                            <f:for each="{detailItem.links}" as="link">
+                            <f:for each="{program.links}" as="link">
                                 {link.title} ({link.link.title})<br>
                             </f:for>
                         </dd>
                         <dt>services</dt>
                         <dd>
-                            <f:for each="{detailItem.services}" as="service">
+                            <f:for each="{program.services}" as="service">
                                 {service.name}<br>
                             </f:for>
                         </dd>
                         <dt>categories</dt>
                         <dd>
-                             <f:for each="{detailItem.categories}" as="category">
+                             <f:for each="{program.categories}" as="category">
                                 {category.title}<br>
                             </f:for>
                         </dd>
                         <dt>maxTickets</dt>
-                        <dd>{detailItem.maxTickets}</dd>
+                        <dd>{program.maxTickets}</dd>
                         <dt>soldTickets</dt>
-                        <dd>{detailItem.soldTickets}</dd>
+                        <dd>{program.soldTickets}</dd>
                         <dt>serviceBarNum</dt>
-                        <dd>{detailItem.serviceBarNum}</dd>
+                        <dd>{program.serviceBarNum}</dd>
                         <dt>stateText</dt>
-                        <dd>{detailItem.stateText}</dd>
+                        <dd>{program.stateText}</dd>
                         <dt>seatings</dt>
-                        <dd>{detailItem.seatings}</dd>
+                        <dd>{program.seatings}</dd>
                         <dt>reduction</dt>
-                        <dd>{detailItem.reduction}</dd>
+                        <dd>{program.reduction}</dd>
                         <dt>genre</dt>
-                        <dd>{detailItem.genre}</dd>
+                        <dd>{program.genre}</dd>
                         <dt>festival</dt>
-                        <dd>{detailItem.festival}</dd>
+                        <dd>{program.festival}</dd>
                         <dt>noservice</dt>
-                        <dd>{detailItem.noservice}</dd>
+                        <dd>{program.noservice}</dd>
                     </dl>
                 </td>
             </tr>
