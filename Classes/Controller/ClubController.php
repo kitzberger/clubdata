@@ -591,6 +591,7 @@ class ClubController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             $greaternow = 0;
         }
 
+        // Press is always with images!
         $filter['image'] = 1;
 
         $programs = $this->programRepository->findWithinMonth(

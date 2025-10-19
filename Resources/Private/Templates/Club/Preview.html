@@ -1,5 +1,9 @@
-<div class="tx-clubdata-pi1-item-preview">
-    <f:for each="{programs}" as="listItem">
-        <f:render partial="Club/ListItem" arguments="{listItem:listItem,settings:settings,iterator:iterator}" />
+<div class="tx-clubdata-preview">
+    <f:for each="{programs}" as="program" iteration="iterator">
+        <f:render partial="Club/ListItem" arguments="{
+            program:program,
+            renderSettings:settings.preview,
+            iterator:iterator
+        }" />
     </f:for>
 </div>

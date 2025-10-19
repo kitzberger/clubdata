@@ -11,7 +11,11 @@
     <f:if condition="{settings.list.description}">
         with descriptions!<br>
     </f:if>
-    <f:for each="{programs}" as="listItem">
-        <f:render partial="Club/ListItem" arguments="{listItem:listItem,settings:settings,iterator:iterator}" />
+    <f:for each="{programs}" as="program">
+        <f:render partial="Club/ListItem" arguments="{
+            program:program,
+            renderSettings:settings.press,
+            iterator:iterator
+        }" />
     </f:for>
 </div>

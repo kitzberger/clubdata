@@ -1,6 +1,4 @@
 <div class="tx-clubdata-services">
-    <f:debug title="_all" inline="true" maxDepth="8">{_all}</f:debug>
-
     <f:if condition="{settings.list.pageyears}">
         <f:switch expression="{settings.list.show}">
             <f:case value="month">
@@ -30,6 +28,10 @@
     </f:if>
 
     <f:for each="{programs}" as="listItem">
-        <f:render partial="Club/ListItem" arguments="{listItem:listItem,settings:settings,iterator:iterator}" />
+        <f:render partial="Club/ListItem" arguments="{
+            listItem:listItem,
+            renderSettings:settings.services,
+            iterator:iterator
+        }" />
     </f:for>
 </div>

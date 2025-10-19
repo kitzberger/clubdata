@@ -22,19 +22,43 @@ plugin.tx_clubdata {
 
         storagePid  = {$plugin.tx_clubdata.persistence.storagePid}
         detailPid = {$plugin.tx_clubdata.settings.detailPid}
-        list.datetimeFormat = %d.%m. %H.%M Uhr
-        list.timeFormat = %H.%M Uhr
-        list.show = month
-        list.greaternow = 1
-        list.distinct = 0
-        detail.dateFormat = %a. %d. %B %Y
-        detail.timeFormat = %H.%M Uhr
-        detail.datetimeFormat = %a. %d.%m. %H.%M Uhr
-        detail.media.image.maxWidth = 380
-        detail.media.image.maxWHeight = 380
-        carousel.maxHeight = 425
 
-        listhelpers.displayUserInfo = 1
+        list {
+            datetimeFormat = %d.%m. %H.%M Uhr
+            timeFormat = %H.%M Uhr
+            show = month
+            greaternow = 1
+            distinct = 0
+        }
+        detail {
+            dateFormat = %a. %d. %B %Y
+            timeFormat = %H.%M Uhr
+            datetimeFormat = %a. %d.%m. %H.%M Uhr
+            media {
+                image {
+                    maxWidth = 380
+                    maxHeight = 380
+                }
+            }
+        }
+        carousel {
+            media {
+                image {
+                    maxHeight = 425
+                }
+            }
+        }
+        press {
+            media {
+                image {
+                    maxHeight = 425
+                    maxWidth = 425
+                }
+            }
+        }
+        listhelpers {
+            displayUserInfo = 1
+        }
     }
 }
 

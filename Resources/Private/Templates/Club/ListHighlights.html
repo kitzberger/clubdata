@@ -1,5 +1,8 @@
 <div class="tx-clubdata-list-highlights">
-    <f:for each="{programs}" as="listItem">
-        <f:render partial="Club/ListItem" arguments="{listItem:listItem,settings:settings,iterator:iterator}" />
+    <f:for each="{programs}" as="program">
+        <f:render partial="Club/ListItem" arguments="{
+            program:program,
+            renderSettings:settings.highlights,
+            iterator:iterator}" />
     </f:for>
 </div>

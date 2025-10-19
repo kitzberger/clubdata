@@ -1,4 +1,4 @@
-<div class="tx-clubdata-pi1">
+<div class="tx-clubdata-carousel">
     <script type="text/javascript">
         var offst = 0
         jQuery(document).ready(function ($) {
@@ -87,11 +87,13 @@
         <div data-u="loading" class="jssorl-009-spin" style="position:absolute;top:0px;left:0px;width:100%;height:100%;text-align:center;background-color:rgba(0,0,0,0.7);">
             <img style="margin-top:-19px;position:relative;top:50%;width:38px;height:38px;" src="{f:asset('Images/spin.svg)}" />
         </div>
+
         <div class="slides" data-u="slides" style="cursor:default;position:relative;top:0px;left:0px;width:980px;;overflow:hidden;">
             <f:for each="{programs}" as="listItem" iteration="iterator">
                 <f:render partial="Club/CarouselItem" arguments="{listItem:listItem,settings:settings,iterator:iterator}" />
             </f:for>
         </div>
+
         <f:if condition="{settings.carousel.bullets}">
             <div data-u="navigator" class="jssorb051" style="position:absolute;bottom:12px;right:12px;" data-autocenter="1" data-scale="0.5" data-scale-bottom="0.75">
                 <div data-u="prototype" class="i" style="width:16px;height:16px;">
@@ -101,6 +103,7 @@
                 </div>
             </div>
         </f:if>
+
         <f:if condition="{settings.carousel.arrows}">
             <!-- Arrow Navigator -->
             <!-- CK: width = init w 980-SW/2 right leftpos = width+SW -->

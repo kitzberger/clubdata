@@ -10,7 +10,7 @@
     </f:link.action>
 </f:if>
 
-<div class="tx-clubdata-pi1-item">
+<div class="tx-clubdata-detail">
     <f:if condition="{detailItem}">
         <h1>{detailItem.title}</h1>
         <div class="subtitle">
@@ -30,7 +30,9 @@
             <tr>
                 <td style="vertical-align: top; padding-right: 1em;">
                     <f:for each="{detailItem.picture}" as="image">
-                        <f:image image="{image}" maxWidth="400" />
+                        <f:image image="{image}"
+                                 maxWidth="{settings.detail.media.image.maxWidth"
+                                 maxHeight="{settings.detail.media.image.maxHeight" />
                     </f:for>
                 </td>
                 <td>

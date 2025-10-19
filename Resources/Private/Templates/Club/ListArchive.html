@@ -1,4 +1,4 @@
-<div class="tx-clubdata-list-press">
+<div class="tx-clubdata-list-archive">
     <f:switch expression="{settings.list.show}">
         <f:case value="month">
             <f:render partial="Club/NavPrevCurrentNext" arguments="{
@@ -26,7 +26,11 @@
         }" />
     </f:if>
 
-    <f:for each="{programs}" as="listItem">
-        <f:render partial="Club/ListItem" arguments="{listItem:listItem,settings:settings,iterator:iterator}" />
+    <f:for each="{programs}" as="program" iteration="iterator">
+        <f:render partial="Club/ListItem" arguments="{
+            program:program,
+            renderSettings:settings.archive,
+            iterator:iterator
+        }" />
     </f:for>
 </div>

@@ -1,6 +1,13 @@
 <div class="list-item">
-    <f:link.action pageUid="{settings.detailPid}" action="detail" arguments="{showUid:listItem.uid}">
-        {listItem.datetime -> f:format.date(format:'Y-m-d')}: {listItem.title}
+    <f:link.action pageUid="{settings.detailPid}" action="detail" arguments="{showUid:program.uid}">
+        <f:if condition="{settings.list.picture}">
+            <f:if condition="{program.picture.0}">
+                <f:image image="{program.picture.0}"
+                         maxHeight="{renderSettings.media.image.maxHeight}"
+                         maxWidth="{renderSettings.media.image.maxWidth}" />
+            </f:if>
+        </f:if>
+        {program.datetime -> f:format.date(format:renderSettings.datetimeFormat)}: {program.title}
     </f:link.action>
 </div>
 
