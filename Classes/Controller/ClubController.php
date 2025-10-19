@@ -130,42 +130,6 @@ class ClubController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             $this->userRepository->setDefaultQuerySettings($querySettings);
         }
 
-        $fromdate = date('Ym' . '01');
-        $todate = date('Ymt') . ' 23:59';
-        if ($this->settings['filter']) {
-            $filter = $this->settings['filter'];
-        }
-        if ($this->request->hasArgument('catUid') && $this->request->getArgument('catUid')) {
-            $filter['categories'] = $this->request->getArgument('catUid');
-        }
-        $filter['noservice'] = 1;
-
-        if ($this->request->hasArgument('date')) {
-            $todate = $this->request->getArgument('date');
-            $fromdate = $todate . '01';
-            $todate = date('YmtHi', strtotime($fromdate . ' 23:59'));
-        }
-
-        if ($this->settings['list']['show'] == 'month') {
-            $nextmonth = date('Ym', strtotime($fromdate . ' + 1 month'));
-            $prevmonth = date('Ym', strtotime($fromdate . ' - 1 month'));
-            $currmonth = date('Ym', strtotime($fromdate));
-            $thismonth = date('Ym', strtotime($fromdate));
-        } elseif ($this->settings['list']['show'] == 'year') {
-            $fromdate = date('Y', strtotime($fromdate)) . '0101';
-            $todate = date('Y', strtotime($fromdate)) . '1231 23:59';
-            $nextmonth = date('Ym', strtotime($fromdate . ' + 1 year'));
-            $prevmonth = date('Ym', strtotime($fromdate . ' - 1 year'));
-            $currmonth = date('Y', strtotime($fromdate));
-            $thismonth = date('Ym', strtotime($fromdate));
-        } else {
-            $thismonth = date('Ym', strtotime($fromdate));
-            $currmonth = date('Ym', strtotime($fromdate));
-            unset($todate);
-        }
-        $showmonth = date('Ymd', strtotime($fromdate));
-        $now = date('c');
-
         $feuser = $this->request->getAttribute('frontend.user')->user['uid'];
         $user = $feuser ? $this->userRepository->findByUid($feuser) : null;
 
@@ -195,10 +159,45 @@ class ClubController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             return $this->htmlResponse();
         }
 
+        // Build time related variables
+        $fromdate = date('Ym' . '01'); // start of current month
+        $todate = date('Ymt') . ' 23:59'; // end of current month
+        if ($this->request->hasArgument('date')) {
+            $todate = $this->request->getArgument('date');
+            $fromdate = $todate . '01';
+            $todate = date('YmtHi', strtotime($fromdate . ' 23:59'));
+        }
+        if ($this->settings['list']['show'] == 'month') {
+            $nextmonth = date('Ym', strtotime($fromdate . ' + 1 month'));
+            $prevmonth = date('Ym', strtotime($fromdate . ' - 1 month'));
+            $currmonth = date('Ym', strtotime($fromdate));
+            $thismonth = date('Ym', strtotime($fromdate));
+        } elseif ($this->settings['list']['show'] == 'year') {
+            $fromdate = date('Y', strtotime($fromdate)) . '0101';
+            $todate = date('Y', strtotime($fromdate)) . '1231 23:59';
+            $nextmonth = date('Ym', strtotime($fromdate . ' + 1 year'));
+            $prevmonth = date('Ym', strtotime($fromdate . ' - 1 year'));
+            $currmonth = date('Y', strtotime($fromdate));
+            $thismonth = date('Ym', strtotime($fromdate));
+        } else {
+            $thismonth = date('Ym', strtotime($fromdate));
+            $currmonth = date('Ym', strtotime($fromdate));
+            unset($todate);
+        }
+        $showmonth = date('Ymd', strtotime($fromdate));
+        $now = date('c');
+
         // Get all them services (Theke, Kasse, ...)
         $services = $this->serviceRepository->findAll();
 
-        // Get all the events of this month
+        // Build filter array
+        $filter = $this->settings['filter'] ?? [];
+        $filter['noservice'] = 1;
+        if ($this->request->hasArgument('catUid') && $this->request->getArgument('catUid')) {
+            $filter['categories'] = $this->request->getArgument('catUid');
+        }
+
+        // Get all the events of selected time range
         $programs = $this->programRepository->findWithinMonth(
             $filter,
             strtotime($fromdate),
@@ -222,6 +221,7 @@ class ClubController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             $d2 = $oldest[0]->getDatetime();
             $diff = $d2->diff($d1);
             $diff = $diff->format('%a');
+            // TODO: why is this showmonth under 'service'?!
             if ($this->settings['service']['showmonth']) {
                 $diff = intval($this->settings['service']['showmonth']) * 30 - 1;
             }
@@ -254,7 +254,8 @@ class ClubController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                     $date = strftime('%b', strtotime($year . sprintf('%02d', $month) . '01'));
                     $refdate = date('Ym', strtotime($year . sprintf('%02d', $month) . '01'));
                 };
-                $nav[] = ['title' => $date,
+                $nav[] = [
+                    'title' => $date,
                     'date' => $refdate,
                     'year' => $year
                 ];
