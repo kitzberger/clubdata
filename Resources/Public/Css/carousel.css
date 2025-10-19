@@ -1,0 +1,560 @@
+/* ============================================================================
+   CLUBDATA CAROUSEL - SEMANTIC CSS CLASSES
+
+   Note: Jssor requires specific class names for functionality, but we use
+   semantic aliases and improve the styling with modern CSS.
+   ============================================================================ */
+
+/* Loading Spinner Styles */
+.carousel-loading,
+.jssorl-009-spin {
+    /* Semantic alias for .jssorl-009-spin */
+}
+
+.carousel-loading img,
+.jssorl-009-spin img {
+    animation: carousel-spin 1.6s infinite linear;
+    will-change: transform; /* Optimize for animation performance */
+}
+
+@keyframes carousel-spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* Legacy keyframe name for compatibility */
+@keyframes jssorl-009-spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* Navigation Bullets Styles */
+.carousel-bullets,
+.jssorb051 {
+    /* Semantic alias for .jssorb051 */
+}
+
+.carousel-bullet,
+.carousel-bullets .i,
+.jssorb051 .i {
+    position: absolute;
+    cursor: pointer;
+    transition: opacity 0.2s ease-in-out;
+    border-radius: 50%;
+    /* Accessibility improvements */
+    -webkit-tap-highlight-color: transparent;
+    outline: none;
+    /* Better touch target size (WCAG compliant) */
+    min-width: 44px;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.carousel-bullet-icon,
+.carousel-bullets .i .b,
+.jssorb051 .i .b {
+    fill: #fff;
+    fill-opacity: 0.5;
+    transition: fill-opacity 0.2s ease-in-out;
+}
+
+.carousel-bullet:hover .carousel-bullet-icon,
+.carousel-bullet:focus .carousel-bullet-icon,
+.carousel-bullets .i:hover .b,
+.carousel-bullets .i:focus .b,
+.jssorb051 .i:hover .b,
+.jssorb051 .i:focus .b {
+    fill-opacity: 0.7;
+}
+
+.carousel-bullet--active .carousel-bullet-icon,
+.carousel-bullets .iav .b,
+.jssorb051 .iav .b {
+    fill-opacity: 1;
+}
+
+.carousel-bullet--disabled,
+.carousel-bullets .i.idn,
+.jssorb051 .i.idn {
+    opacity: 0.3;
+}
+
+/* Focus indicator for accessibility */
+.carousel-bullet:focus,
+.carousel-bullets .i:focus,
+.jssorb051 .i:focus {
+    outline: 2px solid rgba(255, 255, 255, 0.8);
+    outline-offset: 2px;
+}
+
+/* Navigation Arrows Styles */
+.carousel-arrow,
+.jssora051 {
+    display: flex; /* Modern flexbox instead of block */
+    position: absolute;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.2s ease-in-out, transform 0.1s ease-in-out;
+    /* Accessibility improvements */
+    -webkit-tap-highlight-color: transparent;
+    outline: none;
+    /* Better touch target size (WCAG compliant) */
+    min-width: 44px;
+    min-height: 44px;
+    /* Visual enhancements */
+    border-radius: 4px;
+    background: rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(4px);
+}
+
+.carousel-arrow:hover,
+.jssora051:hover {
+    opacity: 1;
+    transform: scale(1.05);
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.carousel-arrow:active,
+.jssora051:active {
+    transform: scale(0.95);
+}
+
+.carousel-arrow:focus,
+.jssora051:focus {
+    outline: 2px solid rgba(255, 255, 255, 0.8);
+    outline-offset: 2px;
+}
+
+.carousel-arrow-icon,
+.carousel-arrow .a,
+.jssora051 .a {
+    fill: none;
+    stroke: #fff;
+    stroke-width: 360;
+    stroke-miterlimit: 10;
+    transition: stroke-width 0.1s ease-in-out;
+    /* Add drop shadow for better visibility */
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+.carousel-arrow:hover .carousel-arrow-icon,
+.carousel-arrow:hover .a,
+.jssora051:hover .a {
+    stroke-width: 400;
+}
+
+/* Clubdata carousel specific styles with modern improvements */
+.clubdata-slider {
+    position: relative;
+    margin: 0 auto;
+    width: var(--container-width, 980px);
+    max-width: 100%; /* Responsive constraint */
+    /* Height will be set dynamically by Jssor */
+    overflow: hidden;
+    visibility: hidden;
+    /* Transform scaling will be controlled by JavaScript based on autoScaling setting */
+
+    /* Performance optimizations */
+    contain: layout style paint; /* CSS Containment for performance */
+    will-change: transform, width, height; /* Optimize for dynamic changes */
+
+    /* Smooth transitions when responsive scaling occurs */
+    transition: width 0.2s ease-out, height 0.2s ease-out;
+
+    /* CSS Custom Properties for configurable values */
+    --container-width: 980px;  /* Overall slider container width */
+    --slide-width: 700px;      /* Individual slide width (smaller = shows adjacent slides) */
+    --arrow-width: 265px;
+    --arrow-right-position: 715px;
+    --min-slide-height: 200px;
+
+    /* Enhanced visual styling */
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    background: #000; /* Fallback background while loading */
+}
+
+.clubdata-slider .carousel-loading,
+.clubdata-slider .jssorl-009-spin {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(4px);
+    border-radius: 8px; /* Match container border-radius */
+    z-index: 10; /* Ensure spinner is on top */
+}
+
+.clubdata-slider .carousel-loading img,
+.clubdata-slider .jssorl-009-spin img {
+    width: 48px; /* Slightly larger for better visibility */
+    height: 48px;
+    opacity: 0.9;
+}
+
+.clubdata-slider .slides {
+    position: relative;
+    width: var(--container-width, 980px);
+    /* Height will be set dynamically by Jssor */
+    overflow: hidden;
+    border-radius: 8px; /* Match container border-radius */
+}
+
+/* Individual slides with enhanced styling */
+.clubdata-slider .slides > div {
+    width: var(--slide-width, 700px);
+    /* Height will be set dynamically by Jssor */
+    overflow: hidden;
+    margin: 0 auto; /* Center slides within container */
+    border-radius: 4px; /* Subtle rounding for individual slides */
+    /* Optimize for animations */
+    will-change: transform;
+    backface-visibility: hidden; /* Prevent flickering during transitions */
+    /* Create smooth hover effect for entire slide */
+    transition: transform 0.3s ease-out;
+}
+
+.clubdata-slider .slides > div:hover {
+    transform: scale(1.02); /* Subtle zoom on hover */
+}
+
+/* Slide link now wraps entire slide content */
+.clubdata-slider .slide-link {
+    display: block;
+    position: relative;
+    text-decoration: none;
+    color: inherit;
+    width: 100%;
+    height: 100%;
+    border-radius: 4px;
+    overflow: hidden; /* Contain image and content */
+}
+
+/* Image wrapper within slide link */
+.clubdata-slider .image-wrap {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    /* No need for border-radius here - handled by slide-link */
+}
+
+/* Optimized image styles */
+.clubdata-slider .slider-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.3s ease-out;
+    border-radius: 4px; /* Apply rounding to image itself */
+    /* Performance optimizations */
+    will-change: transform;
+    backface-visibility: hidden;
+}
+
+/* Enhanced image zoom effect on slide hover */
+.clubdata-slider .slides > div:hover .slider-image {
+    transform: scale(1.05);
+}
+
+/* Caption positioned to work with Jssor's autoScaling transforms */
+.clubdata-slider .slider-caption-wrap {
+    position: absolute;
+    /* Use percentage-based positioning to work with transforms */
+    bottom: 2%; /* Percentage-based positioning scales with transforms */
+    left: 2%;
+    right: 2%;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 12px 16px;
+    border-radius: 4px;
+    /* Make it always visible and properly styled */
+    opacity: 0.9;
+    transition: opacity 0.3s ease-out, background-color 0.3s ease-out;
+    /* Better text rendering */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    /* Ensure it's above the image and scales properly */
+    z-index: 2;
+    /* Add subtle shadow for better visibility */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    /* Ensure it works with CSS transforms applied by Jssor */
+    transform-origin: center bottom;
+}
+
+/* Enhanced caption visibility on slide hover */
+.clubdata-slider .slides > div:hover .slider-caption-wrap {
+    opacity: 1;
+    background: rgba(0, 0, 0, 0.9);
+}
+
+.clubdata-slider .slider-caption {
+    color: white;
+    font-size: 16px;
+    line-height: 1.4;
+    font-weight: 500; /* Slightly bolder for better readability */
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5); /* Improve text contrast */
+}
+
+.clubdata-slider .slider-date {
+    display: block;
+    font-size: 14px;
+    opacity: 0.9;
+    margin-bottom: 6px;
+    font-weight: 400;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.clubdata-slider .carousel-bullets,
+.clubdata-slider .jssorb051 {
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+}
+
+.clubdata-slider .carousel-bullet,
+.clubdata-slider .jssorb051 .i {
+    width: 16px;
+    height: 16px;
+}
+
+.clubdata-slider .carousel-bullets svg,
+.clubdata-slider .carousel-arrow svg,
+.clubdata-slider .jssorb051 svg,
+.clubdata-slider .jssora051 svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.clubdata-slider .carousel-arrow--left,
+.clubdata-slider .jssora051.arrowleft {
+    width: var(--arrow-width, 265px);
+}
+
+.clubdata-slider .carousel-arrow--right,
+.clubdata-slider .jssora051.arrowright {
+    width: var(--arrow-width, 265px);
+    left: var(--arrow-right-position, 715px);
+}
+
+.clubdata-slider .fade {
+    /* Dynamic width will be set by JavaScript */
+}
+
+.clubdata-slider .arrowright {
+    /* Dynamic left position will be set by JavaScript */
+}
+
+/* Prevent zero-height issues with Jssor internal elements */
+.clubdata-slider div {
+    min-height: 0; /* Reset any inherited min-height */
+}
+
+.clubdata-slider [data-u="slides"] > div {
+    min-height: var(--min-slide-height, 200px); /* Ensure slides have minimum height */
+}
+
+/* Ensure images have proper dimensions */
+.clubdata-slider img {
+    max-width: 100%;
+    height: auto;
+    min-height: var(--min-slide-height, 200px); /* Prevent collapse */
+}
+
+/* Responsive design improvements */
+
+/* Tablet and smaller desktop screens */
+@media (max-width: 1024px) {
+    .clubdata-slider {
+        margin: 0 16px; /* Add side margins */
+        width: calc(100% - 32px);
+        max-width: calc(var(--container-width, 980px) - 32px);
+    }
+
+    .clubdata-slider .slider-caption-wrap {
+        padding: 20px 16px 16px;
+    }
+
+    .clubdata-slider .slider-caption {
+        font-size: 15px;
+    }
+
+    .clubdata-slider .slider-date {
+        font-size: 13px;
+    }
+}
+
+/* Mobile landscape and smaller tablets */
+@media (max-width: 768px) {
+    .clubdata-slider {
+        margin: 0 12px;
+        width: calc(100% - 24px);
+        border-radius: 6px; /* Slightly smaller radius */
+    }
+
+    .clubdata-slider .slides {
+        border-radius: 6px;
+    }
+
+    .clubdata-slider .slider-caption-wrap {
+        padding: 16px 12px 12px;
+    }
+
+    .clubdata-slider .slider-caption {
+        font-size: 14px;
+        line-height: 1.3;
+    }
+
+    .clubdata-slider .slider-date {
+        font-size: 12px;
+        margin-bottom: 4px;
+    }
+
+    /* Adjust navigation for smaller screens */
+    .clubdata-slider .carousel-bullets,
+    .clubdata-slider .jssorb051 {
+        bottom: 8px;
+        right: 8px;
+    }
+
+    /* Make arrows more prominent on mobile */
+    .clubdata-slider .carousel-arrow,
+    .clubdata-slider .jssora051 {
+        background: rgba(0, 0, 0, 0.3);
+    }
+
+    .clubdata-slider .carousel-arrow:hover,
+    .clubdata-slider .jssora051:hover {
+        background: rgba(0, 0, 0, 0.5);
+    }
+}
+
+/* Mobile portrait */
+@media (max-width: 480px) {
+    .clubdata-slider {
+        margin: 0 8px;
+        width: calc(100% - 16px);
+        border-radius: 4px;
+    }
+
+    .clubdata-slider .slides {
+        border-radius: 4px;
+    }
+
+    .clubdata-slider .slides > div {
+        border-radius: 2px;
+    }
+
+    .clubdata-slider .image-wrap {
+        border-radius: 2px;
+    }
+
+    .clubdata-slider .slider-caption-wrap {
+        padding: 12px 8px 8px;
+        border-radius: 0 0 2px 2px;
+    }
+
+    .clubdata-slider .slider-caption {
+        font-size: 13px;
+        line-height: 1.2;
+    }
+
+    .clubdata-slider .slider-date {
+        font-size: 11px;
+    }
+
+    /* Disable hover effects on mobile for better performance */
+    .clubdata-slider .slides > div:hover {
+        transform: none;
+    }
+
+    .clubdata-slider .slides > div:hover .slider-image {
+        transform: none;
+    }
+
+    /* Always show caption on mobile */
+    .clubdata-slider .slider-caption-wrap {
+        transform: translateY(0);
+    }
+}
+
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+    .clubdata-slider,
+    .clubdata-slider *,
+    .clubdata-slider *::before,
+    .clubdata-slider *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+
+    .clubdata-slider .slides > div:hover {
+        transform: none;
+    }
+
+    .clubdata-slider .slides > div:hover .slider-image {
+        transform: none;
+    }
+
+    .clubdata-slider .carousel-arrow:hover,
+    .clubdata-slider .jssora051:hover {
+        transform: none;
+    }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .clubdata-slider {
+        box-shadow: 0 0 0 2px currentColor;
+    }
+
+    .clubdata-slider .slider-caption-wrap {
+        background: rgba(0, 0, 0, 0.95);
+    }
+
+    .clubdata-slider .carousel-arrow,
+    .clubdata-slider .carousel-bullet,
+    .clubdata-slider .jssora051,
+    .clubdata-slider .jssorb051 .i {
+        background: rgba(0, 0, 0, 0.8);
+        border: 1px solid currentColor;
+    }
+}
+
+/* Focus-visible support for better keyboard navigation */
+.clubdata-slider .carousel-arrow:focus-visible,
+.clubdata-slider .carousel-bullet:focus-visible,
+.clubdata-slider .jssora051:focus-visible,
+.clubdata-slider .jssorb051 .i:focus-visible {
+    outline: 3px solid #0066cc;
+    outline-offset: 2px;
+}
+
+/* Print styles */
+@media print {
+    .clubdata-slider .carousel-arrow,
+    .clubdata-slider .carousel-bullets,
+    .clubdata-slider .carousel-loading,
+    .clubdata-slider .jssora051,
+    .clubdata-slider .jssorb051,
+    .clubdata-slider .jssorl-009-spin {
+        display: none;
+    }
+
+    .clubdata-slider {
+        box-shadow: none;
+        background: transparent;
+    }
+}

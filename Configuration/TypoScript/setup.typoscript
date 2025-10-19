@@ -42,10 +42,23 @@ plugin.tx_clubdata {
             }
         }
         carousel {
+            datetimeFormat = %d.%M.%Y
             media {
                 image {
                     maxHeight = 425
                 }
+            }
+            slider {
+                arrows = 1
+                bullets = 1
+                autoPlay = 0
+                autoScaling = 0
+                slideWidth = 720
+                slideHeight = 500
+                containerWidth = 980
+                arrowWidth = 265
+                arrowRightPosition = 715
+                minSlideHeight = 200
             }
         }
         press {
@@ -65,6 +78,5 @@ plugin.tx_clubdata {
 page.includeCSS.file35 = {$plugin.tx_clubdata.settings.cssFile}
 page.includeCSS.file36 = {$plugin.tx_clubdata.settings.cssSliderFile}
 page.includeJSFooter.clubdata = {$plugin.tx_clubdata.settings.jsFile}
-page.includeJS.slider = EXT:clubdata/Resources/Public/Js/jssor.slider-27.4.0.min.js
 
 module.tx_clubdata  < plugin.tx_clubdata
