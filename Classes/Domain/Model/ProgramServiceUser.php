@@ -34,7 +34,6 @@ class ProgramServiceUser extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @var \Medpzl\Clubdata\Domain\Model\FrontendUser
      */
-    #[\TYPO3\CMS\Extbase\Annotation\ORM\Lazy]
     protected $user = null;
 
     /**
