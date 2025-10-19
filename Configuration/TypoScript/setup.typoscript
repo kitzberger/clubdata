@@ -67,25 +67,4 @@ page.includeCSS.file36 = {$plugin.tx_clubdata.settings.cssSliderFile}
 page.includeJSFooter.clubdata = {$plugin.tx_clubdata.settings.jsFile}
 page.includeJS.slider = EXT:clubdata/Resources/Public/Js/jssor.slider-27.4.0.min.js
 
-lib.clubdata_list = USER
-lib.clubdata_list {
-    userFunc = TYPO3\CMS\Extbase\Core\Bootstrap->run
-    pluginName = Pi1
-    extensionName = Clubdata
-    controller = Club
-    vendorName = TYPO3
-    action = list
-    switchableControllerActions {
-        Club {
-            1 = list
-        }
-    }
-
-    settings =< plugin.tx_clubdata.settings
-    settings.list.show = year
-    persistence =< plugin.tx_clubdata.persistence
-    view =< plugin.tx_clubdata.view
-    update =< plugin.tx_clubdata.update
-}
-
 module.tx_clubdata  < plugin.tx_clubdata
