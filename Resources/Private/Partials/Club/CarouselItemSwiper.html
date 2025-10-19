@@ -1,0 +1,37 @@
+<f:variable name="image" value="{program.picture -> f:first()}" />
+
+<div class="swiper-slide">
+    <f:link.action action="detail" pageUid="{settings.detailPid}" arguments="{showUid: program.uid}" class="swiper-slide-link">
+        <div class="swiper-slide-content">
+            <div class="swiper-image-wrap">
+                <f:image id="swiper-img-{image.uid}"
+                         class="swiper-slide-image"
+                         src="{image.uid}"
+                         treatIdAsReference="1"
+                         height="{settings.carousel.media.image.maxHeight}"
+                         width="{settings.carousel.media.image.maxWidth}"
+                         cropVariant="specialSlider" />
+            </div>
+            <div class="swiper-slide-overlay">
+                <div class="swiper-slide-caption">
+                    <div class="swiper-slide-date">
+                        {program.datetime -> f:format.date(format:settings.carousel.datetimeFormat)}
+                    </div>
+                    <h3 class="swiper-slide-title">
+                        {program.title}
+                    </h3>
+                    <f:if condition="{program.subtitle}">
+                        <p class="swiper-slide-subtitle">
+                            {program.subtitle}
+                        </p>
+                    </f:if>
+                    <f:if condition="{program.teaser}">
+                        <p class="swiper-slide-teaser">
+                            {program.teaser -> f:format.crop(maxCharacters: 120, append: '...')}
+                        </p>
+                    </f:if>
+                </div>
+            </div>
+        </div>
+    </f:link.action>
+</div>

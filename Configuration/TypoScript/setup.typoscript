@@ -42,6 +42,8 @@ plugin.tx_clubdata {
             }
         }
         carousel {
+            # Possible values: Jssor, Bootstrap, Swiper
+            template = Swiper
             datetimeFormat = %d.%M.%Y
             media {
                 image {
@@ -49,16 +51,46 @@ plugin.tx_clubdata {
                 }
             }
             slider {
+                # ---------------
+                # Generic options
+                # ---------------
+
                 arrows = 1
                 bullets = 1
                 autoPlay = 0
-                autoScaling = 0
                 slideWidth = 720
                 slideHeight = 500
-                containerWidth = 980
-                arrowWidth = 265
+
+                # ----------------------
+                # Jssor specific options
+                # ----------------------
+
                 arrowRightPosition = 715
+                arrowWidth = 265
+                autoScaling = 0
+                containerWidth = 980
                 minSlideHeight = 200
+
+                # -----------------------
+                # Swiper specific options
+                # -----------------------
+
+                slidesPerView = 3
+
+                # Breakpoint values (in pixels)
+                breakpointMobile = 320
+                breakpointTablet = 768
+                breakpointDesktop = 1024
+
+                # Slides per view for each breakpoint
+                mobileSlides = 1
+                tabletSlides = 2
+                desktopSlides = 3
+
+                # Spacing between slides for each breakpoint
+                mobileSpacing = 20
+                tabletSpacing = 25
+                desktopSpacing = 30
             }
         }
         press {

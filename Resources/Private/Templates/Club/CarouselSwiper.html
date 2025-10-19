@@ -1,0 +1,56 @@
+<div class="tx-clubdata-carousel">
+    <f:asset.css identifier="swiper-css" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <f:asset.script identifier="swiper-js" src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" />
+    <f:asset.css identifier="carousel-swiper-css" href="EXT:clubdata/Resources/Public/Css/carousel-swiper.css" />
+    <f:asset.script identifier="carousel-swiper-js" src="EXT:clubdata/Resources/Public/Js/carousel-swiper.js" />
+
+    <f:variable name="slider" value="{settings.carousel.slider}" />
+
+    <!-- Swiper Container -->
+    <div class="swiper clubdata-swiper"
+         data-autoplay="{slider.autoPlay}"
+         data-loop="true"
+         data-slides-per-view="{f:if(condition: slider.slidesPerView, then: slider.slidesPerView, else: '1')}"
+         data-space-between="{f:if(condition: slider.spaceBetween, then: slider.spaceBetween, else: '30')}"
+         data-centered-slides="{f:if(condition: slider.centeredSlides, then: 'true', else: 'false')}"
+         data-autoplay-delay="{f:if(condition: slider.autoPlayDelay, then: slider.autoPlayDelay, else: '5000')}"
+         data-breakpoint-mobile="{f:if(condition: slider.breakpointMobile, then: slider.breakpointMobile, else: '320')}"
+         data-breakpoint-tablet="{f:if(condition: slider.breakpointTablet, then: slider.breakpointTablet, else: '768')}"
+         data-breakpoint-desktop="{f:if(condition: slider.breakpointDesktop, then: slider.breakpointDesktop, else: '1024')}"
+         data-mobile-slides="{f:if(condition: slider.mobileSlides, then: slider.mobileSlides, else: '1')}"
+         data-tablet-slides="{f:if(condition: slider.tabletSlides, then: slider.tabletSlides, else: '1')}"
+         data-desktop-slides="{f:if(condition: slider.desktopSlides, then: slider.desktopSlides, else: '1')}"
+         data-mobile-spacing="{f:if(condition: slider.mobileSpacing, then: slider.mobileSpacing, else: '20')}"
+         data-tablet-spacing="{f:if(condition: slider.tabletSpacing, then: slider.tabletSpacing, else: '25')}"
+         data-desktop-spacing="{f:if(condition: slider.desktopSpacing, then: slider.desktopSpacing, else: '30')}">
+        
+        <!-- Swiper Wrapper -->
+        <div class="swiper-wrapper">
+            <f:for each="{programs}" as="program" iteration="iterator">
+                <f:render partial="Club/CarouselItemSwiper" arguments="{
+                    program:program,
+                    settings:settings,
+                    iterator:iterator
+                }" />
+            </f:for>
+        </div>
+
+        <f:if condition="{f:count(subject: programs)} > 1">
+            <f:if condition="{slider.bullets}">
+                <!-- Pagination -->
+                <div class="swiper-pagination"></div>
+            </f:if>
+
+            <f:if condition="{slider.arrows}">
+                <!-- Navigation -->
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+            </f:if>
+
+            <f:if condition="{slider.scrollbar}">
+                <!-- Scrollbar -->
+                <div class="swiper-scrollbar"></div>
+            </f:if>
+        </f:if>
+    </div>
+</div>

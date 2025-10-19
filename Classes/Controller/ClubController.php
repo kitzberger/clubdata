@@ -523,6 +523,9 @@ class ClubController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 
         $this->view->assign('programs', $programs);
 
+        $template = $this->settings['carousel']['template'] ?? 'Bootstrap';
+        $this->view->getRenderingContext()->setControllerAction('Club/Carousel' . $template);
+
         return $this->htmlResponse();
     }
 

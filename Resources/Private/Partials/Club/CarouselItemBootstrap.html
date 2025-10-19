@@ -1,0 +1,30 @@
+<f:variable name="image" value="{program.picture -> f:first()}" />
+
+<div class="carousel-item {f:if(condition: iterator.isFirst, then: 'active')}">
+    <f:link.action action="detail" pageUid="{settings.detailPid}" arguments="{showUid: program.uid}" class="d-block carousel-link">
+        <div class="carousel-image-wrap position-relative">
+            <f:image id="carousel-img-{image.uid}"
+                     class="d-block w-100 carousel-image"
+                     src="{image.uid}"
+                     treatIdAsReference="1"
+                     height="{settings.carousel.media.image.maxHeight}"
+                     width="{settings.carousel.media.image.maxWidth}"
+                     cropVariant="specialSlider" />
+            <div class="carousel-caption d-none d-md-block">
+                <div class="carousel-content">
+                    <div class="carousel-date mb-2">
+                        {program.datetime -> f:format.date(format:settings.carousel.datetimeFormat)}
+                    </div>
+                    <h5 class="carousel-title mb-0">
+                        {program.title}
+                    </h5>
+                    <f:if condition="{program.subtitle}">
+                        <p class="carousel-subtitle mb-0">
+                            {program.subtitle}
+                        </p>
+                    </f:if>
+                </div>
+            </div>
+        </div>
+    </f:link.action>
+</div>
