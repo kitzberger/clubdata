@@ -1,0 +1,6 @@
+mod.web_layout.tt_content.preview {
+  clubdata_carousel = EXT:clubdata/Resources/Private/Templates/Preview/Carousel.html
+  clubdata_list = EXT:clubdata/Resources/Private/Templates/Preview/List.html
+  clubdata_listhelpers = EXT:clubdata/Resources/Private/Templates/Preview/ListHelpers.html
+  clubdata_preview = EXT:clubdata/Resources/Private/Templates/Preview/Preview.html
+}
