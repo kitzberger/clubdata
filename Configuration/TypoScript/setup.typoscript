@@ -29,6 +29,10 @@ plugin.tx_clubdata {
             show = month
             greaternow = 1
             distinct = 0
+            image {
+                maxWidth = 100
+                maxHeight = 100
+            }
         }
         detail {
             dateFormat = %a. %d. %B %Y
