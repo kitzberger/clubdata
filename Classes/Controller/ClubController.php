@@ -63,7 +63,9 @@ class ClubController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         } else {
             $thismonth = date('Ym', strtotime($fromdate));
             $currmonth = date('Ym', strtotime($fromdate));
-            unset($todate);
+            $todate = null;
+            $nextmonth = null;
+            $prevmonth = null;
         }
         $showmonth = date('Ymd', strtotime($fromdate));
         $now = date('c');
@@ -90,7 +92,9 @@ class ClubController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             $diff = $d2->diff($d1);
             $diff = $diff->format('%a');
             if ($this->settings['list']['show'] == 'year') {
-                $elements =  floor($diff / 30 / 12);
+                $elements = floor($diff / 30 / 12);
+            } else {
+                $elements = 0;
             }
             $elements += 1;
             $nav = [];
@@ -182,7 +186,9 @@ class ClubController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         } else {
             $thismonth = date('Ym', strtotime($fromdate));
             $currmonth = date('Ym', strtotime($fromdate));
-            unset($todate);
+            $todate = null;
+            $nextmonth = null;
+            $prevmonth = null;
         }
         $showmonth = date('Ymd', strtotime($fromdate));
         $now = date('c');
