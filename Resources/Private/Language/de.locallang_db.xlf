@@ -167,6 +167,10 @@
                 <source>No Service</source>
                 <target>Keine Dienste</target>
             </trans-unit>
+            <trans-unit id="tx_clubdata_domain_model_program.flags">
+                <source>Flags</source>
+                <target>Schalter</target>
+            </trans-unit>
             <trans-unit id="fe_users.salutation">
                 <source>Salutation</source>
                 <target>Anrede</target>

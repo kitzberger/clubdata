@@ -9,6 +9,9 @@ defined('TYPO3') || die('Access denied.');
 // Automatically set entrance on save
 $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processDatamapClass']['clubdata'] = Entrance::class;
 
+// Register "clubdata:" namespace
+$GLOBALS['TYPO3_CONF_VARS']['SYS']['fluid']['namespaces']['clubdata'][] = 'Medpzl\\Clubdata\\ViewHelpers';
+
 // List view plugin
 ExtensionUtility::configurePlugin(
     'Clubdata',

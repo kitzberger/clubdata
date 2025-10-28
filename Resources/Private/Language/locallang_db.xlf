@@ -186,6 +186,9 @@
             <trans-unit id="tx_clubdata_domain_model_program.noservice">
                 <source>No Service</source>
             </trans-unit>
+            <trans-unit id="tx_clubdata_domain_model_program.flags">
+                <source>Flags</source>
+            </trans-unit>
             <trans-unit id="tx_clubdata.module.clubdatahelpers">
                 <source>Helpertable</source>
             </trans-unit>

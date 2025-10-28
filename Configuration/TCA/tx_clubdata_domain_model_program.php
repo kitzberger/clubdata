@@ -1,5 +1,6 @@
 <?php
 
+use Medpzl\Clubdata\UserFunctions\FormEngine\Program;
 use TYPO3\CMS\Core\Resource\FileType;
 
 $ll = 'LLL:EXT:clubdata/Resources/Private/Language/locallang_db.xlf:';
@@ -32,7 +33,7 @@ return [
     ],
     'types' => [
         '1' => [
-            'showitem' => '--palette--;;dates, --palette--;;title, --palette--;;subtitles, --palette--;;misc, categories, seating, seatings, --div--;' . $ll . 'tx_clubdata_domain_model_program.tabs_tickets, state, state_text, --palette--;;tickets, --palette--;;price_a, --palette--;;price_b, --palette--;;price_c, reduction, pre_sales,  ticket_link, --div--;' . $ll . 'tx_clubdata_domain_model_program.tabs_info, description, picture,links, --div--;' . $ll . 'tx_clubdata_domain_model_program.tabs_advanced, intern, festival, highlight, perm_highlight, avoid_nl, hide_date, --div--;' . $ll . 'tx_clubdata_domain_model_program.tabs_services, noservice,service_bar_num,services, --div--;' . $ll . 'tx_clubdata_domain_model_program.tabs_internal, internal_info, visitors, --div--;LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.language, sys_language_uid, l10n_parent, l10n_diffsource, --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, hidden, starttime, endtime'
+            'showitem' => '--palette--;;dates, --palette--;;title, --palette--;;subtitles, --palette--;;misc, categories, seating, seatings, --div--;' . $ll . 'tx_clubdata_domain_model_program.tabs_tickets, state, state_text, --palette--;;tickets, --palette--;;price_a, --palette--;;price_b, --palette--;;price_c, reduction, pre_sales,  ticket_link, --div--;' . $ll . 'tx_clubdata_domain_model_program.tabs_info, description, picture,links, --div--;' . $ll . 'tx_clubdata_domain_model_program.tabs_advanced, flags, intern, festival, highlight, perm_highlight, avoid_nl, hide_date, --div--;' . $ll . 'tx_clubdata_domain_model_program.tabs_services, noservice,service_bar_num,services, --div--;' . $ll . 'tx_clubdata_domain_model_program.tabs_internal, internal_info, visitors, --div--;LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.language, sys_language_uid, l10n_parent, l10n_diffsource, --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, hidden, starttime, endtime'
         ],
     ],
     'palettes' => [
@@ -510,6 +511,15 @@ return [
                 'type' => 'input',
                 'size' => 30,
                 'eval' => 'trim'
+            ],
+        ],
+        'flags' => [
+            'exclude' => true,
+            'label' => 'LLL:EXT:clubdata/Resources/Private/Language/locallang_db.xlf:tx_clubdata_domain_model_program.flags',
+            'config' => [
+                'type' => 'check',
+                'items' => [],
+                'itemsProcFunc' => Program::class . '->itemsProcFunc',
             ],
         ],
     ],

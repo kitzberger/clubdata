@@ -4,3 +4,6 @@ mod.web_layout.tt_content.preview {
   clubdata_listhelpers = EXT:clubdata/Resources/Private/Templates/Preview/ListHelpers.html
   clubdata_preview = EXT:clubdata/Resources/Private/Templates/Preview/Preview.html
 }
+
+# Disable flags field by default
+TCEFORM.tx_clubdata_domain_model_program.flags.disabled = 1

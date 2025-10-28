@@ -2,280 +2,74 @@
 
 namespace Medpzl\Clubdata\Domain\Model;
 
-class Program extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
+use DateTime;
+use TYPO3\CMS\Extbase\Annotation\ORM\Cascade;
+use TYPO3\CMS\Extbase\Annotation\ORM\Lazy;
+use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
+use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
+
+class Program extends AbstractEntity
 {
-    /**
-     * title
-     *
-     * @var string
-     */
-    protected $title = '';
-
-    /**
-     * intern
-     *
-     * @var bool
-     */
-    protected $intern = false;
-
-    /**
-     * avoidNl
-     *
-     * @var bool
-     */
-    protected $avoidNl = false;
-
-    /**
-     * subTitle
-     *
-     * @var string
-     */
-    protected $subTitle = '';
-
-    /**
-     * secSubTitle
-     *
-     * @var string
-     */
-    protected $secSubTitle = '';
-
-    /**
-     * datetime
-     *
-     * @var \DateTime
-     */
-    protected $datetime = null;
-
-    /**
-     * hideDate
-     *
-     * @var bool
-     */
-    protected $hideDate = false;
-
-    /**
-     * entrance
-     *
-     * @var string
-     */
-    protected $entrance = '';
-
-    /**
-     * description
-     *
-     * @var string
-     */
-    protected $description = '';
-
-    /**
-     * seating
-     *
-     * @var bool
-     */
-    protected $seating = false;
-
-    /**
-     * venue
-     *
-     * @var string
-     */
-    protected $venue = '';
-
-    /**
-     * slug
-     *
-     * @var string
-     */
-    protected $slug = '';
+    protected bool $avoidNl = false;
+    protected bool $festival = false;
+    protected bool $hideDate = false;
+    protected bool $highlight = false;
+    protected bool $intern = false;
+    protected bool $noservice = false;
+    protected bool $permHighlight = false;
+    protected bool $reduction = false;
+    protected bool $seating = false;
+    protected int $flags = 0;
+    protected int $maxTickets = 0;
+    protected int $serviceBarNum = 0;
+    protected int $soldTickets = 0;
+    protected string $catPriceA = '';
+    protected string $catPriceB = '';
+    protected string $catPriceC = '';
+    protected string $description = '';
+    protected string $entrance = '';
+    protected string $genre = '';
+    protected string $internalInfo = '';
+    protected string $preSales = '';
+    protected string $priceA = '';
+    protected string $priceB = '';
+    protected string $priceC = '';
+    protected string $secSubTitle = '';
+    protected string $slug = '';
+    protected string $stateText = '';
+    protected string $subTitle = '';
+    protected string $ticketLink = '';
+    protected string $title = '';
+    protected string $venue = '';
+    protected string $visitors = '';
+    protected ?DateTime $datetime = null;
+    protected ?Seating $seatings = null;
+    protected ?State $state = null;
 
     /**
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference>
      */
-    #[\TYPO3\CMS\Extbase\Annotation\ORM\Lazy]
+    #[Lazy]
     protected $picture = null;
 
     /**
-     * highlight
-     *
-     * @var bool
-     */
-    protected $highlight = false;
-
-    /**
-     * permHighlight
-     *
-     * @var bool
-     */
-    protected $permHighlight = false;
-
-    /**
-     * catPriceA
-     *
-     * @var string
-     */
-    protected $catPriceA = '';
-
-    /**
-     * priceA
-     *
-     * @var string
-     */
-    protected $priceA = '';
-
-    /**
-     * catPriceB
-     *
-     * @var string
-     */
-    protected $catPriceB = '';
-
-    /**
-     * priceB
-     *
-     * @var string
-     */
-    protected $priceB = '';
-
-    /**
-     * catPriceC
-     *
-     * @var string
-     */
-    protected $catPriceC = '';
-
-    /**
-     * priceC
-     *
-     * @var string
-     */
-    protected $priceC = '';
-
-    /**
-     * ticketLink
-     *
-     * @var string
-     */
-    protected $ticketLink = '';
-
-    /**
-     * preSales
-     *
-     * @var string
-     */
-    protected $preSales = '';
-
-    /**
-     * internalInfo
-     *
-     * @var string
-     */
-    protected $internalInfo = '';
-
-    /**
-     * visitors
-     *
-     * @var string
-     */
-    protected $visitors = '';
-
-    /**
-     * state
-     *
-     * @var \Medpzl\Clubdata\Domain\Model\State
-     */
-    protected $state = null;
-
-    /**
-     * links
-     *
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Medpzl\Clubdata\Domain\Model\ProgramLink>
      */
-    #[\TYPO3\CMS\Extbase\Annotation\ORM\Cascade(['value' => 'remove'])]
+    #[Cascade(['value' => 'remove'])]
     protected $links = null;
 
     /**
-     * services
-     *
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Medpzl\Clubdata\Domain\Model\ProgramServiceUser>
      */
-    #[\TYPO3\CMS\Extbase\Annotation\ORM\Cascade(['value' => 'remove'])]
+    #[Cascade(['value' => 'remove'])]
     protected $services = null;
 
     /**
-     * categories
-     *
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Medpzl\Clubdata\Domain\Model\Category>
-     *
      */
-    #[\TYPO3\CMS\Extbase\Annotation\ORM\Lazy]
+    #[Lazy]
     protected $categories = null;
 
-    /**
-     * maxTickets
-     *
-     * @var int
-     */
-    protected $maxTickets = 0;
-
-    /**
-     * soldTickets
-     *
-     * @var int
-     */
-    protected $soldTickets = 0;
-
-    /**
-     * serviceBarNum
-     *
-     * @var int
-     */
-    protected $serviceBarNum = 0;
-
-    /**
-     * stateText
-     *
-     * @var string
-     */
-    protected $stateText = '';
-
-    /**
-     * seatings
-     *
-     * @var \Medpzl\Clubdata\Domain\Model\Seating
-     */
-    protected $seatings = null;
-
-    /**
-     * reduction
-     *
-     * @var bool
-     */
-    protected $reduction = false;
-
-    /**
-     * genre
-     *
-     * @var string
-     */
-    protected $genre = '';
-
-    /**
-     * festival
-     *
-     * @var bool
-     */
-    protected $festival = false;
-
-    /**
-     * noservice
-     *
-     * @var bool
-     */
-    protected $noservice = false;
-
-    /**
-     * __construct
-     */
     public function __construct()
     {
         //Do not remove the next line: It would break the functionality
@@ -284,981 +78,481 @@ class Program extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Initializes all ObjectStorage properties
-     * Do not modify this method!
-     * It will be rewritten on each save in the extension builder
-     * You may modify the constructor of this class instead
-     *
-     * @return void
      */
-    protected function initStorageObjects()
+    protected function initStorageObjects(): void
     {
-        $this->links = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
-        $this->services = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
-        $this->categories = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+        $this->links = new ObjectStorage();
+        $this->services = new ObjectStorage();
+        $this->categories = new ObjectStorage();
     }
-    /**
-     * Returns the boolean state of intern
-     *
-     * @return bool
-     */
-    public function isHide()
+
+    public function isHide(): bool
     {
         return $this->hide;
     }
 
-    /**
-     * Returns the intern
-     *
-     * @return bool $intern
-     */
-    public function getIntern()
+    public function getIntern(): bool
     {
         return $this->intern;
     }
 
-    /**
-     * Sets the intern
-     *
-     * @param bool $intern
-     * @return void
-     */
-    public function setIntern($intern): void
+    public function setIntern(bool $intern): void
     {
         $this->intern = $intern;
     }
 
-    /**
-     * Returns the boolean state of intern
-     *
-     * @return bool
-     */
-    public function isIntern()
+    public function isIntern(): bool
     {
         return $this->intern;
     }
 
-    /**
-     * Returns the title
-     *
-     * @return string $title
-     */
-    public function getTitle()
+    public function getTitle(): string
     {
         return $this->title;
     }
 
-    /**
-     * Sets the title
-     *
-     * @param string $title
-     * @return void
-     */
-    public function setTitle($title): void
+    public function setTitle(string $title): void
     {
         $this->title = $title;
     }
 
-    /**
-     * Returns the datetime
-     *
-     * @return \DateTime $datetime
-     */
-    public function getDatetime()
+    public function getDatetime(): ?\DateTime
     {
         return $this->datetime;
     }
 
-    /**
-     * Sets the datetime
-     *
-     * @param \DateTime $datetime
-     * @return void
-     */
     public function setDatetime(\DateTime $datetime): void
     {
         $this->datetime = $datetime;
     }
 
-    /**
-     * Returns the hideDate
-     *
-     * @return bool $hideDate
-     */
-    public function getHideDate()
+    public function getHideDate(): bool
     {
         return $this->hideDate;
     }
 
-    /**
-     * Sets the hideDate
-     *
-     * @param bool $hideDate
-     * @return void
-     */
-    public function setHideDate($hideDate): void
+    public function setHideDate(bool $hideDate): void
     {
         $this->hideDate = $hideDate;
     }
 
-    /**
-     * Returns the boolean state of hideDate
-     *
-     * @return bool
-     */
-    public function isHideDate()
+    public function isHideDate(): bool
     {
         return $this->hideDate;
     }
 
-    /**
-     * Returns the subTitle
-     *
-     * @return string $subTitle
-     */
-    public function getSubTitle()
+    public function getSubTitle(): string
     {
         return $this->subTitle;
     }
 
-    /**
-     * Sets the subTitle
-     *
-     * @param string $subTitle
-     * @return void
-     */
-    public function setSubTitle($subTitle): void
+    public function setSubTitle(string $subTitle): void
     {
         $this->subTitle = $subTitle;
     }
 
-    /**
-     * Returns the secSubTitle
-     *
-     * @return string $secSubTitle
-     */
-    public function getSecSubTitle()
+    public function getSecSubTitle(): string
     {
         return $this->secSubTitle;
     }
 
-    /**
-     * Sets the secSubTitle
-     *
-     * @param string $secSubTitle
-     * @return void
-     */
-    public function setSecSubTitle($secSubTitle): void
+    public function setSecSubTitle(string $secSubTitle): void
     {
         $this->secSubTitle = $secSubTitle;
     }
 
-    /**
-     * Returns the description
-     *
-     * @return string $description
-     */
-    public function getDescription()
+    public function getDescription(): string
     {
         return $this->description;
     }
 
-    /**
-     * Sets the description
-     *
-     * @param string $description
-     * @return void
-     */
-    public function setDescription($description): void
+    public function setDescription(string $description): void
     {
         $this->description = $description;
     }
 
-    /**
-     * Returns the highlight
-     *
-     * @return bool $highlight
-     */
-    public function getHighlight()
+    public function getHighlight(): bool
     {
         return $this->highlight;
     }
 
-    /**
-     * Sets the highlight
-     *
-     * @param bool $highlight
-     * @return void
-     */
-    public function setHighlight($highlight): void
+    public function setHighlight(bool $highlight): void
     {
         $this->highlight = $highlight;
     }
 
-    /**
-     * Returns the boolean state of highlight
-     *
-     * @return bool
-     */
-    public function isHighlight()
+    public function isHighlight(): bool
     {
         return $this->highlight;
     }
 
-    /**
-     * Returns the permHighlight
-     *
-     * @return bool $permHighlight
-     */
-    public function getPermHighlight()
+    public function getPermHighlight(): bool
     {
         return $this->permHighlight;
     }
 
-    /**
-     * Sets the permHighlight
-     *
-     * @param bool $permHighlight
-     * @return void
-     */
-    public function setPermHighlight($permHighlight): void
+    public function setPermHighlight(bool $permHighlight): void
     {
         $this->permHighlight = $permHighlight;
     }
 
-    /**
-     * Returns the boolean state of permHighlight
-     *
-     * @return bool
-     */
-    public function isPermHighlight()
+    public function isPermHighlight(): bool
     {
         return $this->permHighlight;
     }
 
-    /**
-     * Returns the catPriceA
-     *
-     * @return string $catPriceA
-     */
-    public function getCatPriceA()
+    public function getCatPriceA(): string
     {
         return $this->catPriceA;
     }
 
-    /**
-     * Sets the catPriceA
-     *
-     * @param string $catPriceA
-     * @return void
-     */
-    public function setCatPriceA($catPriceA): void
+    public function setCatPriceA(string $catPriceA): void
     {
         $this->catPriceA = $catPriceA;
     }
 
-    /**
-     * Returns the priceA
-     *
-     * @return string $priceA
-     */
-    public function getPriceA()
+    public function getPriceA(): string
     {
         return $this->priceA;
     }
 
-    /**
-     * Sets the priceA
-     *
-     * @param string $priceA
-     * @return void
-     */
-    public function setPriceA($priceA): void
+    public function setPriceA(string $priceA): void
     {
         $this->priceA = $priceA;
     }
 
-    /**
-     * Returns the catPriceB
-     *
-     * @return string $catPriceB
-     */
-    public function getCatPriceB()
+    public function getCatPriceB(): string
     {
         return $this->catPriceB;
     }
 
-    /**
-     * Sets the catPriceB
-     *
-     * @param string $catPriceB
-     * @return void
-     */
-    public function setCatPriceB($catPriceB): void
+    public function setCatPriceB(string $catPriceB): void
     {
         $this->catPriceB = $catPriceB;
     }
 
-    /**
-     * Returns the priceB
-     *
-     * @return string $priceB
-     */
-    public function getPriceB()
+    public function getPriceB(): string
     {
         return $this->priceB;
     }
 
-    /**
-     * Sets the priceB
-     *
-     * @param string $priceB
-     * @return void
-     */
-    public function setPriceB($priceB): void
+    public function setPriceB(string $priceB): void
     {
         $this->priceB = $priceB;
     }
 
-    /**
-     * Returns the catPriceC
-     *
-     * @return string $catPriceC
-     */
-    public function getCatPriceC()
+    public function getCatPriceC(): string
     {
         return $this->catPriceC;
     }
 
-    /**
-     * Sets the catPriceC
-     *
-     * @param string $catPriceC
-     * @return void
-     */
-    public function setCatPriceC($catPriceC): void
+    public function setCatPriceC(string $catPriceC): void
     {
         $this->catPriceC = $catPriceC;
     }
 
-    /**
-     * Returns the priceC
-     *
-     * @return string $priceC
-     */
-    public function getPriceC()
+    public function getPriceC(): string
     {
         return $this->priceC;
     }
 
-    /**
-     * Sets the priceC
-     *
-     * @param string $priceC
-     * @return void
-     */
-    public function setPriceC($priceC): void
+    public function setPriceC(string $priceC): void
     {
         $this->priceC = $priceC;
     }
 
-    /**
-     * Returns the picture
-     *
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage $picture
-     */
-    public function getPicture()
+    public function getPicture(): ?ObjectStorage
     {
         return $this->picture;
     }
 
-    /**
-     * Sets the picture
-     *
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage $picture
-     * @return void
-     */
-    public function setPicture(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $picture): void
+    public function setPicture(ObjectStorage $picture): void
     {
         $this->picture = $picture;
     }
 
-    /**
-     * Returns the state
-     *
-     * @return \Medpzl\Clubdata\Domain\Model\State state
-     */
-    public function getState()
+    public function getState(): ?State
     {
         return $this->state;
     }
 
-    /**
-     * Sets the state
-     *
-     * @param string $state
-     * @return void
-     */
     public function setState($state): void
     {
         $this->state = $state;
     }
 
-    /**
-     * Returns the seating
-     *
-     * @return bool $seating
-     */
-    public function getSeating()
+    public function getSeating(): bool
     {
         return $this->seating;
     }
 
-    /**
-     * Sets the seating
-     *
-     * @param bool $seating
-     * @return void
-     */
-    public function setSeating($seating): void
+    public function setSeating(bool $seating): void
     {
         $this->seating = $seating;
     }
 
-    /**
-     * Returns the boolean state of seating
-     *
-     * @return bool
-     */
-    public function isSeating()
+    public function isSeating(): bool
     {
         return $this->seating;
     }
 
-    /**
-     * Returns the internalInfo
-     *
-     * @return string $internalInfo
-     */
-    public function getInternalInfo()
+    public function getInternalInfo(): string
     {
         return $this->internalInfo;
     }
 
-    /**
-     * Sets the internalInfo
-     *
-     * @param string $internalInfo
-     * @return void
-     */
-    public function setInternalInfo($internalInfo): void
+    public function setInternalInfo(string $internalInfo): void
     {
         $this->internalInfo = $internalInfo;
     }
 
-    /**
-     * Returns the visitors
-     *
-     * @return string $visitors
-     */
-    public function getVisitors()
+    public function getVisitors(): string
     {
         return $this->visitors;
     }
 
-    /**
-     * Sets the visitors
-     *
-     * @param string $visitors
-     * @return void
-     */
-    public function setVisitors($visitors): void
+    public function setVisitors(string $visitors): void
     {
         $this->visitors = $visitors;
     }
 
-    /**
-     * Returns the entrance
-     *
-     * @return string entrance
-     */
-    public function getEntrance()
+    public function getEntrance(): string
     {
         return $this->entrance;
     }
 
-    /**
-     * Sets the entrance
-     *
-     * @param string $entrance
-     * @return void
-     */
-    public function setEntrance($entrance): void
+    public function setEntrance(string $entrance): void
     {
         $this->entrance = $entrance;
     }
 
-    /**
-     * Returns the preSales
-     *
-     * @return string $preSales
-     */
-    public function getPreSales()
+    public function getPreSales(): string
     {
         return $this->preSales;
     }
 
-    /**
-     * Sets the preSales
-     *
-     * @param string $preSales
-     * @return void
-     */
-    public function setPreSales($preSales): void
+    public function setPreSales(string $preSales): void
     {
         $this->preSales = $preSales;
     }
 
-    /**
-     * Returns the ticketLink
-     *
-     * @return string $ticketLink
-     */
-    public function getTicketLink()
+    public function getTicketLink(): string
     {
         return $this->ticketLink;
     }
 
-    /**
-     * Sets the ticketLink
-     *
-     * @param string $ticketLink
-     * @return void
-     */
-    public function setTicketLink($ticketLink): void
+    public function setTicketLink(string $ticketLink): void
     {
         $this->ticketLink = $ticketLink;
     }
 
-    /**
-     * Returns the avoidNl
-     *
-     * @return bool $avoidNl
-     */
-    public function getAvoidNl()
+    public function getAvoidNl(): bool
     {
         return $this->avoidNl;
     }
 
-    /**
-     * Sets the avoidNl
-     *
-     * @param bool $avoidNl
-     * @return void
-     */
-    public function setAvoidNl($avoidNl): void
+    public function setAvoidNl(bool $avoidNl): void
     {
         $this->avoidNl = $avoidNl;
     }
 
-    /**
-     * Returns the boolean state of avoidNl
-     *
-     * @return bool
-     */
-    public function isAvoidNl()
+    public function isAvoidNl(): bool
     {
         return $this->avoidNl;
     }
 
-
-
-    /**
-     * Adds a ProgramLink
-     *
-     * @param \Medpzl\Clubdata\Domain\Model\ProgramLink $link
-     * @return void
-     */
-    public function addLink(\Medpzl\Clubdata\Domain\Model\ProgramLink $link): void
+    public function addLink(ProgramLink $link): void
     {
         $this->links->attach($link);
     }
 
-    /**
-     * Removes a ProgramLink
-     *
-     * @param \Medpzl\Clubdata\Domain\Model\ProgramLink $linkToRemove The ProgramLink to be removed
-     * @return void
-     */
-    public function removeLink(\Medpzl\Clubdata\Domain\Model\ProgramLink $linkToRemove): void
+    public function removeLink(ProgramLink $linkToRemove): void
     {
         $this->links->detach($linkToRemove);
     }
 
-    /**
-     * Returns the links
-     *
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Medpzl\Clubdata\Domain\Model\ProgramLink> $links
-     */
-    public function getLinks()
+    public function getLinks(): ObjectStorage
     {
         return $this->links;
     }
 
-    /**
-     * Sets the links
-     *
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Medpzl\Clubdata\Domain\Model\ProgramLink> $links
-     * @return void
-     */
-    public function setLinks(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $links): void
+    public function setLinks(ObjectStorage $links): void
     {
         $this->links = $links;
     }
 
-    /**
-     * Adds a ProgramServiceUser
-     *
-     * @param \Medpzl\Clubdata\Domain\Model\ProgramServiceUser $service
-     * @return void
-     */
-    public function addService(\Medpzl\Clubdata\Domain\Model\ProgramServiceUser $service): void
+    public function addService(ProgramServiceUser $service): void
     {
         $this->services->attach($service);
     }
 
-    /**
-     * Removes a ProgramServiceUser
-     *
-     * @param \Medpzl\Clubdata\Domain\Model\ProgramServiceUser $serviceToRemove The ProgramServiceUser to be removed
-     * @return void
-     */
-    public function removeService(\Medpzl\Clubdata\Domain\Model\ProgramServiceUser $serviceToRemove): void
+    public function removeService(ProgramServiceUser $serviceToRemove): void
     {
         $this->services->detach($serviceToRemove);
     }
 
-    /**
-     * Returns the services
-     *
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Medpzl\Clubdata\Domain\Model\ProgramServiceUser> $services
-     */
-    public function getServices()
+    public function getServices(): ObjectStorage
     {
         return $this->services;
     }
 
-    /**
-     * Sets the services
-     *
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Medpzl\Clubdata\Domain\Model\ProgramServiceUser> $services
-     * @return void
-     */
-    public function setServices(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $services): void
+    public function setServices(ObjectStorage $services): void
     {
         $this->services = $services;
     }
 
-    /**
-     * Adds a Category
-     *
-     * @param \Medpzl\Clubdata\Domain\Model\Category $category
-     * @return void
-     */
-    public function addCategory(\Medpzl\Clubdata\Domain\Model\Category $category): void
+    public function addCategory(Category $category): void
     {
         $this->categories->attach($category);
     }
 
-    /**
-     * Removes a Category
-     *
-     * @param \Medpzl\Clubdata\Domain\Model\Category $categoryToRemove The Category to be removed
-     * @return void
-     */
-    public function removeCategory(\Medpzl\Clubdata\Domain\Model\Category $categoryToRemove): void
+    public function removeCategory(Category $categoryToRemove): void
     {
         $this->categories->detach($categoryToRemove);
     }
 
-    /**
-     * Returns the categories
-     *
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Medpzl\Clubdata\Domain\Model\Category> $categories
-     */
-    public function getCategories()
+    public function getCategories(): ObjectStorage
     {
         return $this->categories;
     }
 
-    /**
-     * Sets the categories
-     *
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Medpzl\Clubdata\Domain\Model\Category> $categories
-     * @return void
-     */
-    public function setCategories(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $categories): void
+    public function setCategories(ObjectStorage $categories): void
     {
         $this->categories = $categories;
     }
 
-    /**
-     * Returns the venue
-     *
-     * @return string $venue
-     */
-    public function getVenue()
+    public function getVenue(): string
     {
         return $this->venue;
     }
 
-    /**
-     * Sets the venue
-     *
-     * @param string $venue
-     * @return void
-     */
-    public function setVenue($venue): void
+    public function setVenue(string $venue): void
     {
         $this->venue = $venue;
     }
 
-    /**
-     * Returns the slug
-     *
-     * @return string $slug
-     */
-    public function getSlug()
+    public function getSlug(): string
     {
         return $this->slug;
     }
 
-    /**
-     * Sets the slug
-     *
-     * @param string $slug
-     * @return void
-     */
-    public function setSlug($slug): void
+    public function setSlug(string $slug): void
     {
         $this->slug = $slug;
     }
 
-    /**
-     * Returns the maxTickets
-     *
-     * @return int $maxTickets
-     */
-    public function getMaxTickets()
+    public function getMaxTickets(): int
     {
         return $this->maxTickets;
     }
 
-    /**
-     * Sets the maxTickets
-     *
-     * @param int $maxTickets
-     * @return void
-     */
-    public function setMaxTickets($maxTickets): void
+    public function setMaxTickets(int $maxTickets): void
     {
         $this->maxTickets = $maxTickets;
     }
 
-    /**
-     * Returns the soldTickets
-     *
-     * @return int $soldTickets
-     */
-    public function getSoldTickets()
+    public function getSoldTickets(): int
     {
         return $this->soldTickets;
     }
 
-    /**
-     * Sets the soldTickets
-     *
-     * @param int $soldTickets
-     * @return void
-     */
-    public function setSoldTickets($soldTickets): void
+    public function setSoldTickets(int $soldTickets): void
     {
         $this->soldTickets = $soldTickets;
     }
 
-    /**
-     * Returns the serviceBarNum
-     *
-     * @return int $serviceBarNum
-     */
-    public function getServiceBarNum()
+    public function getServiceBarNum(): int
     {
         return $this->serviceBarNum;
     }
 
-    /**
-     * Sets the serviceBarNum
-     *
-     * @param int $serviceBarNum
-     * @return void
-     */
-    public function setServiceBarNum($serviceBarNum): void
+    public function setServiceBarNum(int $serviceBarNum): void
     {
         $this->serviceBarNum = $serviceBarNum;
     }
 
-    /**
-     * Returns the stateText
-     *
-     * @return string $stateText
-     */
-    public function getStateText()
+    public function getStateText(): string
     {
         return $this->stateText;
     }
 
-    /**
-     * Sets the stateText
-     *
-     * @param string $stateText
-     * @return void
-     */
-    public function setStateText($stateText): void
+    public function setStateText(string $stateText): void
     {
         $this->stateText = $stateText;
     }
 
-    /**
-     * Returns the seatings
-     *
-     * @return \Medpzl\Clubdata\Domain\Model\Seating $seatings
-     */
-    public function getSeatings()
+    public function getSeatings(): ?Seating
     {
         return $this->seatings;
     }
 
-    /**
-     * Sets the seatings
-     *
-     * @param \Medpzl\Clubdata\Domain\Model\Seating $seatings
-     * @return void
-     */
-    public function setSeatings(\Medpzl\Clubdata\Domain\Model\Seating $seatings): void
+    public function setSeatings(Seating $seatings): void
     {
         $this->seatings = $seatings;
     }
 
-    /**
-     * Returns the reduction
-     *
-     * @return bool $reduction
-     */
-    public function getReduction()
+    public function getReduction(): bool
     {
         return $this->reduction;
     }
 
-    /**
-     * Sets the reduction
-     *
-     * @param bool $reduction
-     * @return void
-     */
-    public function setReduction($reduction): void
+    public function setReduction(bool $reduction): void
     {
         $this->reduction = $reduction;
     }
 
-    /**
-     * Returns the boolean state of reduction
-     *
-     * @return bool
-     */
-    public function isReduction()
+    public function isReduction(): bool
     {
         return $this->reduction;
     }
 
-    /**
-     * Returns the festival
-     *
-     * @return bool $festival
-     */
-    public function getFestival()
+    public function getFestival(): bool
     {
         return $this->festival;
     }
 
-    /**
-     * Sets the festival
-     *
-     * @param bool $festival
-     * @return void
-     */
-    public function setFestival($festival): void
+    public function setFestival(bool $festival): void
     {
         $this->festival = $festival;
     }
 
-    /**
-     * Returns the boolean state of festival
-     *
-     * @return bool
-     */
-    public function isFestival()
+    public function isFestival(): bool
     {
         return $this->festival;
     }
 
-    /**
-     * Returns the noservice
-     *
-     * @return bool $noservice
-     */
-    public function getnoservice()
+    public function getnoservice(): bool
     {
         return $this->noservice;
     }
 
-    /**
-     * Sets the noservice
-     *
-     * @param bool $noservice
-     * @return void
-     */
-    public function setnoservice($noservice): void
+    public function setnoservice(bool $noservice): void
     {
         $this->noservice = $noservice;
     }
 
-    /**
-     * Returns the boolean state of noservice
-     *
-     * @return bool
-     */
-    public function isnoservice()
+    public function isnoservice(): bool
     {
         return $this->noservice;
     }
 
-    /**
-     * Returns the genre
-     *
-     * @return string $genre
-     */
-    public function getGenre()
+    public function getGenre(): string
     {
         return $this->genre;
     }
 
-    /**
-     * Sets the genre
-     *
-     * @param string $genre
-     * @return void
-     */
-    public function setGenre($genre): void
+    public function setGenre(string $genre): void
     {
         $this->genre = $genre;
+    }
+
+    public function getFlags(): int
+    {
+        return $this->flags;
+    }
+
+    public function setFlags(int $flags): void
+    {
+        $this->flags = $flags;
     }
 }
