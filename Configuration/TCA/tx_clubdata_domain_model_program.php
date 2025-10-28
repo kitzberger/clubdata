@@ -1,6 +1,11 @@
 <?php
 
+use TYPO3\CMS\Core\Resource\FileType;
+
 $ll = 'LLL:EXT:clubdata/Resources/Private/Language/locallang_db.xlf:';
+
+$defaultDatetime = $GLOBALS['TYPO3_CONF_VARS']['EXTENSIONS']['clubdata']['defaultDatetime'] ?? '';
+
 return [
     'ctrl' => [
         'title' => 'LLL:EXT:clubdata/Resources/Private/Language/locallang_db.xlf:tx_clubdata_domain_model_program',
@@ -20,28 +25,27 @@ return [
             'starttime' => 'starttime',
             'endtime' => 'endtime',
         ],
-        'searchFields' => 'title,intern,avoid_nl,sub_title,sec_sub_title,datetime,hide_date,entrance,seating,venue,description,picture,highlight,perm_highlight,state,cat_price_a,price_a,cat_price_b,price_b,cat_price_c,price_c,pre_sales,ticket_link,internal_info,visitors,links,services,categories,reduction,genre,festival,noservice,slug',
+        'searchFields' => 'title,sub_title,sec_sub_title,datetime,venue,description,ticket_link,internal_info,genre,slug',
         'typeicon_classes' => [
             'default' => 'clubdata-program'
         ]
     ],
     'types' => [
-        '1' => ['showitem' => 'sys_language_uid;;;;1-1-1, l10n_parent, l10n_diffsource,   hidden;;1,intern, datetime, title, sub_title, sec_sub_title, slug, festival, categories,genre, entrance, seating, seatings, venue,
-         --div--;' . $ll . 'tx_clubdata_domain_model_program.tabs_tickets,
-         state,state_text,max_tickets,sold_tickets,cat_price_a, price_a, cat_price_b, price_b, cat_price_c, price_c,reduction,pre_sales,  ticket_link,
-             --div--;' . $ll . 'tx_clubdata_domain_model_program.tabs_info,
-             description;;;richtext:rte_transform[mode=ts_links], picture,links,
-             --div--;' . $ll . 'tx_clubdata_domain_model_program.tabs_advanced,
-             highlight, perm_highlight, avoid_nl, hide_date,
-              --div--;' . $ll . 'tx_clubdata_domain_model_program.tabs_services, noservice,service_bar_num,services,
-              --div--;' . $ll . 'tx_clubdata_domain_model_program.tabs_internal,
-              internal_info;;;richtext:rte_transform[mode=ts_links],visitors,  --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime'],
+        '1' => [
+            'showitem' => '--palette--;;dates, --palette--;;title, --palette--;;subtitles, --palette--;;misc, categories, seating, seatings, --div--;' . $ll . 'tx_clubdata_domain_model_program.tabs_tickets, state, state_text, --palette--;;tickets, --palette--;;price_a, --palette--;;price_b, --palette--;;price_c, reduction, pre_sales,  ticket_link, --div--;' . $ll . 'tx_clubdata_domain_model_program.tabs_info, description, picture,links, --div--;' . $ll . 'tx_clubdata_domain_model_program.tabs_advanced, intern, festival, highlight, perm_highlight, avoid_nl, hide_date, --div--;' . $ll . 'tx_clubdata_domain_model_program.tabs_services, noservice,service_bar_num,services, --div--;' . $ll . 'tx_clubdata_domain_model_program.tabs_internal, internal_info, visitors, --div--;LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.language, sys_language_uid, l10n_parent, l10n_diffsource, --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, hidden, starttime, endtime'
+        ],
     ],
     'palettes' => [
-        '1' => ['showitem' => ''],
+        'dates' => ['showitem' => 'datetime, entrance'],
+        'title' => ['showitem' => 'title, slug'],
+        'subtitles' => ['showitem' => 'sub_title, sec_sub_title'],
+        'misc' => ['showitem' => 'genre, venue'],
+        'tickets' => ['showitem' => 'max_tickets, sold_tickets'],
+        'price_a' => ['showitem' => 'cat_price_a, price_a'],
+        'price_b' => ['showitem' => 'cat_price_b, price_b'],
+        'price_c' => ['showitem' => 'cat_price_c, price_c'],
     ],
     'columns' => [
-
         'sys_language_uid' => [
             'exclude' => true,
             'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.language',
@@ -65,7 +69,6 @@ return [
                 'type' => 'passthrough',
             ],
         ],
-
         't3ver_label' => [
             'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.versionLabel',
             'config' => [
@@ -74,7 +77,6 @@ return [
                 'max' => 255,
             ]
         ],
-
         'hidden' => [
             'exclude' => true,
             'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.hidden',
@@ -112,7 +114,6 @@ return [
                 ],
             ],
         ],
-
         'title' => [
             'exclude' => true,
             'label' => 'LLL:EXT:clubdata/Resources/Private/Language/locallang_db.xlf:tx_clubdata_domain_model_program.title',
@@ -183,8 +184,8 @@ return [
             'label' => 'LLL:EXT:clubdata/Resources/Private/Language/locallang_db.xlf:tx_clubdata_domain_model_program.datetime',
             'config' => [
                 'type' => 'datetime',
-                'size' => 10,
-                'default' => time()
+                'size' => 20,
+                'default' => strtotime($defaultDatetime),
             ],
         ],
         'hide_date' => [
@@ -248,27 +249,27 @@ return [
                         --palette--;LLL:EXT:core/Resources/Private/Language/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
                         --palette--;;filePalette'
                     ],
-                    \TYPO3\CMS\Core\Resource\FileType::TEXT->value => [
+                    FileType::TEXT->value => [
                         'showitem' => '
                         --palette--;LLL:EXT:core/Resources/Private/Language/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
                         --palette--;;filePalette'
                     ],
-                    \TYPO3\CMS\Core\Resource\FileType::IMAGE->value => [
+                    FileType::IMAGE->value => [
                         'showitem' => '
                         --palette--;LLL:EXT:core/Resources/Private/Language/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
                         --palette--;;filePalette'
                     ],
-                    \TYPO3\CMS\Core\Resource\FileType::AUDIO->value => [
+                    FileType::AUDIO->value => [
                         'showitem' => '
                         --palette--;LLL:EXT:core/Resources/Private/Language/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
                         --palette--;;filePalette'
                     ],
-                    \TYPO3\CMS\Core\Resource\FileType::VIDEO->value => [
+                    FileType::VIDEO->value => [
                         'showitem' => '
                         --palette--;LLL:EXT:core/Resources/Private/Language/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
                         --palette--;;filePalette'
                     ],
-                    \TYPO3\CMS\Core\Resource\FileType::APPLICATION->value => [
+                    FileType::APPLICATION->value => [
                         'showitem' => '
                         --palette--;LLL:EXT:core/Resources/Private/Language/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
                         --palette--;;filePalette'
@@ -485,7 +486,6 @@ return [
                 ],
                 'default' => 0,
             ]
-
         ],
         'festival' => [
             'exclude' => true,

@@ -1,0 +1,2 @@
+# cat=basic/enable/010; type=string; label=Default datetime
+defaultDatetime = today 8pm
