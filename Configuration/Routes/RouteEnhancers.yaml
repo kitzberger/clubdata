@@ -3,7 +3,7 @@ routeEnhancers:
     limitToPages: []
     type: Extbase
     extension: Clubdata
-    plugin: Pi1
+    plugin: Detail
     defaultController: 'Club::detail'
     routes:
       - routePath: '/{program-title}'
