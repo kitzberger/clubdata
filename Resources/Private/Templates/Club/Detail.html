@@ -12,6 +12,7 @@
 
 <div class="tx-clubdata-detail">
     <f:if condition="{program}">
+        <f:render partial="Club/StructuredData" arguments="{program: program}" />
         <h1>{program.title}</h1>
         <div class="subtitle">
             <i>{program.subTitle}</i>

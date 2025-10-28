@@ -1,0 +1,69 @@
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "MusicEvent",
+    "name": "{program.title -> f:format.htmlentities()}",
+    <f:if condition="{program.description}">
+    "description": "{program.description -> f:format.stripTags() -> f:format.htmlentities()}",
+    </f:if>
+    <f:if condition="{program.datetime}">
+    "startDate": "{program.datetime -> f:format.date(format:'c')}",
+    </f:if>
+    <f:if condition="{program.venue}">
+    "location": <f:format.raw>{</f:format.raw>
+        "@type": "Place",
+        "name": "{program.venue -> f:format.htmlentities()}"
+    <f:format.raw>}</f:format.raw>,
+    <f:else if="{settings.defaultVenue}">
+    "location": <f:format.raw>{</f:format.raw>
+        "@type": "Place",
+        "name": "{settings.defaultVenue.name -> f:format.htmlentities()}",
+        "address": <f:format.raw>{</f:format.raw>
+          "@type": "PostalAddress",
+          "streetAddress": "{settings.defaultVenue.streetAddress -> f:format.htmlentities()}",
+          "addressLocality": "{settings.defaultVenue.addressLocality -> f:format.htmlentities()}",
+          "postalCode": "{settings.defaultVenue.postalCode -> f:format.htmlentities()}",
+          "addressRegion": "{settings.defaultVenue.addressRegion -> f:format.htmlentities()}",
+          "addressCountry": "{settings.defaultVenue.addressCountry -> f:format.htmlentities()}"
+        <f:format.raw>}</f:format.raw>
+    <f:format.raw>}</f:format.raw>,
+    </f:else>
+    </f:if>
+    <f:comment>
+    "performer": <f:format.raw>{</f:format.raw>
+        "@type": "PerformingGroup",
+        "name": "..."
+    <f:format.raw>}</f:format.raw>,
+    "organizer": <f:format.raw>{</f:format.raw>
+        "@type": "Organization",
+        "name": "...",
+        "url": "https://....com"
+    <f:format.raw>}</f:format.raw>,
+    </f:comment>
+    <f:if condition="{program.picture}">
+    "image": [
+        <f:for each="{program.picture}" as="image" iteration="iterator">
+        "<f:uri.image image="{image}" absolute="1" />"{f:if(condition: iterator.isLast, else: ',')}
+        </f:for>
+    ],
+    </f:if>
+    <f:if condition="{program.priceA}">
+    "offers": <f:format.raw>{</f:format.raw>
+        "@type": "Offer",
+        "price": "{program.priceA -> f:format.number(decimals:2,decimalSeparator:'.',thousandsSeparator:',')}",
+        "priceCurrency": "EUR",
+        "availability": "https://schema.org/InStock",
+        <f:if condition="{program.ticketLink}">
+        <f:then>
+        "url": "{program.ticketLink}"
+        </f:then>
+        <f:else>
+        "url": "{f:uri.action(absolute:1,action:'detail',arguments:{showUid:program.uid})}"
+        </f:else>
+        </f:if>
+    <f:format.raw>}</f:format.raw>,
+    </f:if>
+    "eventStatus": "https://schema.org/EventScheduled",
+    "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode"
+}
+</script>
