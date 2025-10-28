@@ -9,6 +9,7 @@ use Medpzl\Clubdata\Domain\Repository\ProgramRepository;
 use Medpzl\Clubdata\Domain\Repository\ProgramServiceUserRepository;
 use Medpzl\Clubdata\Domain\Repository\ServiceRepository;
 use Medpzl\Clubdata\Domain\Service\SessionHandler;
+use Medpzl\Clubdata\PageTitle\ProgramPageTitleProvider;
 use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -25,7 +26,8 @@ class ClubController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         protected ProgramServiceUserRepository $programServiceUserRepository,
         protected ServiceRepository $serviceRepository,
         protected FrontendUserRepository $userRepository,
-        protected SessionHandler $sessionHandler
+        protected SessionHandler $sessionHandler,
+        protected ProgramPageTitleProvider $pageTitleProvider
     ) {
     }
 
@@ -379,6 +381,11 @@ class ClubController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 
         // Load program
         $program = $this->programRepository->findByUid($programUid);
+
+        // Set page title
+        if ($program) {
+            $this->pageTitleProvider->setTitle($program->getTitle());
+        }
 
         if ($this->settings['detail']['showPrevNext'] ?? false) {
             // Determine prev/next programs from list in session
