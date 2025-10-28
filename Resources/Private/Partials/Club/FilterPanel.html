@@ -1,0 +1,26 @@
+<div class="row mb-4">
+    <div class="form-group col-auto">
+        <label class="form-label" for="category">Kategorie:</label>
+        <select name="category" id="category" class="form-select">
+            <option></option>
+            <f:for each="{categories}" as="category">
+                <f:if condition="{category.children -> f:count()}">
+                    <f:then>
+                        <optgroup label="{category.title}">
+                            <f:for each="{category.children}" as="subcategory">
+                                <option value="{subcategory.uid}">{subcategory.title}</option>
+                            </f:for>
+                        </optgroup>
+                    </f:then>
+                    <f:else>
+                        <option value="{category.uid}">{category.title}</option>
+                    </f:else>
+                </f:if>
+            </f:for>
+        </select>
+    </div>
+    <div class="form-group col-auto">
+        <label class="form-label" for="sword">Suche:</label>
+        <input name="sword" id="sword" class="form-control" />
+    </div>
+</div>

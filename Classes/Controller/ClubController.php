@@ -109,6 +109,13 @@ class ClubController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             }
         }
 
+        if (isset($this->settings['rootCategory'])) {
+            $categories = $this->categoryRepository->findChildrenByParent(
+                $this->settings['rootCategory'],
+                GeneralUtility::intExplode(',', $this->settings['excludeCategories'] ?? '', true)
+            );
+        }
+
         $this->view->assign('uidlist', $uidlist);
         $this->view->assign('nav', $nav);
         $this->view->assign('currmonth', $currmonth);
@@ -121,7 +128,7 @@ class ClubController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $this->view->assign('oldest', $oldest[0]);
         $this->view->assign('todate', $todate);
         $this->view->assign('now', time());
-        $this->view->assign('categories', $this->categoryRepository->findChildrenByParent(1));
+        $this->view->assign('categories', $categories ?? []);
         $this->view->assign('allprograms', $allprograms);
 
         return $this->htmlResponse();

@@ -72,3 +72,7 @@ CREATE TABLE tx_clubdata_program_service_user_mm (
 CREATE TABLE fe_users (
     salutation varchar(255) DEFAULT '' NOT NULL
 );
+
+CREATE TABLE sys_category (
+    children int(11) unsigned DEFAULT '0' NOT NULL
+);

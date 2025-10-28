@@ -9,7 +9,7 @@ class CategoryRepository extends Repository
 {
     protected $defaultOrderings = ['sorting' => QueryInterface::ORDER_ASCENDING];
 
-    public function findChildrenByParent($category = 0, $excludeCategories = [])
+    public function findChildrenByParent(int $category = 0, array $excludeCategories = [])
     {
         $constraints = [];
         $query = $this->createQuery();

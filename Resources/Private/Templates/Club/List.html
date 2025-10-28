@@ -18,6 +18,8 @@
         </f:case>
     </f:switch>
 
+    <f:render partial="Club/FilterPanel" arguments="{categories:categories}" />
+
     <f:for each="{programs}" as="program" iteration="iterator">
         <f:render partial="Club/ListItem" arguments="{
             program:program,

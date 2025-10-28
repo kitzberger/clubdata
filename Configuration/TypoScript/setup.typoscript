@@ -23,6 +23,10 @@ plugin.tx_clubdata {
         storagePid  = {$plugin.tx_clubdata.persistence.storagePid}
         detailPid = {$plugin.tx_clubdata.settings.detailPid}
 
+        # Load the children of this category
+        rootCategory = 0
+        excludeCategories =
+
         # for StructuredData.html
         defaultValue {
             name =
