@@ -209,7 +209,7 @@
     }
     
     .clubdata-swiper .swiper-pagination {
-        margin-top: 15px;
+        margin-top: 10px;
         padding: 10px 0;
     }
     
@@ -248,7 +248,7 @@
 
 @media (max-width: 480px) {
     .tx-clubdata-carousel .clubdata-swiper {
-        height: calc(250px + 30px); /* 250px slider + ~30px pagination area */
+        height: calc(250px + 40px); /* 250px slider + ~40px pagination area */
     }
     
     .tx-clubdata-carousel .clubdata-swiper .swiper-wrapper {
