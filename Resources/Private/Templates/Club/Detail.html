@@ -27,6 +27,8 @@
             Date: {program.datetime -> f:format.date(format:'Y-m-d H:i')}
         </div>
 
+        <f:render partial="Product/CartForm" arguments="{product:program}" />
+
         <table>
             <tr>
                 <td style="vertical-align: top; padding-right: 1em;">

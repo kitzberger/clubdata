@@ -3,15 +3,15 @@ plugin.tx_clubdata {
     view {
         templateRootPaths {
             0 = EXT:clubdata/Resources/Private/Templates/
-            1 = {$plugin.tx_clubdata.view.templateRootPath}
+            2 = {$plugin.tx_clubdata.view.templateRootPath}
         }
         partialRootPaths  {
             0 = EXT:clubdata/Resources/Private/Partials/
-            1 = {$plugin.tx_clubdata.view.partialRootPath}
+            2 = {$plugin.tx_clubdata.view.partialRootPath}
         }
         layoutRootPaths {
             0 = EXT:clubdata/Resources/Private/Layouts/
-            1 = {$plugin.tx_clubdata.view.layoutRootPath}
+            2 = {$plugin.tx_clubdata.view.layoutRootPath}
         }
     }
     persistence {
