@@ -455,6 +455,13 @@ class ClubController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $latest = $this->programRepository->findLatest();
         $oldest = $this->programRepository->findOldest();
 
+        if (isset($this->settings['rootCategory'])) {
+            $categories = $this->categoryRepository->findChildrenByParent(
+                $this->settings['rootCategory'],
+                GeneralUtility::intExplode(',', $this->settings['excludeCategories'] ?? '', true)
+            );
+        }
+
         $this->view->assign('acurrmonth', $currmonth);
         $this->view->assign('athismonth', $thismonth);
         $this->view->assign('ashowmonth', strtotime($showmonth));
@@ -465,7 +472,7 @@ class ClubController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $this->view->assign('aoldest', $oldest[0]);
         $this->view->assign('atodate', $todate);
         $this->view->assign('now', time());
-        $this->view->assign('categories', $this->categoryRepository->findAll());
+        $this->view->assign('categories', $categories ?? []);
         $this->view->assign('selectedCategory', $category ?? null);
 
         return $this->htmlResponse();
