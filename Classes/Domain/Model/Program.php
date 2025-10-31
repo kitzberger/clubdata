@@ -126,6 +126,11 @@ class Program extends AbstractEntity
         $this->datetime = $datetime;
     }
 
+    public function getIsUpcoming(): bool
+    {
+        return $this->datetime->format('U') > time();
+    }
+
     public function getHideDate(): bool
     {
         return $this->hideDate;

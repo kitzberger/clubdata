@@ -27,7 +27,14 @@
             Date: {program.datetime -> f:format.date(format:'Y-m-d H:i')}
         </div>
 
-        <f:render partial="Product/CartForm" arguments="{product:program}" />
+        <f:if condition="{program.isUpcoming}">
+            <f:then>
+                <f:render partial="Product/CartForm" arguments="{product:program}" />
+            </f:then>
+            <f:else>
+                <p style="color:red">That's in the past!</p>
+            </f:else>
+        </f:if>
 
         <table>
             <tr>
