@@ -127,7 +127,6 @@ class ClubController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $this->view->assign('latest', $latest[0]);
         $this->view->assign('oldest', $oldest[0]);
         $this->view->assign('todate', $todate);
-        $this->view->assign('now', time());
         $this->view->assign('categories', $categories ?? []);
         $this->view->assign('allprograms', $allprograms);
 
@@ -287,7 +286,6 @@ class ClubController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $this->view->assign('latest', $latest[0]);
         $this->view->assign('oldest', $oldest[0]);
         $this->view->assign('todate', $todate);
-        $this->view->assign('now', time());
         $this->view->assign('services', $services);
         $this->view->assign('users', $users);
         $this->view->assign('user', $user);
@@ -471,7 +469,6 @@ class ClubController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $this->view->assign('alatest', $latest[0]);
         $this->view->assign('aoldest', $oldest[0]);
         $this->view->assign('atodate', $todate);
-        $this->view->assign('now', time());
         $this->view->assign('categories', $categories ?? []);
         $this->view->assign('selectedCategory', $category ?? null);
 
@@ -519,7 +516,6 @@ class ClubController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $this->view->assign('latest', $latest[0]);
         $this->view->assign('oldest', $oldest[0]);
         $this->view->assign('todate', $todate);
-        $this->view->assign('now', time());
         $this->view->assign('categories', $this->categoryRepository->findAll());
         $this->view->assign('selectedCategory', $category ?? null);
 
