@@ -30,9 +30,10 @@ ExtensionUtility::configurePlugin(
     'Clubdata',
     'Detail',
     [
-        ClubController::class => 'detail',
+        ClubController::class => 'detail, downloadIcs',
     ],
-    [],
+    [
+    ],
     ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
 );
 

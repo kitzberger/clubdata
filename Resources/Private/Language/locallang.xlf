@@ -28,6 +28,13 @@
             <source>Couldn't add you as helper on "%s" for "%s". Somebody else was faster.</source>
          </trans-unit>
 
+         <trans-unit id="detail.download-calendar">
+            <source>Add to calendar</source>
+         </trans-unit>
+         <trans-unit id="detail.download-calendar.description">
+            <source>Download ics file</source>
+         </trans-unit>
+
          <trans-unit id="tx_clubdata_domain_model_program">
             <source>Program</source>
          </trans-unit>

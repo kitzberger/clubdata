@@ -10,14 +10,18 @@ use Medpzl\Clubdata\Domain\Repository\ProgramServiceUserRepository;
 use Medpzl\Clubdata\Domain\Repository\ServiceRepository;
 use Medpzl\Clubdata\Domain\Service\SessionHandler;
 use Medpzl\Clubdata\PageTitle\ProgramPageTitleProvider;
+use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\StreamFactoryInterface;
+use TYPO3\CMS\Core\Http\PropagateResponseException;
 use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 use TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
-class ClubController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
+class ClubController extends ActionController
 {
     public function __construct(
         protected PersistenceManager $persistenceManager,
@@ -27,9 +31,10 @@ class ClubController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         protected ServiceRepository $serviceRepository,
         protected FrontendUserRepository $userRepository,
         protected SessionHandler $sessionHandler,
-        protected ProgramPageTitleProvider $pageTitleProvider
-    ) {
-    }
+        protected ProgramPageTitleProvider $pageTitleProvider,
+        protected ResponseFactoryInterface $responseFactory,
+        protected StreamFactoryInterface $streamFactory
+    ) {}
 
     public function listAction(): ResponseInterface
     {
@@ -410,6 +415,50 @@ class ClubController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $this->view->assign('program', $program);
 
         return $this->htmlResponse();
+    }
+
+    public function downloadIcsAction(): ResponseInterface
+    {
+        $programUid = $this->request->getArgument('showUid');
+        $program = $this->programRepository->findByUid($programUid);
+
+        if (!$program) {
+            return $this->responseFactory->createResponse(404)
+                ->withHeader('Content-Type', 'text/plain')
+                ->withBody($this->streamFactory->createStream('Event not found'));
+        }
+
+        // Calculate end time (start + 2 hours default)
+        $startTime = $program->getDatetime();
+        $endTime = clone $startTime;
+        $endTime->modify('+2 hours');
+
+        // Render ICS content via Fluid template
+        $this->view->assign('program', $program);
+        $this->view->assign('timestamp', gmdate('Ymd\THis\Z'));
+        $this->view->assign('endTime', $endTime);
+        $this->view->getRenderingContext()->setControllerAction('Club/Ics');
+
+        $icsContent = $this->view->render();
+
+        // Create filename
+        $filename = $this->sanitizeFilename($program->getTitle()) . '.ics';
+
+        // Return ICS file response
+        $response = $this->responseFactory->createResponse()
+            ->withHeader('Content-Type', 'text/calendar; charset=utf-8')
+            ->withHeader('Content-Disposition', 'attachment; filename="' . $filename . '"')
+            ->withHeader('Cache-Control', 'no-cache, must-revalidate')
+            ->withBody($this->streamFactory->createStream($icsContent));
+
+        throw new PropagateResponseException($response, 200);
+    }
+
+    private function sanitizeFilename(string $filename): string
+    {
+        // Remove special characters and replace spaces
+        $filename = preg_replace('/[^a-zA-Z0-9\-_]/', '_', $filename);
+        return substr($filename, 0, 200);
     }
 
     public function listArchiveAction(): ResponseInterface

@@ -1,0 +1,18 @@
+{namespace c=Medpzl\Clubdata\ViewHelpers}BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Clubdata//TYPO3//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:{program.uid}@{f:uri.page(absolute: 1)}
+DTSTAMP:{timestamp}
+DTSTART:{program.datetime -> f:format.date(format:'Ymd\THis\Z')}
+DTEND:{endTime -> f:format.date(format:'Ymd\THis\Z')}
+SUMMARY:<c:icsFormat value="{program.title}" /><f:if condition="{program.description}">
+DESCRIPTION;ALTREP="<c:icsHtmlAltrep value="<strong>{f:translate(key:'tx_clubdata_domain_model_program.entrance')}:</strong> {program.entrance} Uhr<br><br>{program.description}" />":<c:icsFormat value="{f:translate(key:'tx_clubdata_domain_model_program.entrance')}: {program.entrance} Uhr. {program.description}" /></f:if><f:if condition="{program.venue}"><f:then>
+LOCATION:<c:icsFormat value="{program.venue}" /></f:then><f:else if="{settings.defaultVenue}">
+LOCATION:<c:icsFormat value="{settings.defaultVenue.name}, {settings.defaultVenue.streetAddress}, {settings.defaultVenue.postalCode}, {settings.defaultVenue.addressLocality}" /></f:else></f:if><f:if condition="{program.ticketLink}">
+URL:{program.ticketLink}</f:if>
+STATUS:CONFIRMED
+END:VEVENT
+END:VCALENDAR

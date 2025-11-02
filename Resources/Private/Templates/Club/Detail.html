@@ -30,6 +30,10 @@
         <f:if condition="{program.isUpcoming}">
             <f:then>
                 <f:render partial="Product/CartForm" arguments="{product:program}" />
+                <f:link.action action="downloadIcs" arguments="{showUid: program.uid}"
+                               class="btn btn-sm btn-secondary" title="{f:translate(key:'detail.download-calendar.description')}">
+                    {f:translate(key:'detail.download-calendar')}
+                </f:link.action>
             </f:then>
             <f:else>
                 <p style="color:red">That's in the past!</p>

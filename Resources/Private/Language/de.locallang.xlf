@@ -28,6 +28,13 @@
             <target>Du konntest leider nicht als Helfer an "%s" für "%s" hinzugefügt werden. Jemand anderes war wohl schneller.</target>
          </trans-unit>
 
+         <trans-unit id="detail.download-calendar">
+            <target>Zum Kalender hinzufügen</target>
+         </trans-unit>
+         <trans-unit id="detail.download-calendar.description">
+            <target>ics Datei herunterladen</target>
+         </trans-unit>
+
          <trans-unit id="tx_clubdata_domain_model_program">
             <target>Programm</target>
          </trans-unit>
