@@ -74,19 +74,19 @@
             <source>Perm Highlight</source>
          </trans-unit>
          <trans-unit id="tx_clubdata_domain_model_program.cat_price_a">
-            <source>Cat Price A</source>
+            <source>Category Price A</source>
          </trans-unit>
          <trans-unit id="tx_clubdata_domain_model_program.price_a">
             <source>Price A</source>
          </trans-unit>
          <trans-unit id="tx_clubdata_domain_model_program.cat_price_b">
-            <source>Cat Price B</source>
+            <source>Category Price B</source>
          </trans-unit>
          <trans-unit id="tx_clubdata_domain_model_program.price_b">
             <source>Price B</source>
          </trans-unit>
          <trans-unit id="tx_clubdata_domain_model_program.cat_price_c">
-            <source>Cat Price C</source>
+            <source>Category Price C</source>
          </trans-unit>
          <trans-unit id="tx_clubdata_domain_model_program.price_c">
             <source>Price C</source>
@@ -157,30 +157,6 @@
          <trans-unit id="tx_clubdata_domain_model_service.title">
             <source>Title</source>
          </trans-unit>
-         <trans-unit id="tx_clubdata_domain_model_programlinkrel">
-            <source>Program Link Rel</source>
-         </trans-unit>
-         <trans-unit id="tx_clubdata_domain_model_programlinkrel.title">
-            <source>Title</source>
-         </trans-unit>
-         <trans-unit id="tx_clubdata_domain_model_programlinkrel.program">
-            <source>Program</source>
-         </trans-unit>
-         <trans-unit id="tx_clubdata_domain_model_programlinkrel.link">
-            <source>Link</source>
-         </trans-unit>
-         <trans-unit id="tx_clubdata_domain_model_programservicerel">
-            <source>Program Service Rel</source>
-         </trans-unit>
-         <trans-unit id="tx_clubdata_domain_model_programservicerel.name">
-            <source>Name</source>
-         </trans-unit>
-         <trans-unit id="tx_clubdata_domain_model_programservicerel.program">
-            <source>Program</source>
-         </trans-unit>
-         <trans-unit id="tx_clubdata_domain_model_programservicerel.service">
-            <source>Service</source>
-         </trans-unit>
          <trans-unit id="tx_clubdata_domain_model_seating">
             <source>Seating</source>
          </trans-unit>
@@ -188,14 +164,14 @@
             <source>Title</source>
          </trans-unit>
          <trans-unit id="tx_clubdata_domain_model_program.festival">
-               <source>Is Festival</source>
-           </trans-unit>
-           <trans-unit id="tx_clubdata_domain_model_program.genre">
-               <source>Genre</source>
-           </trans-unit>
-           <trans-unit id="tx_clubdata_domain_model_program.noservice">
-              <source>No Service</source>
-           </trans-unit>
+            <source>Is Festival</source>
+         </trans-unit>
+         <trans-unit id="tx_clubdata_domain_model_program.genre">
+            <source>Genre</source>
+         </trans-unit>
+         <trans-unit id="tx_clubdata_domain_model_program.noservice">
+            <source>No Service</source>
+         </trans-unit>
       </body>
    </file>
 </xliff>

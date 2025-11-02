@@ -24,7 +24,7 @@
             {program.description -> f:format.html()}
         </div>
         <div class="date">
-            Date: {program.datetime -> f:format.date(format:'Y-m-d H:i')}
+            {f:translate(key:'tx_clubdata_domain_model_program.datetime')}: {program.datetime -> f:format.date(format:'Y-m-d H:i')}
         </div>
 
         <f:if condition="{program.isUpcoming}">
@@ -47,79 +47,79 @@
                 </td>
                 <td>
                     <dl>
-                        <dt>intern</dt>
+                        <dt>{f:translate(key:'tx_clubdata_domain_model_program.intern')}</dt>
                         <dd>{f:if(condition:program.intern,then:'✔',else:'✗')}</dd>
-                        <dt>avoidNl</dt>
+                        <dt>{f:translate(key:'tx_clubdata_domain_model_program.avoid_nl')}</dt>
                         <dd>{f:if(condition:program.avoidNl,then:'✔',else:'✗')}</dd>
-                        <dt>highlight</dt>
+                        <dt>{f:translate(key:'tx_clubdata_domain_model_program.highlight')}</dt>
                         <dd>{f:if(condition:program.highlight,then:'✔',else:'✗')}</dd>
-                        <dt>permHighlight</dt>
+                        <dt>{f:translate(key:'tx_clubdata_domain_model_program.perm_highlight')}</dt>
                         <dd>{f:if(condition:program.permHighlight,then:'✔',else:'✗')}</dd>
-                        <dt>hideDate</dt>
+                        <dt>{f:translate(key:'tx_clubdata_domain_model_program.hide_date')}</dt>
                         <dd>{f:if(condition:program.hideDate,then:'✔',else:'✗')}</dd>
-                        <dt>entrance</dt>
+                        <dt>{f:translate(key:'tx_clubdata_domain_model_program.entrance')}</dt>
                         <dd>{program.entrance}</dd>
-                        <dt>seating</dt>
+                        <dt>{f:translate(key:'tx_clubdata_domain_model_program.seating')}</dt>
                         <dd>{program.seating}</dd>
-                        <dt>venue</dt>
+                        <dt>{f:translate(key:'tx_clubdata_domain_model_program.venue')}</dt>
                         <dd>{program.venue}</dd>
-                        <dt>catPriceA</dt>
+                        <dt>{f:translate(key:'tx_clubdata_domain_model_program.catPriceA')}</dt>
                         <dd>{program.catPriceA}</dd>
-                        <dt>priceA</dt>
+                        <dt>{f:translate(key:'tx_clubdata_domain_model_program.priceA')}</dt>
                         <dd>{program.priceA}</dd>
-                        <dt>catPriceB</dt>
+                        <dt>{f:translate(key:'tx_clubdata_domain_model_program.catPriceB')}</dt>
                         <dd>{program.catPriceB}</dd>
-                        <dt>priceB</dt>
+                        <dt>{f:translate(key:'tx_clubdata_domain_model_program.priceB')}</dt>
                         <dd>{program.priceB}</dd>
-                        <dt>catPriceC</dt>
+                        <dt>{f:translate(key:'tx_clubdata_domain_model_program.catPriceC')}</dt>
                         <dd>{program.catPriceC}</dd>
-                        <dt>priceC</dt>
+                        <dt>{f:translate(key:'tx_clubdata_domain_model_program.priceC')}</dt>
                         <dd>{program.priceC}</dd>
-                        <dt>ticketLink</dt>
+                        <dt>{f:translate(key:'tx_clubdata_domain_model_program.ticketLink')}</dt>
                         <dd>{program.ticketLink}</dd>
-                        <dt>preSales</dt>
+                        <dt>{f:translate(key:'tx_clubdata_domain_model_program.preSales')}</dt>
                         <dd>{program.preSales}</dd>
-                        <dt>internalInfo</dt>
+                        <dt>{f:translate(key:'tx_clubdata_domain_model_program.internalInfo')}</dt>
                         <dd>{program.internalInfo}</dd>
-                        <dt>visitors</dt>
+                        <dt>{f:translate(key:'tx_clubdata_domain_model_program.visitors')}</dt>
                         <dd>{program.visitors}</dd>
-                        <dt>state</dt>
+                        <dt>{f:translate(key:'tx_clubdata_domain_model_program.state')}</dt>
                         <dd>{program.state.title}</dd>
-                        <dt>links</dt>
+                        <dt>{f:translate(key:'tx_clubdata_domain_model_program.links')}</dt>
                         <dd>
                             <f:for each="{program.links}" as="link">
                                 {link.title} ({link.link.title})<br>
                             </f:for>
                         </dd>
-                        <dt>services</dt>
+                        <dt>{f:translate(key:'tx_clubdata_domain_model_program.services')}</dt>
                         <dd>
                             <f:for each="{program.services}" as="service">
-                                {service.name}<br>
+                                {service.service.title}: {service.user.username}<br>
                             </f:for>
                         </dd>
-                        <dt>categories</dt>
+                        <dt>{f:translate(key:'tx_clubdata_domain_model_program.categories')}</dt>
                         <dd>
                              <f:for each="{program.categories}" as="category">
                                 {category.title}<br>
                             </f:for>
                         </dd>
-                        <dt>maxTickets</dt>
+                        <dt>{f:translate(key:'tx_clubdata_domain_model_program.max_tickets')}</dt>
                         <dd>{program.maxTickets}</dd>
-                        <dt>soldTickets</dt>
+                        <dt>{f:translate(key:'tx_clubdata_domain_model_program.sold_tickets')}</dt>
                         <dd>{program.soldTickets}</dd>
-                        <dt>serviceBarNum</dt>
+                        <dt>{f:translate(key:'tx_clubdata_domain_model_program.service_bar_num')}</dt>
                         <dd>{program.serviceBarNum}</dd>
-                        <dt>stateText</dt>
+                        <dt>{f:translate(key:'tx_clubdata_domain_model_program.state_text')}</dt>
                         <dd>{program.stateText}</dd>
-                        <dt>seatings</dt>
+                        <dt>{f:translate(key:'tx_clubdata_domain_model_program.seatings')}</dt>
                         <dd>{program.seatings}</dd>
-                        <dt>reduction</dt>
+                        <dt>{f:translate(key:'tx_clubdata_domain_model_program.reduction')}</dt>
                         <dd>{program.reduction}</dd>
-                        <dt>genre</dt>
+                        <dt>{f:translate(key:'tx_clubdata_domain_model_program.genre')}</dt>
                         <dd>{program.genre}</dd>
-                        <dt>festival</dt>
+                        <dt>{f:translate(key:'tx_clubdata_domain_model_program.festival')}</dt>
                         <dd>{program.festival}</dd>
-                        <dt>noservice</dt>
+                        <dt>{f:translate(key:'tx_clubdata_domain_model_program.noservice')}</dt>
                         <dd>{program.noservice}</dd>
                     </dl>
                 </td>

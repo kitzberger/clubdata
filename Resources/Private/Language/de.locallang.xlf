@@ -4,206 +4,174 @@
       <header/>
       <body>
          <trans-unit id="listhelpers.error">
-            <source>Error</source>
             <target>Fehler</target>
          </trans-unit>
          <trans-unit id="listhelpers.error.not-logged-in">
-            <source>Please login to proceed!</source>
             <target>Bitte anmelden, um fortzufahren!</target>
          </trans-unit>
          <trans-unit id="listhelpers.error.wrong-group">
-            <source>You lack the necessary permissions to access this tool. Contact your admin!</source>
             <target>Unzureichende Berechtigungen. Bitte Admin kontaktieren!</target>
          </trans-unit>
          <trans-unit id="listhelpers.success">
-            <source>Update successful!</source>
             <target>Aktualisierung erfolgreich!</target>
          </trans-unit>
          <trans-unit id="listhelpers.success.added-yourself">
-            <source>You've just added yourself as helper on "%s" for "%s".</source>
             <target>Du hast dich soeben als Helfer an "%s" für "%s" eingetragen. Vielen Dank für dein Engagement!</target>
          </trans-unit>
          <trans-unit id="listhelpers.success.removed-yourself">
-            <source>You've just removed yourself as helper from "%s" for "%s".</source>
             <target>Du hast dich soeben als Helfer an "%s" für "%s" ausgetragen.</target>
          </trans-unit>
          <trans-unit id="listhelpers.warning">
-            <source>Warning!</source>
             <target>Warnung!</target>
          </trans-unit>
          <trans-unit id="listhelpers.warning.somebody-else-was-faster">
-            <source>Couldn't add you as helper on "%s" for "%s". Somebody else was faster.</source>
             <target>Du konntest leider nicht als Helfer an "%s" für "%s" hinzugefügt werden. Jemand anderes war wohl schneller.</target>
          </trans-unit>
 
          <trans-unit id="tx_clubdata_domain_model_program">
-            <source>Program</source>
+            <target>Programm</target>
          </trans-unit>
          <trans-unit id="tx_clubdata_domain_model_program.title">
-            <source>Title</source>
+            <target>Titel</target>
          </trans-unit>
          <trans-unit id="tx_clubdata_domain_model_program.intern">
-            <source>Intern</source>
+            <target>Intern</target>
          </trans-unit>
          <trans-unit id="tx_clubdata_domain_model_program.avoid_nl">
-            <source>Avoid Nl</source>
+            <target>Avoid Nl</target>
          </trans-unit>
          <trans-unit id="tx_clubdata_domain_model_program.sub_title">
-            <source>Sub Title</source>
+            <target>Untertitel</target>
          </trans-unit>
          <trans-unit id="tx_clubdata_domain_model_program.sec_sub_title">
-            <source>Sec Sub Title</source>
+            <target>Zweiter Untertitel</target>
          </trans-unit>
          <trans-unit id="tx_clubdata_domain_model_program.datetime">
-            <source>Datetime</source>
+            <target>Datum</target>
          </trans-unit>
          <trans-unit id="tx_clubdata_domain_model_program.hide_date">
-            <source>Hide Date</source>
+            <target>Datum ausblenden</target>
          </trans-unit>
          <trans-unit id="tx_clubdata_domain_model_program.entrance">
-            <source>Entrance</source>
+            <target>Einlass</target>
          </trans-unit>
          <trans-unit id="tx_clubdata_domain_model_program.description">
-            <source>Description</source>
+            <target>Beschreibung</target>
          </trans-unit>
          <trans-unit id="tx_clubdata_domain_model_program.seating">
-            <source>Seating</source>
+            <target>Sitzplätze</target>
          </trans-unit>
          <trans-unit id="tx_clubdata_domain_model_program.venue">
-            <source>Venue</source>
+            <target>Veranstaltungsort</target>
          </trans-unit>
          <trans-unit id="tx_clubdata_domain_model_program.picture">
-            <source>Picture</source>
+            <target>Bild</target>
          </trans-unit>
          <trans-unit id="tx_clubdata_domain_model_program.highlight">
-            <source>Highlight</source>
+            <target>Highlight</target>
          </trans-unit>
          <trans-unit id="tx_clubdata_domain_model_program.perm_highlight">
-            <source>Perm Highlight</source>
+            <target>Dauer-Highlight</target>
          </trans-unit>
          <trans-unit id="tx_clubdata_domain_model_program.cat_price_a">
-            <source>Cat Price A</source>
+            <target>Kategorie Preis A</target>
          </trans-unit>
          <trans-unit id="tx_clubdata_domain_model_program.price_a">
-            <source>Price A</source>
+            <target>Preis A</target>
          </trans-unit>
          <trans-unit id="tx_clubdata_domain_model_program.cat_price_b">
-            <source>Cat Price B</source>
+            <target>Kategorie Preis B</target>
          </trans-unit>
          <trans-unit id="tx_clubdata_domain_model_program.price_b">
-            <source>Price B</source>
+            <target>Preis B</target>
          </trans-unit>
          <trans-unit id="tx_clubdata_domain_model_program.cat_price_c">
-            <source>Cat Price C</source>
+            <target>Kategorie Preis C</target>
          </trans-unit>
          <trans-unit id="tx_clubdata_domain_model_program.price_c">
-            <source>Price C</source>
+            <target>Preis C</target>
          </trans-unit>
          <trans-unit id="tx_clubdata_domain_model_program.ticket_link">
-            <source>Ticket Link</source>
+            <target>Ticket-Link</target>
          </trans-unit>
          <trans-unit id="tx_clubdata_domain_model_program.pre_sales">
-            <source>Pre Sales</source>
+            <target>Vorverkauf</target>
          </trans-unit>
          <trans-unit id="tx_clubdata_domain_model_program.internal_info">
-            <source>Internal Info</source>
+            <target>Interne Info</target>
          </trans-unit>
          <trans-unit id="tx_clubdata_domain_model_program.visitors">
-            <source>Visitors</source>
+            <target>Besucher</target>
          </trans-unit>
          <trans-unit id="tx_clubdata_domain_model_program.max_tickets">
-            <source>Max Tickets</source>
+            <target>Max. Tickets</target>
          </trans-unit>
          <trans-unit id="tx_clubdata_domain_model_program.sold_tickets">
-            <source>Sold Tickets</source>
+            <target>Verkaufte Tickets</target>
          </trans-unit>
          <trans-unit id="tx_clubdata_domain_model_program.service_bar_num">
-            <source>Service Bar Num</source>
+            <target>Anzahl Thekenkräft</target>
          </trans-unit>
          <trans-unit id="tx_clubdata_domain_model_program.state_text">
-            <source>State Text</source>
+            <target>Status Text</target>
          </trans-unit>
          <trans-unit id="tx_clubdata_domain_model_program.reduction">
-            <source>Reduction</source>
+            <target>Ermäßigung</target>
          </trans-unit>
          <trans-unit id="tx_clubdata_domain_model_program.state">
-            <source>State</source>
+            <target>State</target>
          </trans-unit>
          <trans-unit id="tx_clubdata_domain_model_program.links">
-            <source>Links</source>
+            <target>Links</target>
          </trans-unit>
          <trans-unit id="tx_clubdata_domain_model_program.services">
-            <source>Services</source>
+            <target>Dienste</target>
          </trans-unit>
          <trans-unit id="tx_clubdata_domain_model_program.categories">
-            <source>Categories</source>
+            <target>Kategorien</target>
          </trans-unit>
          <trans-unit id="tx_clubdata_domain_model_program.seatings">
-            <source>Seatings</source>
+            <target>Sitzplätze</target>
          </trans-unit>
          <trans-unit id="tx_clubdata_domain_model_category">
-            <source>Category</source>
+            <target>Kategorie</target>
          </trans-unit>
          <trans-unit id="tx_clubdata_domain_model_category.title">
-            <source>Title</source>
+            <target>Titel</target>
          </trans-unit>
          <trans-unit id="tx_clubdata_domain_model_state">
-            <source>State</source>
+            <target>Status</target>
          </trans-unit>
          <trans-unit id="tx_clubdata_domain_model_state.title">
-            <source>Title</source>
+            <target>Titel</target>
          </trans-unit>
          <trans-unit id="tx_clubdata_domain_model_link">
-            <source>Link</source>
+            <target>Link</target>
          </trans-unit>
          <trans-unit id="tx_clubdata_domain_model_link.title">
-            <source>Title</source>
+            <target>Titel</target>
          </trans-unit>
          <trans-unit id="tx_clubdata_domain_model_service">
-            <source>Service</source>
+            <target>Service</target>
          </trans-unit>
          <trans-unit id="tx_clubdata_domain_model_service.title">
-            <source>Title</source>
-         </trans-unit>
-         <trans-unit id="tx_clubdata_domain_model_programlinkrel">
-            <source>Program Link Rel</source>
-         </trans-unit>
-         <trans-unit id="tx_clubdata_domain_model_programlinkrel.title">
-            <source>Title</source>
-         </trans-unit>
-         <trans-unit id="tx_clubdata_domain_model_programlinkrel.program">
-            <source>Program</source>
-         </trans-unit>
-         <trans-unit id="tx_clubdata_domain_model_programlinkrel.link">
-            <source>Link</source>
-         </trans-unit>
-         <trans-unit id="tx_clubdata_domain_model_programservicerel">
-            <source>Program Service Rel</source>
-         </trans-unit>
-         <trans-unit id="tx_clubdata_domain_model_programservicerel.name">
-            <source>Name</source>
-         </trans-unit>
-         <trans-unit id="tx_clubdata_domain_model_programservicerel.program">
-            <source>Program</source>
-         </trans-unit>
-         <trans-unit id="tx_clubdata_domain_model_programservicerel.service">
-            <source>Service</source>
+            <target>Titel</target>
          </trans-unit>
          <trans-unit id="tx_clubdata_domain_model_seating">
-            <source>Seating</source>
+            <target>Sitzplätze</target>
          </trans-unit>
          <trans-unit id="tx_clubdata_domain_model_seating.title">
-            <source>Title</source>
+            <target>Titel</target>
          </trans-unit>
          <trans-unit id="tx_clubdata_domain_model_program.festival">
-               <source>Is Festival</source>
-           </trans-unit>
-           <trans-unit id="tx_clubdata_domain_model_program.genre">
-               <source>Genre</source>
-           </trans-unit>
-           <trans-unit id="tx_clubdata_domain_model_program.noservice">
-              <source>No Service</source>
-           </trans-unit>
+            <target>Ist Festival?</target>
+         </trans-unit>
+         <trans-unit id="tx_clubdata_domain_model_program.genre">
+            <target>Genre</target>
+         </trans-unit>
+         <trans-unit id="tx_clubdata_domain_model_program.noservice">
+            <target>Keine Dienste</target>
+         </trans-unit>
       </body>
    </file>
 </xliff>
