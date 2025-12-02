@@ -11,7 +11,7 @@ return [
     'cart_clubdata' => [
         'parent' => 'cart_cart_main',
         'position' => ['bottom'],
-        'access' => 'user, group',
+        'access' => 'user',
         'workspaces' => 'live',
         'iconIdentifier' => 'module-clubdata-helpers',
         'path' => '/module/cartcart/clubdata',
