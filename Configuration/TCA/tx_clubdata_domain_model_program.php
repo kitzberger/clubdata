@@ -29,7 +29,8 @@ return [
         'searchFields' => 'title,sub_title,sec_sub_title,datetime,venue,description,ticket_link,internal_info,genre,slug',
         'typeicon_classes' => [
             'default' => 'clubdata-program'
-        ]
+        ],
+        'hideAtCopy' => true,
     ],
     'types' => [
         '1' => [
