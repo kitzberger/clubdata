@@ -177,7 +177,14 @@ class BackendController extends ActionController
         $this->pageRenderer->addCssFile('EXT:clubdata/Resources/Public/Css/Backend.css');
         $this->pageRenderer->addJsFile('EXT:clubdata/Resources/Public/Js/backend.js');
 
-        return $moduleTemplate->renderResponse('Backend/ListHelpers');
+        $format = $this->request->hasArgument('format') ? $this->request->getArgument('format') : 'html';
+
+        $template = match($format) {
+            'print' => 'PrintHelpers',
+            default => 'ListHelpers',
+        };
+
+        return $moduleTemplate->renderResponse('Backend/' . $template);
     }
 
     public function saveHelpersAction()

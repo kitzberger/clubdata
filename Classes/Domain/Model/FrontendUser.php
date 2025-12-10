@@ -44,6 +44,13 @@ class FrontendUser extends AbstractEntity
     protected $username = '';
 
     /**
+     * Nickname
+     *
+     * @var string
+     */
+    protected $name = '';
+
+    /**
      * First name
      *
      * @var string
@@ -165,7 +172,7 @@ class FrontendUser extends AbstractEntity
      *
      * @return string
      */
-    public function getName(): string
+    public function getFullName(): string
     {
         $name = trim($this->firstName . ' ' . $this->lastName);
         return $name ?: $this->username;
@@ -180,6 +187,19 @@ class FrontendUser extends AbstractEntity
     {
         $name = trim($this->lastName . ', ' . $this->firstName, ', ');
         return $name ?: $this->username;
+    }
+
+    /**
+     * Returns the nickname or fullname
+     *
+     * @return string
+     */
+    public function getName(): string
+    {
+        if ($this->name) {
+            return $this->name;
+        }
+        return $this->getFullName();
     }
 
     /**

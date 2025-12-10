@@ -1,2 +1,11 @@
 .tx-clubdata-mod {
 }
+
+@media print {
+    .module-docheader { display: none; }
+    .module-body { padding: 0 }
+    .list-item td:first-of-type,
+    .list-item th:first-of-type { padding-left: 0; }
+    .list-item td:last-of-type,
+    .list-item th:last-of-type { padding-left: 0; }
+}

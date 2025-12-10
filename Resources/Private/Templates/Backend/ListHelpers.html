@@ -11,6 +11,8 @@
     <f:flashMessages />
 
     <div class="tx-clubdata-mod">
+        <f:link.action class="btn btn-sm btn-secondary float-end" action="listHelpers" format="print" addQueryString="1">Druckansicht</f:link.action>
+
         <div class="list-nav">
             <f:if condition="{settings.list.pageyears}">
                 <f:then>
@@ -91,6 +93,7 @@
                 </f:else>
             </f:if>
         </div>
+
         <f:form method="post" action="saveHelpers" name="ProgramService" addQueryString="1">
             <table class="table table-striped" style="width: 100%;">
                 <f:for each="{programs}" as="program" iteration="iterator">

@@ -1,0 +1,51 @@
+<html
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:core="http://typo3.org/ns/TYPO3/CMS/Core/ViewHelpers"
+    xmlns:be="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers"
+    data-namespace-typo3-fluid="true"
+>
+
+<f:layout name="Module" />
+
+<f:section name="Content">
+    <f:flashMessages />
+
+    <div class="tx-clubdata-mod">
+        <div class="float-end d-print-none">
+            <f:link.action class="btn btn-sm btn-default" action="listHelpers" addQueryString="1" argumentsToBeExcludedFromQueryString="{0:'format'}">
+                Zurück
+            </f:link.action>
+            <a href="#" class="btn btn-sm btn-primary btn-print">
+                Drucken
+            </a>
+        </div>
+
+        <div class="list-nav">
+            <h2>
+                <f:if condition="{settings.list.show} == 'year'">
+                    <f:then>
+                        <f:format.date format="%Y">{showmonth}</f:format.date>
+                    </f:then>
+                    <f:else>
+                        <f:format.date format="%B %y">{showmonth}</f:format.date>
+                    </f:else>
+                </f:if>
+            </h2>
+        </div>
+
+        <f:form method="post" action="saveHelpers" name="ProgramService" addQueryString="1">
+            <table class="table table-striped" style="width: 100%;">
+                <tr>
+                    <th></th>
+                    <f:for each="{services}" as="service" iteration="i">
+                        <th>{service.title}</th>
+                    </f:for>
+                </tr>
+                <f:for each="{programs}" as="program" iteration="iterator">
+                    <f:render partial="Backend/PrintHelperItem" arguments="{program:program,settings:settings,iterator:iterator,services:services,users:users}" />
+                </f:for>
+            </table>
+            <f:form.submit value="Änderungen speichern" class="btn btn-primary hide" id="save" />
+        </f:form>
+    </div>
+</f:section>

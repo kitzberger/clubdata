@@ -14,6 +14,7 @@
  */
 document.addEventListener('DOMContentLoaded', function() {
     initializeBackendFormHelpers();
+    initializeBackendPrintButton();
 });
 
 /**
@@ -26,6 +27,26 @@ function initializeBackendFormHelpers() {
     
     console.log('Backend form helpers initialized successfully');
 }
+
+/**
+ * Initialize Backend Print button
+ * Automatically attaches event listeners to button
+ */
+function initializeBackendPrintButton() {
+    // Find all button elements that are part of the backend helper system
+    const helperPrintButtons = document.querySelectorAll(
+        '.btn-print'
+    );
+
+    helperPrintButtons.forEach(function(select) {
+        select.addEventListener('click', function() {
+            beprint();
+        });
+    });
+
+    console.log(`Initialized ${helperPrintButtons.length} backend print buttons`);
+}
+
 
 /**
  * Initialize select element event listeners for backend helper functionality

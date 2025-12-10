@@ -1,0 +1,40 @@
+<html
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:club="http://typo3.org/ns/Medpzl/Clubdata/ViewHelpers"
+    data-namespace-typo3-fluid="true"
+>
+
+<tr class="list-item">
+    <td class="nowrap">
+        <f:format.date format="%a %d.%m. %H:%M Uhr">{program.datetime}</f:format.date><br>
+        <b>{program.title}</b>
+    </td>
+    <f:for each="{services}" as="service" iteration="i">
+        <f:variable name="programServiceUser" value="{club:getProgramServiceUser(program:program,service:service)}" />
+        <f:if condition="{program.serviceBarNum} > 0 && {club:contains(needle:'Theke',haystack:service.title)}">
+            <f:then>
+                <f:if condition="{i.cycle} <= {program.serviceBarNum}">
+                    <f:then>
+                        <td class="p{program.uid} s{service.uid} test{program.serviceBarNum}">
+                            <!--<label for="p{program.uid}-s{service.uid}-u">{service.title}</label><br>-->
+                            {programServiceUser.user.name}
+                        </td>
+                    </f:then>
+                    <f:else>
+                        <f:comment>
+                            Don't render checkbox for "Theke X" because
+                            program doesn't need that many helpers here!
+                        </f:comment>
+                        <td></td>
+                    </f:else>
+                </f:if>
+            </f:then>
+            <f:else>
+                <td class="p{program.uid} s{service.uid}">
+                    <!--<label for="p{program.uid}-s{service.uid}-u">{service.title}</label><br>-->
+                    {programServiceUser.user.name}
+                </td>
+            </f:else>
+        </f:if>
+    </f:for>
+</tr>
