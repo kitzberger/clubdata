@@ -134,6 +134,16 @@ config {
             before = record
         }
     }
+    recordLinks.program {
+        // Do not force link generation when the record is hidden
+        forceLink = 0
+
+        typolink {
+            parameter = {$plugin.tx_clubdata.settings.detailPid}
+            additionalParams.data = field:uid
+            additionalParams.wrap = &tx_clubdata_detail[action]=detail&tx_clubdata_detail[showUid]=|
+        }
+    }
 }
 
 module.tx_clubdata  < plugin.tx_clubdata

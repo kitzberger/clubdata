@@ -7,3 +7,15 @@ mod.web_layout.tt_content.preview {
 
 # Disable flags field by default
 TCEFORM.tx_clubdata_domain_model_program.flags.disabled = 1
+
+TCEMAIN.linkHandler {
+    program {
+        handler = TYPO3\CMS\Backend\LinkHandler\RecordLinkHandler
+        label = LLL:EXT:clubdata/Resources/Private/Language/locallang_db.xlf:tx_clubdata_domain_model_program
+        configuration {
+            table = tx_clubdata_domain_model_program
+        }
+        displayAfter = url
+        scanBefore = page
+    }
+}
