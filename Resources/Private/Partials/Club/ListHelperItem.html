@@ -40,13 +40,20 @@
 </tr>
 
 <f:section name="checkbox">
-    <f:form.checkbox
-            name="psu[]"
-            value="p{program.uid}-s{service.uid}-u{user.uid}"
-            checked="{programServiceUser.user}"
-            disabled="{f:if(condition:'{programServiceUser.user} && ({programServiceUser.user} != {user})',then:'disabled')}"
-            title="{programServiceUser.user.name}"
-            class="p{program.uid}-s{service.uid}-u{user.uid}"
-            data-helper-checkbox="true"
-    />
+    <f:if condition="{programServiceUser} && !{programServiceUser.user}">
+        <f:then>
+            <span title="Contact your admin!">[DELETED]</span>
+        </f:then>
+        <f:else>
+            <f:form.checkbox
+                    name="psu[]"
+                    value="p{program.uid}-s{service.uid}-u{user.uid}"
+                    checked="{programServiceUser.user}"
+                    disabled="{f:if(condition:'{programServiceUser.user} && ({programServiceUser.user} != {user})',then:'disabled')}"
+                    title="{programServiceUser.user.name}"
+                    class="p{program.uid}-s{service.uid}-u{user.uid}"
+                    data-helper-checkbox="true"
+            />
+        </f:else>
+    </f:if>
 </f:section>

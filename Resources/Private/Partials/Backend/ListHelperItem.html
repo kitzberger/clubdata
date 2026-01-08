@@ -45,6 +45,9 @@
             class="p{program.uid}-s{service.uid}-u"
             data-helper-select="true">
         <option value=""></option>
+        <f:if condition="{programServiceUser} && !{programServiceUser.user}">
+            <option value="" selected>[DELETED]</option>
+        </f:if>
         <f:for each="{users}" as="user">
             <option value="p{program.uid}-s{service.uid}-u{user.uid}" {f:if(condition:'{programServiceUser.user} === {user}',then:'selected="selected"')}>
                 {user.nameReversed}
