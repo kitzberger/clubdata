@@ -17,15 +17,7 @@
                     <f:then>
                         <td class="p{program.uid} s{service.uid} test{program.serviceBarNum}">
                             {service.title}<br>
-                            <f:form.checkbox
-                                    name="psu[]"
-                                    value="p{program.uid}-s{service.uid}-u{user.uid}"
-                                    checked="{programServiceUser.user}"
-                                    disabled="{f:if(condition:'{programServiceUser.user} && ({programServiceUser.user} != {user})',then:'disabled')}"
-                                    title="{programServiceUser.user.name}"
-                                    class="p{program.uid}-s{service.uid}-u{user.uid}"
-                                    data-helper-checkbox="true"
-                            />
+                            <f:render section="checkbox" arguments="{_all}" />
                         </td>
                     </f:then>
                     <f:else>
@@ -40,20 +32,21 @@
             <f:else>
                 <td class="p{program.uid} s{service.uid}">
                     {service.title}<br>
-                    <f:form.checkbox
-                            name="psu[]"
-                            value="p{program.uid}-s{service.uid}-u{user.uid}"
-                            checked="{programServiceUser.user}"
-                            disabled="{f:if(condition:'{programServiceUser.user} && ({programServiceUser.user} != {user})',then:'disabled')}"
-                            title="{programServiceUser.user.name}"
-                            class="p{program.uid}-s{service.uid}-u{user.uid}"
-                            data-helper-checkbox="true"
-                    />
+                    <f:render section="checkbox" arguments="{_all}" />
                 </td>
             </f:else>
         </f:if>
     </f:for>
 </tr>
 
-
-
+<f:section name="checkbox">
+    <f:form.checkbox
+            name="psu[]"
+            value="p{program.uid}-s{service.uid}-u{user.uid}"
+            checked="{programServiceUser.user}"
+            disabled="{f:if(condition:'{programServiceUser.user} && ({programServiceUser.user} != {user})',then:'disabled')}"
+            title="{programServiceUser.user.name}"
+            class="p{program.uid}-s{service.uid}-u{user.uid}"
+            data-helper-checkbox="true"
+    />
+</f:section>

@@ -17,16 +17,7 @@
                     <f:then>
                         <td class="p{program.uid} s{service.uid} test{program.serviceBarNum}">
                             <label for="p{program.uid}-s{service.uid}-u">{service.title}</label><br>
-                            <select name="psu[]"
-                                    id="p{program.uid}-s{service.uid}-u"
-                                    class="p{program.uid}-s{service.uid}-u"
-                                    data-helper-select="true">
-                                <option value=""></option>
-                                <f:for each="{users}" as="user">
-                                    <option value="p{program.uid}-s{service.uid}-u{user.uid}" {f:if(condition:'{programServiceUser.user} === {user}',then:'selected="selected"')}>{user.nameReversed}
-                                </option>
-                                </f:for>
-                            </select>
+                            <f:render section="dropdown" arguments="{_all}" />
                         </td>
                     </f:then>
                     <f:else>
@@ -41,19 +32,23 @@
             <f:else>
                 <td class="p{program.uid} s{service.uid}">
                     <label for="p{program.uid}-s{service.uid}-u">{service.title}</label><br>
-                    <select name="psu[]"
-                            class="p{program.uid}-s{service.uid}-u"
-                            id="p{program.uid}-s{service.uid}-u"
-                            data-helper-select="true">
-                        <option value=""></option>
-                        <f:for each="{users}" as="user">
-                            <option value="p{program.uid}-s{service.uid}-u{user.uid}" {f:if(condition:'{programServiceUser.user} === {user}',then:'selected="selected"')}>
-                                {user.nameReversed}
-                            </option>
-                        </f:for>
-                    </select>
+                    <f:render section="dropdown" arguments="{_all}" />
                 </td>
             </f:else>
         </f:if>
     </f:for>
 </tr>
+
+<f:section name="dropdown">
+    <select name="psu[]"
+            id="p{program.uid}-s{service.uid}-u"
+            class="p{program.uid}-s{service.uid}-u"
+            data-helper-select="true">
+        <option value=""></option>
+        <f:for each="{users}" as="user">
+            <option value="p{program.uid}-s{service.uid}-u{user.uid}" {f:if(condition:'{programServiceUser.user} === {user}',then:'selected="selected"')}>
+                {user.nameReversed}
+            </option>
+        </f:for>
+    </select>
+</f:section>
