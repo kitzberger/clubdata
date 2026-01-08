@@ -85,6 +85,7 @@
                     <f:render partial="Club/ListHelperItem" arguments="{program:program,settings:settings,iterator:iterator,services:services,users:users,user:user}" />
                 </f:for>
             </table>
+            <f:form.hidden name="date" value="{currmonth}" />
             <f:form.submit class="btn btn-primary hide" id="save" value="{f:translate(key:'listhelpers.submit',default:'save')}" />
         </f:form>
     </f:if>
