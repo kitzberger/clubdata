@@ -222,12 +222,12 @@ class BackendController extends ActionController
             if ($item['changed']) {
                 $count++;
                 if ($item['changed'] == ProgramServiceUser::OPERATION_DELETE) {
-                    $programServiceUser = $this->programServiceUserRepository->findEntry($item['user'], $item['program'], $item['service']);
+                    $programServiceUser = $this->programServiceUserRepository->findEntry(null, $item['program'], $item['service']);
                     if (count($programServiceUser)) {
                         $this->programServiceUserRepository->remove($programServiceUser[0]);
                     }
                 } else {
-                    $programServiceUser = $this->programServiceUserRepository->findEntry(0, $item['program'], $item['service']);
+                    $programServiceUser = $this->programServiceUserRepository->findEntry(null, $item['program'], $item['service']);
                     $user = $this->userRepository->findByUid($item['user']);
                     if (count($programServiceUser) === 0) {
                         $program = $this->programRepository->findByUid($item['program']);
